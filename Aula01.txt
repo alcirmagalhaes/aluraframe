@@ -243,5 +243,14 @@ campos[0].focus();
 });
 Faremos um novo teste, usando um data aleatória. Vemos que os dados aparecerão corretamente na tabela final e os campos do formulário estão limpos novamente. Aparentemente, tudo está funcionando corretamente, mas o código ainda tem pontos que precisam ser analisados.
 *******************
-04-
+04-Enrolando-se com o DOM
+Já conseguimos incluir linhas na tabela com base na entrada do usuário. Mas verificando a especificação do sistema que pede a visualização da totalidade do volume no rodapé da tabela. Também precisamos que a data seja exibida no formato dia/mês/ano e que, após a criação da negociação, esta não seja modificada. A lista de negociação exibida na tela não poderá ter os dados alterados ou removidos, ela só poderá receber novos itens. Se quisermos uma nova lista, ela deverá ser criada do zero.
+
+Observe que atualmente nosso código não indica onde está a negociação. E onde adicionaremos a totalidade do volume? Ou seja, o código não evidencia o que é uma negociação, e ainda mistura os dados de negociação com a apresentação dos mesmos na tabela. Seria interessante separarmos os dados da apresentação visual, desta forma conseguiríamos adicionar ao primeiro as regras de negócio. Com os dados separados, poderemos também modificar a utilização dos dados (tabela e lista). Por isso, iremos propor a utilização do modelo MVC (Model-View-Controller), declarando classes que representam nossos modelos (dados) e classes que representam nossas views (tela). As ações do usuário serão interceptadas por uma Controller, que irá alterar os dados, o Model, enquanto a View será atualizada para exibir o estado mais atual. Desta forma, as regras de negócio não estarão espalhadas pela View, elas estarão no modelo. Mais adiante, iremos implementar o modelo utilizando o paradigma da Orientação de Objetos.
+
+Com o modelo já finalizado, e já podendo identificar a negociação, poderemos partir para a implementação da View e da Controller.
+
+Então, mais adiante implementaremos a negociação usando o paradigma da Orientação de Objetos.
+*******************
+05-
 *******************
