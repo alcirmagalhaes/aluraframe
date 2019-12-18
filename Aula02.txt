@@ -1,0 +1,58 @@
+Aula02
+01-O que é um modelo?
+Começando deste ponto? Você pode fazer o DOWNLOAD completo do projeto até aqui para continuar seus estudos.
+
+Anteriormente, não ficou claro onde se encontrava a negociação no código. Nós vimos que havia ficado confuso onde estava o modelo e a apresentação. Definimos que seria interessante separar o modelo e a visualização, aplicando o MVC (Model-View-Controller). Mas o que é um modelo? Trata-se de uma abstração do mundo real. Por exemplo, um analista de mercado que quer entender como o mercado funciona, criará um modelo em que ele possa dar entradas e executar determinado procedimentos para tentar prever como é o seu funcionamento. No nosso caso, faremos a mesma coisa.
+
+Nós queremos criar um modelo de negociação que programaticamente deve ser capaz de fazer tudo o que seria feito no mundo real. Para materializarmos o modelo de negociação, usaremos um recurso do paradigma da programação orientada de objetos: a criação de classes. Antes do ES6, já era possível aplicar o paradigma com o JavaScript, porém, a sintaxe era mais complexa. Por isso, o ES6 trouxe novos recursos para que seja mais fácil a aplicação do paradigma.
+
+Então, primeiramente criaremos uma classe, ou seja, uma especificação da negociação com a abstração da mesma, dentro do código.
+*******************
+02-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
+01-
+*******************
