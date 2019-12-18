@@ -252,5 +252,14 @@ Com o modelo já finalizado, e já podendo identificar a negociação, poderemos
 
 Então, mais adiante implementaremos a negociação usando o paradigma da Orientação de Objetos.
 *******************
-05-
+05-Sentindo na pele o prólogo
+Este capítulo cria toda a trama dos próximos capítulos. Diferente dos capítulos que seguirão, este possui apenas o exercício obrigatório e teste.
+
+Sinta na pele a experiência do instrutor, implementando a mesma solução "se vira nos 30" que ele utilizou. Para isso, crie o index.js, importando-o em aluraframe/client/index.html.
+
+A ideia aqui não é avaliar o quanto você sabe manipular o DOM, mas ter um código que possa ser contrastado com o projeto final que você construirá.
+----
+Opinião do instrutor
+
+Temos uma solução rápida que funciona, mas se quisermos adicionar novas funcionalidades, teremos problemas como: onde incluir essa nova funcionalidade, como adicionar essa nova funcionalidade, nossa solução pode ser generalizada, etc.
 *******************
