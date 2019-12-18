@@ -50,3 +50,5 @@ Este comando deve exibir a versão do Node instalada no terminal. Se por acaso o
 
 2 - Linux: algumas distribuições Linux já possui um binário chamado node, que não tem nenhuma relação com o Node.js. Nestas distribuições, o binário passa a se chamar nodejs. Sendo assim, em todo lugar que eu referenciar o comando node ele deve ser trocado para nodejs.
 *******************
+03-
+*******************
