@@ -1,0 +1,18 @@
+Aula01
+01-Visão geral do projeto
+Olá, meu nome é Flávio Almeida (@flaviohalmeida) e tenho certeza de que a sua matrícula neste curso não foi para aprender a programar em JavaScript, mas para ficar melhor do que já é nessa linguagem.
+
+Considerações sobre curso
+Sendo um curso avançado, você precisa ter conhecimento da linguagem, algo imprescindível. Não é necessário ser um expert, inclusive tive um cuidado em avançar gradativamente em cada assunto para ajudar aqueles ainda tímidos no mundo desta fantástica linguagem. Mas com certeza, ter um bom traquejo na linguagem tornará sua experiência ainda melhor neste curso.
+
+Visão geral do projeto
+O projeto desse curso será construir um cadastro de negociações de bolsa de valores. Cadastraremos novas negociações, inclusive, elas serão importadas de serviços especializados, tudo aplicando o paradigma funcional e orientado a objetos ao, mesmo tempo, utilizando o melhor dos dois mundos.
+
+Em um primeiro momento, o escopo da nossa aplicação pode parecer bem reduzido, mas é o suficiente para aplicarmos novos recursos da linguagem JavaScript, ou ECMAScript 2015 (ES6), tecnicamente falando. Além disso, organizaremos nosso código no modelo MVC (M**odel-View-C*ontroller), aplicaremos padrões de projeto, programaremos assincronamente com *promises, renderizaremos templates e trabalharemos com proxies, entre outras coisas.
+
+Projeto
+Os serviços que nossa aplicação consumirá serão disponibilizados para você através de um servidor Node.js disponível com o arquivo do projeto que usaremos até o final. A ideia é que você otimize seu tempo aprendendo JavaScript sem perder horas e horas com infraestrutura, que muitas vezes é a vilã de todo treinamento.
+
+Por fim, e não menos importante, faça o primeiro exercício obrigatório deste treinamento. Lá você terá acesso ao projeto do curso, navegador que deve ser utilizado e a versão do Node.js a ser instalada, inclusive dicas de instalação.
+*******************
+02-
