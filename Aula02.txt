@@ -946,9 +946,100 @@ conta.deposita(100);
 console.log(conta.getSaldo()); // se não pode acessar this._saldo, é preciso acessá-lo através de um método.
 CURIOSIDADE: a linguagem TypeScript da Microsoft permite definir atributos privados com o modificador private. TypeScript nada mais é do que um superset do ES2015+ com a adição de novos recursos, inclusive aquele que define atributos privados.
 *******************
-18-
+18- getters
+Adotamos a convenção _ para indicar que determinada propriedade é privada, isto é, só pode ser acessado por métodos da classe. Quando seguimos essa convenção, precisamos criar métodos acessadores (getters).
+
+Veja o seguinte exemplo:
+
+class Conta {
+
+    constructor(titular, conta) {
+
+        this._titular = titular;
+        this._conta = conta;
+        this._saldo = 0.0;
+    }
+
+    deposita(valor) {
+        console.log('Valor depositado: ' + valor);
+        this._saldo+=valor; 
+    }
+}
+Como todos os atributos da nossa classe são privados, vamos adicionar métodos para que seja possível ler o titular, a conta e o saldo:
+
+class Conta {
+
+    constructor(titular, conta) {
+
+        this._titular = titular;
+        this._conta = conta;
+        this._saldo = 0.0;
+    }
+
+    deposita(valor) {
+        console.log('Valor depositado: ' + valor);
+        this._saldo+=valor; 
+    }
+
+    getSaldo() {
+        return this._saldo;
+    }
+
+    getTitular() {
+        return this._titular;
+    }
+
+    getConta() {
+        return this._conta;
+    }
+}
+
+var conta = new Conta('Mingau', 171);
+conta.deposita(100);
+console.log(conta.getTitular());
+console.log(conta.getConta());
+console.log(conta.getSaldo());
+Contudo, podemos criar uma espécie de método, mas que é acessado como se fosse uma propriedade. Altere o código anterior e modifique todos os métodos get para usar essa sintaxe especial.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Uma implementação válida é:
+
+class Conta {
+
+    constructor(titular, conta) {
+
+        this._titular = titular;
+        this._conta = conta;
+        this._saldo = 0.0
+    }
+
+    deposita(valor) {
+        console.log('Valor depositado: ' + valor);
+        this._saldo+=valor; 
+    }
+
+    get saldo() {
+        return this._saldo;
+    }
+
+    get titular() {
+        return this._titular;
+    }
+
+    get conta() {
+        return this._conta;
+    }
+}
+
+var conta = new Conta('Mingau', 171);
+conta.deposita(100);
+console.log(conta.titular); //  acessando como se fosse uma propriedade!
+console.log(conta.conta);
+console.log(conta.saldo);
 *******************
-11-
+19-
 *******************
 11-
 *******************
