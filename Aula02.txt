@@ -292,9 +292,73 @@ quantidade e volume
 DISCUTIR NO FORUM
 
 *******************
-05-
+05-A sintaxe get
+Vamos ver como podemos "enxugar" a nossa classe Negociacao. Nós criamos métodos de leitura para poder acessar às variáveis que convencionamos que são privadas, ou seja, só a própria classe poderá acessá-las. Mas existe um atalho que poderá ser usado quando queremos acessar uma propriedade: usaremos o get.
+
+get volume() {
+
+    return this._quantidade * this._valor;
+
+}
+
+get data() {
+    return this._data;
+}
+
+get quantidade() {
+    return this._quantidade;
+}
+
+get valor() {
+    return this._valor;
+}
+Observe que fizemos pequenos ajustes no código. O get foi seguido de um método, que tem o nome das propriedades antes de adicionarmos o _. Essa alteração irá trazer mudanças também no arquivo index.html. Agora, poderemos substituir o n1.getQuantidade por n1.quantidade.
+
+<script>
+
+    var n1 = new Negociacao(new Date(), 5, 700);
+
+    console.log(n1.quantidade);
+    console.log(n1.data);
+    console.log(n1.valor);
+    console.log(n1.volume);
+</script>
+Estamos criando uma propriedade getter de acesso à leitura. E mesmo sendo um método, poderemos acessá-lo como uma propriedade. Mas, debaixo dos panos, ele continuará sendo executado como um método.
+
+console
+
+Veja que os valores foram acessados corretamente, inclusive o valor de volume. Então, por mais que os valores se apresentem como uma propriedade, por debaixo dos panos, está sendo chamado um método. Agora, mesmo que definíssemos o valor 1000 para quantidade, ele não seria aplicado.
+
+<script>
+
+    var n1 = new Negociacao(new Date(), 5, 700);
+    n1.quantidade = 1000;        
+    console.log(n1.quantidade);
+    console.log(n1.data);
+    console.log(n1.valor);
+    console.log(n1.volume);
+</script>
+O valor 1000 não será repassado para o _quantidade. O valor continuará sendo 5:
+
+valor de quantidade inalterado
+
+Isto acontece quando a propriedade é um getter (ou seja, é de leitura), não podemos atribuir para a mesma um valor. Mas ainda podemos acessá-la usando o n1._quantidade.
+
+<script>
+
+    var n1 = new Negociacao(new Date(), 5, 700);
+    n1.quantidade = 1000;        
+    n1._quantidade = 5000;
+    console.log(n1.quantidade);
+    console.log(n1.data);
+    console.log(n1.valor);
+    console.log(n1.volume);
+</script>
+quantidade alterada
+
+No console, vemos que o valor da quantidade foi alterado para 5000. Mas a propriedade quantidade é somente de leitura, não aparece o _. Assim, se o programador tentar atribuir um valor, ele não será setado. Será que existe uma forma de garantirmos que uma negociação, depois de criada, não será alterada?
 *******************
-01-
+06-
 *******************
 01-
 *******************
