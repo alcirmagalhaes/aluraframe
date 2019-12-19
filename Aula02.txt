@@ -1281,7 +1281,34 @@ Não podemos declarar mais de uma variável quando usamos let. Antes desse novo 
 var nome = 'Flávio';
 var nome = 'Almeida';
 *******************
-24-
+24-Date é uma Classe?
+Durante o treinamento eu digo que Date é uma classe, inclusive usamos operador new para criá-la. Contudo, na verdade Date é uma função construtora. O uso de funções construtoras no ES5 era uma das formas de criarmos instâncias a partir de um modelo, ou seja, era algo mais perto de uma definição de classe. Aliás, toda sintaxe nova do ES2015 voltada para criação de classes, herança e outros recursos são açucares sintáticos para muito código que escrevíamos em ES5.
+
+Que tal criarmos uma classe em ES2015 para em seguida vermos como é seu código em ES5?
+
+class Pessoa {
+    constructor(nome, sobrenome) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+    obterNomeCompleto() {
+        return `${this.nome} ${this.sobrenome}`;
+    }
+}
+function Pessoa(nome, sobrenome) {
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+}
+Pessoa.prototype.obterNomeCompleto = function() {
+    return this.nome + ' ' + this.sobrenome;
+};
+Apesar de terem uma sintaxe diferente, ambos tem o mesmo resultado. Então, para unificar a linguagem, chamarei Date de classe e outras funções construtoras também, porque no final elas são usadas para implementar o paradigma da orientação a objetos.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+JavaScript é uma linguagem multiparadigma, podemos programar proceduralmente, funcionalmente e orientado a objetos.
 *******************
 24-
 *******************
