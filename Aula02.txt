@@ -553,35 +553,121 @@ Agora, você pode estar pensando o seguinte: apesar de _quantidade e _valor sere
 
 Com isso, finalizamos a blindagem da nossa classe para garantir a sua imutabilidade. Existem outras soluções mais avançadas no JS para tentarmos emular o privacy - a privacidade - do seu código. Mas, ao aplicá-las perdemos em legibilidade e performance. Então, a solução utilizada é a mais viável.
 *******************
-09-
+09-Substituindo var por let
+Temos o estado do nosso modelo de negociação e podemos continuar com o nosso projeto. Mas antes de continuarmos, queremos implantar um novo hábito. Agora, que estamos utilizando ES6, em vez de usarmos o var para fazer a declaração de uma variável, usaremos o let.
+
+<script>
+
+    let hoje = new Date();
+
+    let n1 = new Negociacao(hoje, 5, 700);
+
+    console.log(n1.data);
+
+    hoje.setDate(11);
+
+    console.log(n1.data);
+</script>
+Se executarmos o código, tudo continuará funcionando normalmente.
+
+data no console
+
+Mas o que ganhamos com a mudança de var para let? Veremos um exemplo das vantagens de usarmos esta forma de declarar variável. Se formos declarar um for que vamos exibir de 1 a 100 escreveríamos o laço da seguinte forma:
+
+<script>
+
+    for(var i = 1; i<= 100; i++) {
+        console.log(i);
+    }
+</script>
+Ao executarmos o código, ele imprimirá corretamente os números de 1 a 100 no Console.
+
+Porém, existe algo que programadores fora da linguagem JS acham estranho... Vamos adicionar um alert(i):
+
+<script>
+
+    for(var i = 1; i<= 100; i++) {
+        console.log(i);
+    }
+
+    alert(i);
+</script>
+O que vai ser exibido no navegador?
+
+alert
+
+O alert exibiu o valor 101. Por quê? Quando se trabalha com linguagens como Java, C# e outras, as declaração de variáveis possuem escopo de bloco. Na prática, ao utilizarmos estas outras linguagens, jamais poderíamos acessar a variável i, como fizemos com o alert. Se adicionássemos uma variável chamada nome e depois, acrescentássemos um novo alert, o código ficaria assim:
+
+<script>
+
+    for(var i = 1; i<= 100; i++) {
+        var nome = 'Flávio';
+        console.log(i);
+    }
+
+    alert(i);
+    alert(nome);
+</script>
+O segundo alert também seria exibido.
+
+alert 2
+
+Em JavaScript não existe escopo de bloco, então o fato de declararmos uma variável dentro de um bloco não garantirá que temos um escopo. No entanto, se declaramos as variáveis usando o let, estas ganharam um escopo de bloco.
+
+<script>
+
+    for(let i = 1; i<= 100; i++) {
+         let nome = 'Flávio';
+         console.log(i);
+    }
+
+    alert(i);
+    alert(nome);
+</script>
+Agora, elas só existirão no bloco em que foram declaradas. Se executarmos o código, veremos a mensagem: i is not defined.
+
+mensagem de erro
+
+Isto ocorreu porque a variável i não existe fora do bloco. Desta forma, evitamos que as variáveis vazem fora do escopo que fazem parte.
 *******************
-01-
+10-Resumindo
+Vamos revisar o que estudamos até aqui: vimos a criação de uma classe, utilizando novos recursos JavaScript que favorecem a implementação do paradigma orientado a objeto. Vimos também que uma classe possui um constructor com os quais definimos atributos - que chamamos de propriedades - e que podemos materializar uma abstração do mundo real usando um modelo, por meio de uma classe. Outro assunto abordado é que podemos passar parâmetros no construtor de uma classe e dessa forma, garantindo que no momento em que a instância de uma classe é criada, já tenha todos os dados necessários.
+
+Por convenção, adotamos que os atributos privados devem usar o prefixo _ (underline), indicando para o desenvolvedor que ele só pode acessá-lo. Vimos como adicionar métodos nas classes, e estes, sim, podem acessar os atributos privados.
+
+Apresentamos uma maneira de criar um atributo, que na prática é um método, e ao acessá-lo, podemos executar o código. Moral da história: temos um método que conseguimos acessar como uma propriedade, bastando ser antecedido pela palavra especial get, desta forma, estaríamos gerando um getter. Quem acessa a sua classe acredita que se trata de uma propriedade, mas na verdade, trata-se por "debaixo dos panos" de um método.
+
+No entanto, isto não era suficiente para garantir a integridade da nossa negociação, que não pode ser alterada. Por isso, usamos o Object.freeze() para congelar um objeto depois de criado. Como Object.freeze() é shallow (raso), ele será aplicado nas propriedades do objeto, mas as propriedades que são objetos não serão todas congeladas. A ação ficará apenas na superfície. Para resolver esta questão, falamos um pouco sobre programação defensiva. Quando alguém tentar acessar a data, nós retornaremos uma nova data. Fizemos o mesmo com o construtor e com isso, evitamos que alguém consiga de fora da classe alterar algum item do estado interno.
+
+O que vimos foi relevante porque o modelo é uma das coisas mais importantes quando desenvolvemos o sistema. Agora que temos o modelo pronto, a aplicação poderá crescer, tendo-o como base. No fim, deixamos a sugestão da adoção de um novo hábito: substituir nas declarações de variáveis o uso de var por let, que permite um escopo de bloco e evita que as mesmas vazem para um escopo global. Antes do ES6, em JavaScript, era comum o uso de funções para a criação de um escopo para a variável.
+
+Vamos continuar com os nossos estudos e façam os exercícios para praticar os conceitos vistos.
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************
-01-
+11-
 *******************

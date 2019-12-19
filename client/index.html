@@ -59,11 +59,26 @@
         </tfoot>
         <script src="js/models/Negociacao.js"></script>
         <script>
-            var hoje = new Date();
-            var n1 = new Negociacao(hoje, 5, 700);
+            let hoje = new Date();
+            let n1 = new Negociacao(hoje, 5, 700);
             console.log(n1.data);
             hoje.setDate(11);
             console.log(n1.data);
+            console.log('loop for utilizando var')
+            for(var i = 1; i<= 5; i++) {
+                var nome = 'alcir'
+                console.log(i);
+            }
+            alert(i);
+            alert(nome);
+            console.log('loop for utilizando let')
+            for(let j = 1; j<= 5; j++) {
+                let nome1 = 'alcir'
+                console.log(j);
+            }
+            //com o uso do let as variáveis i e nome1 ficam com escopo de bloco e não podem ser acessadas fora do bloco que foram definidas
+            alert(j);
+            alert(nome1);
         </script>
     </table>
     
