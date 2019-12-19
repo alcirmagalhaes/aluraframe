@@ -1039,15 +1039,65 @@ console.log(conta.titular); //  acessando como se fosse uma propriedade!
 console.log(conta.conta);
 console.log(conta.saldo);
 *******************
-19-
+19-Exercicio - Oresultado é...
+Temos a seguinte definição de classe:
+
+class Conta {
+
+    constructor(titular, conta) {
+
+        this._titular = titular;
+        this._conta = conta;
+        this._saldo = 0.0;
+    }
+
+    deposita(valor) {
+        console.log('Valor depositado: ' + valor);
+        this._saldo+=valor; 
+    }
+
+    get saldo() {
+        return this._saldo;
+    }
+
+    get titular() {
+        return this._titular;
+    }
+
+    get conta() {
+        return this._conta;
+    }
+}
+E temos a seguinte instância:
+
+var conta = new Conta('Mingau', 171);
+conta.titular = 'Paco';
+console.log(conta.titular);
+O que será exibido na instrução console.log(conta.titular)?
+
+Alternativa correta
+Paco
+
+
+O titular não mudará, porque conta.titular é uma propriedade getter, que não aceita receber valores.
+
+Alternativa correta
+171
+
+
+Alternativa correta
+Mingau
+
+
+O titular continuará a ser Mingau, porque conta.titular é uma propriedade getter, que não aceita receber valores.
 *******************
-11-
+20-
 *******************
-11-
+21-
 *******************
-11-
+21-
 *******************
-11-
+21-
 *******************
-11-
+21-
 *******************
