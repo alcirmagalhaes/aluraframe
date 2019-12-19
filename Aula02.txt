@@ -837,7 +837,49 @@ class Calopsita {
 }
 Veja que o constructor agora recebe dois parâmetros e que esses são passados para as propriedades da classe.
 *******************
-16-
+16-métodos
+Vejamos a classe Pessoa:
+
+class Pessoa {
+
+    constructor(nome, sobrenome) {
+
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+}
+Nossa classe possui nome e sobrenome. Em vários lugares do nosso sistema, precisamos do nome completo da pessoa, sendo assim fazemos:
+
+var pessoa = new Pessoa('Flávio', 'Almeida');
+console.log('Nome completo: ' + pessoa.nome + ' ' + pessoa.sobrenome);
+Apesar de funcional, essa solução é procedural. Veja que somos nós os responsáveis em concatenar o nome e o sobrenome do objeto em todos os lugares que essa informação for necessária. Além disso, o programador não poderá esquecer de colocar um espaço em branco separando o nome do sobrenome.
+
+Podemos resolver esse problema criando um método na própria classe que ao ser chamado realiza a operação de concatenação para nós.
+
+Altere a classe Pessoa adicionando o método obtemNomeCompleto, que retorna a concatenação de nome e sobrenome.
+
+VER OPINIÃO DO INSTRUTOR
+-----
+Opinião do instrutor
+
+Uma implementação possível é:
+
+class Pessoa {
+
+    constructor(nome, sobrenome) {
+
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+
+    obtemNomeCompleto() {
+         return this.nome + ' ' + this.sobrenome;
+    }
+}
+
+var pessoa = new Pessoa('Flávio', 'Almeida');
+console.log('Nome completo: ' + pessoa.obtemNomeCompleto());
+Veja que agora, onde quer que a instância de Pessoa seja usada, pedimos para a própria instância o nome completo.
 *******************
 11-
 *******************
