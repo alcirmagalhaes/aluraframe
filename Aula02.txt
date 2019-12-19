@@ -643,9 +643,74 @@ O que vimos foi relevante porque o modelo é uma das coisas mais importantes qua
 
 Vamos continuar com os nossos estudos e façam os exercícios para praticar os conceitos vistos.
 *******************
-11-
+11-Pequeno conto sobre orientação a objetos
+Não é necessário responder a este exercício, ele apenas passa uma visão geral sobre o paradigma orientado a objetos.
+
+Barney: Flávio, eu sou programador, mas até hoje não consigo entender o que seria orientação a objetos. Pode me explicar?
+
+Flávio: orientação a objetos prega uma forte conexão entre dado e comportamento.
+
+Barney: ...
+
+Flávio: hehe, não captou ainda, certo?
+
+Barney: não mesmo!
+
+Flávio: bom, imagine que eu tenha aqui em minhas mãos uma garrafa de cerveja, aquelas tradicionais. Pense no líquido da garrafa como um dado, uma informação. Ok?
+
+Barney: Ok!
+
+Flávio: eu dou essa garrafa em suas mãos e peço para que você a abra. Como você faz?
+
+Barney: eu uso um abridor.
+
+Flávio: boa tentativa, mas eu te passei o abridor?
+
+Barney: não!
+
+Flávio: viu que além de passar a garrafa eu preciso lembrar de te passar um abridor? Eu pedi para você pensar no líquido da garrafa como dado, agora peço que você pense no abridor como comportamento. Ok?
+
+Barney: perfeito!
+
+Flávio: então, se eu não te passei o abridor, como você conseguirá chegar até o líquido (dado) da garrafa?
+
+Barney: hum, eu posso tentar abrir com o dente.
+
+Flávio: é uma forma de você conseguir acessar o liquido (dado). Que mais? Tem outra forma de acessar o líquido?
+
+Barney: sei lá, talvez batendo na quina da mesa.
+
+Flávio: Barney, eu tenho certeza que você criará diversas maneiras de acessar líquido da garrafa, inclusive se você der essa garrafa para outra pessoa ela pode tentar abrir a garrafa de outra forma.
+
+Flávio: agora eu te dei um saca rolha.
+
+Barney: pra quê? Para abrir a garrafa?
+
+Flávio: sim, você vai conseguir?
+
+Barney: bom, até posso conseguir, mas corro o risco de me machucar, assim como abrir a garrafa com dente.
+
+Flávio: excelente, veja que nesse caso o dado (líquido) é separado do comportamento que acessa o dado (forma de abrir). Quando isso acontece, cada um tenta bolar sua forma de acesso aos dados. Em programação, isso pode levar a repetição de código, além disso, como o dado é separado do comportamento que opera sobre ele, temos que lembrar onde em nossos zilhões de arquivos e bibliotecas está aquele comportamento que deve operar o dado.
+
+Barney: acho que estou entendendo. O cenário que você passou para mim é o da programação procedural. Certo?
+
+Flávio: isso mesmo Barney! Na programação procedural o dado e o comportamento estão separados.
+
+Barney: e na orientação a objetos, como fica?
+
+Flávio: nela, como disse, temos uma forte conexão entre dado e comportamento. Onde o dado vai, os comportamentos que operam sobre aqueles dados vão junto.
+
+Barney: pode me dar um exemplo, ainda no contexto da garrafa de cerveja?
+
+Flávio: claro. Imagine que agora eu dou para você uma garrafa long-neck e eu peço para que você a abra.
+
+Barney: isso é fácil, basta eu girar a tampa da garrafa.
+
+Flávio: veja que nesse caso o dado (líquido) caminha com o comportamento que operava sobre ele (abridor, que é a própria tampa). Onde quer que você leve a garrafa, a forma de acessar seu líquido será a mesma, seja aqui no Brasil ou no Japão. Veja que temos dado e comportamento caminhando juntos. Sequer você precisa lembrar de me pedir um abridor ou inventar outras formas de acesso ao líquido, porque o dado é fortemente conectado com o comportamento que opera sobre ele.
+
+Barney: finalmente entendi!
 *******************
-11-
+12-
 *******************
 11-
 *******************
