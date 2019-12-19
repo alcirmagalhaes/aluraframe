@@ -59,10 +59,11 @@
         </tfoot>
         <script src="js/models/Negociacao.js"></script>
         <script>
-            var n1 = new Negociacao(new Date(), 10, 10.10);
+            var hoje = new Date();
+            var n1 = new Negociacao(hoje, 5, 700);
             console.log(n1.data);
-            n1._data.setDate(20);
-            console.log(n1.data);//data foi alterada apesar do objeto ser freeze
+            hoje.setDate(11);
+            console.log(n1.data);
         </script>
     </table>
     
