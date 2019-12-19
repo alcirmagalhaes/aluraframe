@@ -1231,7 +1231,57 @@ Não há diferença entre variáveis declaradas com var e variáveis declaradas 
 Alternativa correta
 Declarações com var possuem escopo de função ou global. Variáveis declaradas com let tem escopo de bloco e o JavaScript lançará um erro se a mesma for declarada mais de uma vez.
 *******************
-23-
+23-Declarando duas vezes a mesma variável
+Aprendemos que variáveis declaradas com let possuem escopo de bloco, ou seja, são enxergadas apenas no bloco onde foram declaradas. Vejamos um exemplo:
+
+let idade = 18;
+let temCarteira = true;
+
+if(idade >= 18 && temCarteira) {
+    let msg = 'Pode dirigir';
+    console.log(msg);
+}
+alert(msg); // undefined, porque `msg` foi declarada com `let` dentro do bloco do `if`. 
+Contudo, antes da versão ES6 variáveis eram declaradas com var e estas não possuem escopo de bloco, apenas escopo de função. Reescrevendo o código anterior com var:
+
+var idade = 18;
+var temCarteira = true;
+
+if(idade >= 18 && temCarteira) {
+    var msg = 'Pode dirigir';
+    console.log(msg);
+}
+alert(msg); // exibe 'Pode dirigir'. 
+Uma maneira de evitar que o valor da variável vaze para fora do if é a seguinte:
+
+var idade = 18;
+var temCarteira = true;
+
+(function() {
+    if(idade >= 18 && temCarteira) {
+        var msg = 'Pode dirigir';
+        console.log(msg);
+    }
+})();
+
+alert(msg); // exibe undefined
+Agora, o que acontecerá se declararmos duas variáveis com mesmo nome usando let? Vejamos um exemplo:
+
+let nome = 'Flávio';
+let nome = 'Almeida';
+Faça um teste no console, declare uma mesma variável duas vezes.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Uncaught TypeError: Identifier 'nome' has already been declared(…)
+Não podemos declarar mais de uma variável quando usamos let. Antes desse novo recurso de linguagem, podíamos fazer algo como:
+
+var nome = 'Flávio';
+var nome = 'Almeida';
 *******************
-21-
+24-
+*******************
+24-
 *******************
