@@ -1144,11 +1144,94 @@ Object.Immutable(negociacao);
 Alternativa correta
 Object.isFrozen(negociacao);
 *******************
-21-
+21-Imutável aonde meu filho!
+Vejamos novamente o exemplo da classe Negociacao:
+
+class Negociacao {
+
+    constructor(data, quantidade, valor) {
+
+        this._data = data;
+        this._quantidade = quantidade;
+        this._valor = valor;
+
+        Object.freeze(this); // congela a instância do objeto
+    }
+
+    get volume() {
+        return this._quantidade * this._valor;
+    }
+
+    get data() {
+        return this._data;
+    }
+
+    get quantidade() {
+        return this._quantidade;
+    }
+
+    get valor() {
+        return this._valor;
+    }
+}
+E agora, uma instância:
+
+var negociacao = new Negociacao(new Date(), 1, 100);
+O que acontecerá se alterarmos a data de negociacao? Vejamos um exemplo:
+
+negociacao.data.setDate(negociacao.data.getDate() + 1);
+Faça um teste no console, altere a data de uma instância de Negociacao.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Por mais que estejamos usando Object.freeze(this), sabemos que nossa classe não é totalmente imutável. Apesar de não podermos atribuir novamente um novo objeto à referência que já temos, como negociacao._data = new Date(), nós podemos chamar os métodos do objeto data, que operam sobre seu estado interno, que não é congelado. E agora?
+
+Podemos lançar mão da programação defensiva. Quando chamarem a propriedade getter data, retornaremos uma nova instância de Date com a mesma data da nossa negociação. Como é outra instância, qualquer modificação não impactará em nossa classe.
+
+O mesmo cuidado precisamos tomar com o construtor da classe. Como data é um objeto e objetos são passados como referência em JavaScript, qualquer alteração feita fora da classe pode alterá-la. A ideia é aplicarmos a programação defensiva. Sendo assim, nossa classe fica:
+
+class Negociacao {
+
+    constructor(data, quantidade, valor) {
+
+        this._data = new Date(data.getTime()); // criando uma nova instância a partir do tempo de uma data 
+        this._quantidade = quantidade;
+        this._valor = valor;
+        Object.freeze(this);
+    }
+
+    get volume() {
+        return this._quantidade * this._valor;
+    }
+
+    get data() {
+        return new Date(this._data.getTime());
+    }
+
+    get quantidade() {
+        return this._quantidade;
+    }
+
+    get valor() {
+        return this._valor;
 *******************
-21-
+22-Exercicio - Varilândia ou Letícia?
+Qual é a diferença entre variáveis declaradas com var e let?
+
+Alternativa correta
+Declarações com let possuem escopo de função ou global. Variáveis declaradas com var tem escopo de bloco.
+
+
+Alternativa correta
+Não há diferença entre variáveis declaradas com var e variáveis declaradas com let.
+
+
+Alternativa correta
+Declarações com var possuem escopo de função ou global. Variáveis declaradas com let tem escopo de bloco e o JavaScript lançará um erro se a mesma for declarada mais de uma vez.
 *******************
-21-
+23-
 *******************
 21-
 *******************
