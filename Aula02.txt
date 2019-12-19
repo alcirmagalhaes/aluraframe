@@ -710,9 +710,32 @@ Flávio: veja que nesse caso o dado (líquido) caminha com o comportamento que o
 
 Barney: finalmente entendi!
 *******************
-12-
+12-Exercicio - Declaração de classes
+No ES6 (ES2015+) podemos declarar classes. Qual das opções abaixo declara corretamente a classe Pessoa:
+
+Alternativa correta
+class Pessoa() {
+
+}
+
+Para criarmos uma classe, não usamos () depois do nome da classe.
+
+Alternativa correta
+Pessoa {
+
+}
+
+Alternativa correta
+class Pessoa {
+
+}
+
+Para criarmos uma classe, usamos a palavra reservada class seguida do nome da classe. Por convenção, nomes de classe começam em letra maiúscula. Curiosamente essa convenção se chama pascal case.
+
+Alternativa correta
+public class Pessoa {
 *******************
-11-
+13-
 *******************
 11-
 *******************
