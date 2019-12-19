@@ -401,9 +401,29 @@ Alternativa correta
   </body>
 </html>
 *******************
-07-
+07-O problema com datas
+Vimos como lidar com a convenção das datas para criar um objeto Date, mas veremos mais uma forma de realizar tal ação. Escreveremos no Console a seguinte linha:
+
+let data = new Date(2016, 11, 12)
+No entanto, se imprimirmos esta data, veremos o retorno abaixo:
+
+Console
+
+A data impressa é Mon Dec 12 2016. Por que ele imprimiu dezembro, se escrevemos mês 11? Porque nesta forma de se passar o Date, o mês deve ser passado de 0 a 11. Então, se queremos que a data seja em novembro, precisaremos diminuir o valor do mês. Vamos fazer um novo teste no Console, digitando:
+
+data = new Date(2016,10,12)
+Agora, a data já aparece correta.
+
+Data correta
+
+A novidade é que essa é a maneira que queremos usar para aplicar as datas na aplicação. Apesar da outra forma ser mais fácil, desejamos encontrar uma solução para construir um Date a partir da string vinda do formulário. Ao tentarmos resolver este problema, podemos ver muitos assuntos de programação funcional.
+
+Então, eu peço que você dê uma pausa no vídeo e pense como você vai conseguir converter uma data no formato 2016-11-12 e passá-la para o construtor de Date da seguinte forma:
+
+new Date(2016, 10, 12)
+Pense um pouco a respeito e veremos mais adiante como eu vou resolver o assunto.
 *******************
-01-
+08-
 *******************
 01-
 *******************
