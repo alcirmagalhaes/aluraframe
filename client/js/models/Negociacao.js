@@ -3,6 +3,9 @@ class Negociacao {
         this._data = data;
         this._quantidade = quantidade;
         this._valor = valor;
+
+        // impedir que o objeto criado seja modoficado
+        Object.freeze(this);
     }
 
     get volume(){
