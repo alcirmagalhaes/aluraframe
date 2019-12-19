@@ -329,9 +329,79 @@ outra forma de fazer a data
 
 A data ficou correta. Vimos que existem várias formas de resolver a questão da data, e o array nem precisa ser de string. Pode ser um array de número, que também será aceito.
 *******************
-06-
+06-Exercicio - Executando ações de um controller
+Vejamos a declaração de uma controller:
+
+// ContadorController.js
+
+class ContadorController {
+
+    constructor() {
+        this._contador = 0;
+        alert(this._contador);
+    }
+
+    get contador() {
+        return this._contador;
+    }
+
+    incrementar() {
+        this._contador++;
+        alert(this._contador);
+    }
+}
+Veja que o único dado que a controller possui é o contador, que começa a partir de 0. Quando o método incrementar for chamado, o valor do contador será incrementado e o valor atual será exibido na tela.
+
+Qual das opções abaixo associa corretamente o botão <button> com o método incrementar de ContadorController?
+
+Alternativa correta
+<html>
+  <head></head>
+  <body>
+    <button onclick="contadorController.incrementar">Incrementar</button>
+    <script src="ContadorController.js"></script>
+    <script>
+        let contadorController = new ContadorController();
+    </script>
+  </body>
+</html>
+
+Alternativa correta
+<html>
+  <head></head>
+  <body>
+    <button onclick="contadorController.incrementar()">Incrementar</button>
+    <script src="ContadorController.js"></script>
+    <script>
+        let contadorController = new ContadorController();
+    </script>
+  </body>
+</html>
+Alternativa correta
+<html>
+  <head></head>
+  <body>
+    <button click="contadorController.incrementar()">Incrementar</button>
+    <script src="ContadorController.js"></script>
+    <script>
+        let contadorController = new ContadorController();
+    </script>
+  </body>
+</html>
+
+Alternativa correta
+<html>
+  <head></head>
+  <body>
+    <button onclick="contadorController.incrementar()">Incrementar</button>
+    <script src="ContadorController.js"></script>
+    <script>
+        let contadorController =  ContadorController();
+    </script>
+  </body>
+</html>
 *******************
-01-
+07-
 *******************
 01-
 *******************
