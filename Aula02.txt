@@ -735,9 +735,45 @@ Para criarmos uma classe, usamos a palavra reservada class seguida do nome da cl
 Alternativa correta
 public class Pessoa {
 *******************
-13-
+13-Exercicio - propriedades de instâncias
+Não faz muito sentido criarmos uma classe que não possui atributos de instância ou métodos (apesar de possível). Sendo assim, qual das opções abaixo declara corretamente os atributos nome e idade para a classe Pessoa? Obs: nome é string e idade um número!
+
+Alternativa correta
+class Pessoa {
+
+    constructor() {
+
+        this.nome = '';
+        this.idade = 0;
+    }
+}
+
+Para definirmos atributos de instância de uma classe, precisamos adicionar em sua definição um constructor. É através do construtor que adicionamos na variável implícita this as propriedades que desejamos que toda instância da classe tenha.
+
+Alternativa correta
+class Pessoa {
+
+    constructor() {
+
+        nome = '';
+        idade = 0;
+    }
+}
+
+Alternativa correta
+Pessoa {
+
+    constructor() {
+
+        this.nome = '';
+        this.idade = 0;
+    }
+}
+
+Propriedade ou atributo?
+Apesar do termo atributo ser muito utilizando no mundo da orientação a objetos, no mundo JavaScript o termo propriedade é mais usado. Inclusive você verá o instrutor ora dizendo atributo e ora dizendo propriedade. O motivo dele ficar intercambiando os termos é porque ele não desenvolve apenas em JavaScript, mas em outras linguagens, como Java. Daí vem a máxima: hábito é difícil de adquirir e difícil de perder. A boa notícia é que se você usar um ou outro termo, os membros da sua equipe o entenderão.
 *******************
-11-
+14-
 *******************
 11-
 *******************
