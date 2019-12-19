@@ -773,9 +773,32 @@ Pessoa {
 Propriedade ou atributo?
 Apesar do termo atributo ser muito utilizando no mundo da orientação a objetos, no mundo JavaScript o termo propriedade é mais usado. Inclusive você verá o instrutor ora dizendo atributo e ora dizendo propriedade. O motivo dele ficar intercambiando os termos é porque ele não desenvolve apenas em JavaScript, mas em outras linguagens, como Java. Daí vem a máxima: hábito é difícil de adquirir e difícil de perder. A boa notícia é que se você usar um ou outro termo, os membros da sua equipe o entenderão.
 *******************
-14-
+14-O operador new
+Vejamos a seguinte declaração de classe:
+
+class Calopsita {
+
+    constructor() {
+
+        this.nome = '';
+        this.raca = '';
+    }
+}
+Sabemos que para criarmos uma instância (objeto) a partir da classe Calopsita, precisamos usar o operador new, conforme o exemplo abaixo:
+
+var calopsita = new Calopsita();
+Contudo, o que acontecerá se não usarmos o operador, como no exemplo abaixo?
+
+var calopsita = Calopsita();
+VER OPINIÃO DO INSTRUTOR
+------
+Opinião do instrutor
+
+Quando usamos a sintaxe class, somos obrigados a usar o operador new para criarmos instâncias dessa classe. Se omitirmos o operador new receberemos no console a mensagem:
+
+Uncaught TypeError: Class constructor Calopsita cannot be invoked without 'new'
 *******************
-11-
+15-
 *******************
 11-
 *******************
