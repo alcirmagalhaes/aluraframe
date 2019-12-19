@@ -1310,5 +1310,20 @@ Opinião do instrutor
 
 JavaScript é uma linguagem multiparadigma, podemos programar proceduralmente, funcionalmente e orientado a objetos.
 *******************
-24-
+25-Consolidando o seu conhecimento
+Chegou a hora do exercício do capítulo. Os exercícios Consolidando seu conhecimento visam construir o mesmo exemplo do capítulo, para que no final você tenha um projeto completo igual ao do instrutor. Para fazê-lo, é importante que você tenha feito o último exercício do capítulo anterior ou tenha baixado o stage com o código completo do capítulo anterior, no texto explicativo deste capítulo. Você receberá dicas em linhas gerais do que deve ser feito para que o exercício não perca seu desafio. Você pode recorrer sempre que quiser ao vídeo ou a explicação textual do capítulo, mas primeiro tente resolver sem consultá-los.
+
+Seguem as linhas gerais:
+
+1) Crie a classe Negociacao em aluraframe/client/js/app/models/Negociacao.js. Atenção para a convenção do nome do arquivo e do nome da classe. As propriedades da classe são data, quantidade, valor e volume. Crie-os usando getters, inclusive a propriedade volume, que deve executar a lógica que multiplica a quantidade pelo valor.
+
+2) Lembrou de usar o prefixo _ para adotar à convenção de que todos os atributos da nossa negociação são privados? Lembre-se que depois de criada, uma negociação não pode ser alterada.
+
+3) Lembrou de receber os dados pelo construtor? Usou Object.freeze e lançou mão da programação defensiva para que ninguém consiga alterar a data das negociações?
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
 *******************
