@@ -798,9 +798,46 @@ Quando usamos a sintaxe class, somos obrigados a usar o operador new para criarm
 
 Uncaught TypeError: Class constructor Calopsita cannot be invoked without 'new'
 *******************
-15-
+15-Constructor e parâmetros
+Voltemos à nossa classe Calopsita:
+
+class Calopsita {
+
+    constructor() {
+
+        this.nome = '';
+        this.raca = '';
+    }
+}
+Agora, vejamos a criação de uma instância:
+
+var calopsita = new Calopsita();
+calopsita.nome = 'Doroti';
+calopsita.raca = 'Arretada do agreste';
+Na primeira linha, criamos uma instância de Calopsita que possui nome e raca como strings em branco, e só depois atribuímos valores à essas propriedades. Contudo, há uma forma de já definirmos os valores dessas propriedades, passando parâmetros para o construtor da classe.
+
+Reescreva a classe Calopsita, alterando o constructor para que o código abaixo funcione:
+
+var calopsita = new Calopsita('Tapioca', 'calopsita do campo');
+console.log(calopsita.nome);
+console.log(calopsita.raca);
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Uma implementação possível é:
+
+class Calopsita {
+
+    constructor(nome, raca) {
+
+        this.nome = nome;
+        this.raca = raca;
+    }
+}
+Veja que o constructor agora recebe dois parâmetros e que esses são passados para as propriedades da classe.
 *******************
-11-
+16-
 *******************
 11-
 *******************
