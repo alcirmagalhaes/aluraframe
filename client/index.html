@@ -60,11 +60,9 @@
         <script src="js/models/Negociacao.js"></script>
         <script>
             var n1 = new Negociacao(new Date(), 10, 10.10);
-            
-            console.log(n1.quantidade);
             console.log(n1.data);
-            console.log(n1.valor);
-            console.log(n1.volume);
+            n1._data.setDate(20);
+            console.log(n1.data);//data foi alterada apesar do objeto ser freeze
         </script>
     </table>
     
