@@ -8,8 +8,7 @@ class NegociacaoController {
 
     adiciona(event) {
         event.preventDefault();
-        let helper = new DateHelper();
-        let data = helper.textoParaData(this._inputData.value);
+        let data = DateHelper.textoParaData(this._inputData.value);
         let negociacao = new Negociacao(
             data,
             this._inputQuantidade.value,
@@ -17,7 +16,7 @@ class NegociacaoController {
         )
         console.log(negociacao);
         //fazer a data ser exibina no formato dd/mm/yyyy
-        let diaMesAno = helper.dataParatexto(data)
+        let diaMesAno = DateHelper.dataParatexto(data)
         console.log(diaMesAno); 
     }
   }
