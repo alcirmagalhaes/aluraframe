@@ -976,6 +976,7 @@ console.log(aprovados);
 Altere o código acima para fazer uso de arrow functions. Tente ser o mais sucinto possível, em outras palavras, tente escrever a menor quantidade de código.
 
 VER OPINIÃO DO INSTRUTOR
+------
 Opinião do instrutor
 
 Antes:
@@ -998,5 +999,22 @@ let aprovados = avaliacoes
     .map(prova => prova.aluno.nome);
 Mais enxuto ainda!
 *******************
-20-
+20-Consolidando seu conhecimento
+Você chegou mais uma vez ao final de um capítulo. Como de costume, este exercício é para realizar todas as mudanças no projeto feitas pelo instrutor para que no final você tenha um projeto igual ao dele para que possa estudar e refletir pós curso. Para manter aquele ar de desafio, apenas os passos gerais são passados para que você não se perca. Fique à vontade para consultar o vídeo do curso e o texto explicado sempre que desejar.
+
+1 - Temos o model, mas onde está o controller, aquele cara que interagirá com o modelo mediante as ações do usuário? Crie o arquivo aluraframe/client/js/app/controllers/NegociacaoController.js. Não deixe para depois, importe-o já em index.html.
+
+2 - No constructor de NegociacaoController, adicione as propriedades inputData, inputQuantidade e inputValor. Lembre-se que o valor de cada um deles será um elemento do DOM. Aliás, use o truque para tratar document.querySelector como $.
+
+3- Em NegociacaoController, crie o método adiciona.Não esqueça de associá-lo com o evento onsubmit do formulário. Lembre-se também da importância de receber event como parâmetro.
+
+4 - Depois de realizar a associação do evento onsubmit do formulário em index.html com o método do controller, você precisará criar uma instância de Negociacao com base nos dados do formulário. Para melhorar a experiência do desenvolvedor, crie um método que retorne uma instância de negociação. Lembra daquela problemática envolvendo a leitura de data? Pois é, lide com esse inconveniente e no final imprima no console a negociação instanciada com base nos dados do formulário.
+
+5 - Para melhorar a experiência do usuário, limpe os campos do formulário e faça com que o campo data receba o foco logo após uma inclusão. E para melhorar a experiência do desenvolvedor crie um método com essa responsabilidade.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
 *******************
