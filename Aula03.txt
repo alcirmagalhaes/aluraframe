@@ -863,11 +863,62 @@ lista1.push(...lista2);
 console.log(lista1);
 //["banana", "laranja", "mamão", "caju", "tangerina", "abacaxi"]
 *******************
-17-
+17-O "mapa" da mina!
+let numeros = [3,2,11,20,8,7];
+Sua tarefa: criar uma nova lista com a mesma quantidade de números, mas cada elemento da nova lista deve ter seu valor dobrado quando for ímpar.
+
+ATENÇÃO: a lista numeros não pode ser alterada! Você pode resolver do jeito que desejar, o mais importante é o resultado.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Tenho certeza que pode ter passado em sua cabeça zilhões de formas de resolver o problema passado, inclusive fica muito difícil para mim mapeá-las todas aqui. Porém, que tal usarmos uma maneira não funcional para resolver esse problema?
+
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = [];
+
+numeros.forEach(item => {
+
+    if(item % 2  != 0) {
+        novosNumeros.push(item * 2);
+    } else {
+        novosNumeros.push(item);
+    }
+});
+console.log(novosNumeros);
+Para sabermos se um número é par ou não, usamos item % 2, que retorna o resto da divisão por 2. Se for 0, é porque o número é par, se não for, é ímpar. Aliás, nem precisamos fazer item % 2 != 0, podemos simplesmente fazer item % 2. Se o resultado for 0, este número é considerado falso pelo JavaScript. Alterando nosso código:
+
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = [];
+
+numeros.forEach(item => {
+
+    if(item % 2) { // só entra no IF se o resultado for diferente de zero
+        novosNumeros.push(item * 2);
+    } else {
+        novosNumeros.push(item);
+    }
+});
+console.log(novosNumeros);
+Apesar de funcionar e termos usado o forEach, nossa solução não é uma solução funcional. Alterando nosso código e exaurindo o poder da programação funcional:
+
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = numeros.map(item =>  item % 2 ? item * 2 : item);
+console.log(novosNumeros);
+Veja que usamos um if ternário para decidir se retornamos o item multiplicado por 2 ou o item em si. Um outro ponto importante é o seguinte: 0 é considerado falso em JavaScript e qualquer número diferente de 0 é considerado verdadeiro. Então, quando fazemos item % 2, se o resultado for 0, é porque o item é divisível por dois, ou seja, é par. Como 0 é falso, ele retornará o item sem qualquer modificação. Agora, se o resto da divisão de item % 2 for diferente de zero, é porque é impar. Como o resultado é diferente de zero, será verdadeiro e o que vem depois do interrogação será processado, no caso, item vezes dois.
+
+Outra maneira de se conseguir o mesmo resultado, sem entretanto utilizar o operador ternário, é:
+
+let numeros = [3,2,11,20,8,7];
+let novosNumeros = numeros.map((item)=> (item%2 +1 ) * item);
+console.log(novosNumeros);
+Quando fazemos o módulo de dois um número par, o que sobra é 0, somando-se 1, e depois multiplicando pelo item, obtemos o mesmo item. Quando o número é impar, o modulo obtido é um, o qual incrementado dá 2.-
 *******************
-10-
+18Temos a seguinte sequência de números:
+
 *******************
-10-
+19-
 *******************
 20-
 *******************
