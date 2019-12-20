@@ -840,9 +840,30 @@ let data = new Date(dataString.split('-').reverse().join('/'));
 console.log(data);
 A ideia é transformarmos nossa string em uma array, onde teremos três elementos com o dia, mês e ano respectivamente. Daí, usamos o método reverse do Array que inverte a sua ordem fazendo com que o ano seja o primeiro elemento e o dia o último. Nosso mês continuará na sua posição original. Por fim, criamos uma string a partir do array, usando o método join, que usará uma / para separar cada elemento.
 *******************
-16-
+16-Mais de spread
+Para consolidar nosso conhecimento, observe este código:
+
+let lista1 = ['banana', 'laranja', 'mamão'];
+let lista2 = ['caju', 'tangerina', 'abacaxi'];
+
+lista1.push(...lista2);
+Teste se este código funciona no console.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Funciona! O método push de todo array aceita receber os dados que você deseja incluir separados por vírgula, ou seja, a função está preparada para receber N elementos. Quando passamos a lista2 para lista1.push com o spread operator, cada item da lista será passado como um parâmetro para lista.push:
+
+let lista1 = ['banana', 'laranja', 'mamão'];
+let lista2 = ['caju', 'tangerina', 'abacaxi'];
+
+lista1.push(...lista2);
+
+console.log(lista1);
+//["banana", "laranja", "mamão", "caju", "tangerina", "abacaxi"]
 *******************
-10-
+17-
 *******************
 10-
 *******************
