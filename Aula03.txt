@@ -915,7 +915,29 @@ let novosNumeros = numeros.map((item)=> (item%2 +1 ) * item);
 console.log(novosNumeros);
 Quando fazemos o módulo de dois um número par, o que sobra é 0, somando-se 1, e depois multiplicando pelo item, obtemos o mesmo item. Quando o número é impar, o modulo obtido é um, o qual incrementado dá 2.-
 *******************
-18Temos a seguinte sequência de números:
+18- Ops, não encaixa. Podemos dar um jeitinho?
+Temos a seguinte função:
+
+function somaDoisNumeros(numero1, numero2) {
+    return numero1 + numero2;                                            
+}
+É uma função simples, que retorna o somatório de dois números. Um exemplo:
+
+console.log(somaDoisNumeros(10,30)); // exibe 40!
+Muitas vezes não recebemos os dados em uma estrutura compatível com nossas funções. Vejamos um exemplo:
+
+let numeros = [10, 30];
+console.log(somaDoisNumeros(numeros[0], numeros[1]));
+ES2015 trouxe uma novidade, o spread operator. Altere a passagem de parâmetros para somaDoisNumeros e faça uso do spread operator para receber um array, com isso, evitando a necessidade de usar numeros[0] e numeros[1].
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Usamos ... antes do array passado como parâmetro. Cada item do array será passado para cada parâmetro recebido pela função. Inclusive isso vale para o constructor de uma classe.
+
+numeros = [10,30];
+console.log(somaDoisNumeros(...numeros));
 
 *******************
 19-
