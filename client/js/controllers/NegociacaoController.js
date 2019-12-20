@@ -19,5 +19,10 @@ class NegociacaoController {
             this._inputValor.value
         )
         console.log(negociacao);
+        //fazer a data ser exibina no formato dd/mm/yyyy
+        let diaMesAno = negociacao.data.getDate() 
+            + '/' + (negociacao.data.getMonth() + 1)
+            + '/' + negociacao.data.getFullYear();
+        console.log(diaMesAno); 
     }
   }

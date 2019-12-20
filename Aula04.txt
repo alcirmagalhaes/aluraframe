@@ -1,0 +1,75 @@
+01-Exibindo o objeto Date no formato dia/mês/ano
+Começando deste ponto? Você pode fazer o DOWNLOAD completo do projeto até aqui e continuar seus estudos.
+
+Conseguimos capturar as entradas dos usuários, e quando este clica no botão "Incluir" e submete o formulário, a controller instancia uma negociação já com a data convertida. Então, estamos preparados para incluir as negociações na tabela do navegador. Porém, antes, vamos resolver um assunto: a exibição da data. Atualmente, temos a opção de adicionar no negociacao.data dentro do console, na classe NegociacaoController:
+
+let negociacao = new Negociacao(
+    data,
+    this._inputQuantidade.value,
+    this._inputValor.value
+  );
+
+  console.log(negociacao.data);
+Na página do navegador, preencheremos o campo data com 12/11/2016 e veremos a data exibida na Console da seguinte forma:
+
+Sat Nov 12 2016 00:00:00 GMT-0200 (BRST)
+Temos que encontrar uma maneira de formatarmos a data para: dia/mês/ano. Para isto, criaremos a variável diaMesAno.
+
+let diaMesAno = negociacao.data.getDate()
++ '/' + negociacao.data.getMonth()
++ '/' + negociacao.data.getFullYear();
+console.log(diaMesAno);
+Com o getDate() retornaremos o dia e depois, com o getMonth(), retornaremos o mês e com getFullYear(), o ano. Todos foram concatenados com a data. Observe que utilizamos o Full no ano, para que apareçam todos os dígitos do ano (nós queremos evitar o bug do milênio).
+
+No entanto, a data que aparecerá no Console ainda não será a correta.
+
+data errada no console
+
+No Console, vemos o mês 10, isso acontece porque ele veio de um array que vai de 0 a 11. Então, se a data gravada for no mês 11, ele será impresso no mês 10. No entanto, não solucionaremos somando +1 ao valor no array.
+
+let diaMesAno = negociacao.data.getDate()
+    + '/' + negociacao.data.getMonth() + 1
+    + '/' + negociacao.data.getFullYear();
+
+console.log(diaMesAno);
+data esquisita
+
+Não existe mês 101! O JavaScript concatenou o dia com a / e resultado disso com o Month. No fim, isso virou uma string e ele então, concatenou com +1. Esta operação deve ocorrer primeiro antes da concatenação, por isso, adicionaremos os () (parentêses).
+
+let diaMesAno = negociacao.data.getDate()
+    + '/' + (negociacao.data.getMonth() + 1)
+    + '/' + negociacao.data.getFullYear();
+
+console.log(diaMesAno);
+Básico de JavaScript. Agora, vamos executar o código e a data será impressa corretamente.
+*******************
+02-
+*******************
+03-
+*******************
+04-
+*******************
+05-
+*******************
+06-
+*******************
+07-
+*******************
+08-
+*******************
+09-
+*******************
+10-
+*******************
+11-
+*******************
+12-
+*******************
+13-
+*******************
+14-
+*******************
+15-
+*******************
+16-
+*******************
