@@ -1024,5 +1024,20 @@ Opinião do instrutor
 
 O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
 *******************
-16-
+16-Só tem métodos estáticos...
+Como podemos evitar que alguém instancie uma classe que só possui métodos estáticos, ou seja, uma classe que não faz sentido trabalharmos com uma instância? Reflita sobre isso. Clicando em continuar você verá a resposta do instrutor.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Podemos lançar um erro dentro do constructor. Lembre-se que o constructor é chamando quando criamos uma instância de uma classe com o operador new.
+
+class ClasseQualquer {
+
+    constructor() {
+        throw new Error('Você não pode criar uma instância dessa classe');
+    }
+
+       // métodos estáticos da classe
 *******************
