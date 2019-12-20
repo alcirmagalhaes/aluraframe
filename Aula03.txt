@@ -611,9 +611,32 @@ Falamos também que não era suficiente capturarmos a data do formulário e pass
 
 Eu deixei um desafio para você: eu queria que fosse usado um construtor que usasse ano, mês e dia, cada um disposto como um parâmetro diferente no construtor. Porém, neste formato, o mês não pode ser passado de 1 a 12, no caso, precisaria ser de 0 a 11. então, foi necessário realizar algumas transformações e precisamos um pouco de programação funcional.
 *******************
-11-
+11-Exercicio - O modelo MVC
+Sobre o modelo MVC, podemos afirmar que:
+
+Alternativa correta
+O C é o controller, aquele que disponibiliza um modelo para a view.
+
+
+O controller é aquele que recebe as ações do usuário e que sabe interagir com o modelo. Como o modelo é independente da view, esta precisa ser renderizada para que reflita as alterações no modelo. Em suma, o controller é a ponte de ligação entre a view e o modelo.
+
+Alternativa correta
+M é o modelo, uma abstração do mundo real, os dados da aplicação e suas regras de negócio.
+
+
+O padrão MVC permite que alterações de layout na view não acarretem alterações no modelo.
+
+Alternativa correta
+O modelo MVC é exclusivo de aplicações web.
+
+
+Alternativa correta
+A View é a representação do modelo em alguma tecnologia, por exemplo, HTML.
+
+
+A view apresenta um modelo em uma tabela, em um formulário ou em parágrafos, e o padrão MVC permite que qualquer alteração na view não interfira com o modelo.
 *******************
-10-
+12-
 *******************
 10-
 *******************
