@@ -11,6 +11,8 @@ class NegociacaoController {
         event.preventDefault();
         let negociacao = this._criaNegociacao();
         this._listaNegociacoes.adiciona(negociacao);
+        //linha para testar se é possivel alterar a lista de negociação sem ser pelo método adiciona().
+        //this._listaNegociacoes.negociacoes.push(negociacao);
         this._limpaFormulario();    
         console.log(this._listaNegociacoes.negociacoes); 
     }
