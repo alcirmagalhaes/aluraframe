@@ -636,11 +636,95 @@ A View é a representação do modelo em alguma tecnologia, por exemplo, HTML.
 
 A view apresenta um modelo em uma tabela, em um formulário ou em parágrafos, e o padrão MVC permite que qualquer alteração na view não interfira com o modelo.
 *******************
-12-
+12-Exercicio - O que é má prática ontem pode ser boa prática hoje e vice-versa!
+No mundo front-end, há uma separação clara entre HTML, CSS, JS. Tanto isso é verdade que a boa prática é que cada um fique no seu quadrado, ou seja, que cada um tenha seu arquivo dedicado. Essa separação visa facilitar a manutenção.
+
+Contudo, quando manipulamos o DOM, vira e mexe precisamos associar eventos a elementos. Uma maneira de se fazer isso é encontrar o elemento que queremos associar o evento, e realizar essa associação via JavaScript. Vejamos um exemplo:
+
+<p id="p1">Olá</p>
+Temos um parágrafo com um id definido. No mundo JavaScript, se quisermos associar um evento click ao parágrafo, precisamos buscá-lo primeiro e depois associar o evento:
+
+function mostra() {
+    alert('Fui clicado');
+}
+
+document.querySelector('#p1').addEventListener('click', mostra);
+O código anterior funciona perfeitamente, inclusive deixou marcante a separação entre HTML e JS, pois em nenhum momento no HTML referenciamos nosso JS (apenas a tag <script> que o carrega, claro).
+
+Contudo, essa solução nos obriga a manipular o DOM toda vez que quisermos associar um evento com o elemento. Sendo assim, quando criamos SPA (Single Page Applications), páginas que não se recarregam durante seu uso é muito comum usar a abordagem clássica, que é associar a função do evento diretamente na tag <html> da nossa página.
+
+Qual das opções abaixo associa diretamente na tag <p> o evento click para a função mostra?
+
+Alternativa correta
+<p id="p1" click="mostra()">Olá</p>
+
+Precisamos associar ao evento onclick, em
+
+, a chamada da função mostra()
+
+Alternativa correta
+<p id="p1" click="mostra">Olá</p>
+
+Alternativa correta
+<p id="p1" onclick="mostra()">Olá</p>
+Dependendo do seu viés teórico, essa solução pode ser uma "heresia". Contudo, frameworks SPA, como Angular, adotam estrutura semelhante para associar a ação de um controller a um componente da página, dessa forma, removendo o desenvolvedor de ter que realizar essa associação manualmente.
 *******************
-10-
+13-Exercicio - As múltiplas facetas do this
+Vejamos o seguinte código!
+
+class Pessoa {
+
+    constructor(nome) {
+        this.nome = nome;
+    }
+}
+
+function exibeNome() {
+    alert(this.nome);
+}
+
+let pessoa = new Pessoa('Salsifufu');
+
+exibeNome('Lampreia'); // PRIMEIRA CHAMADA <=============
+
+exibeNome = exibeNome.bind(pessoa);
+
+exibeNome(); // SEGUNDA CHAMADA <=============
+O que será exibido na PRIMEIRA e SEGUNDA chamada respectivamente?
+
+Alternativa correta
+undefined e Salsifufu
+
+Alternativa correta
+Lampreia e undefined
+
+
+Alternativa correta
+undefined e Lampreia.
+
+
+Alternativa correta
+Salsifufu e undefined
+
+
+A resposta correta é undefined e Salsifufu.
+
+Na primeira chamada, o parâmetro Lampreia é ignorado pela função, pois a função não recebe parâmetros. Não acontece nenhum erro, mesmo a função não recebendo o parâmetro, uma característica do JavaScript. Sendo assim, quando exibeNome('Lampreia') é chamado, o this na verdade é window, o escopo global, e nele não temos o valor nome.
+
+Contudo, quando executamos a linha:
+
+exibeNome = exibeNome.bind(pessoa);
+Estamos recebendo uma referência para uma nova função, que passa a ter o objeto pessoa como this. Ou seja, a função bind, presente em todas as funções, permite indicar qual será o valor de this quando ela for executada, em nosso caso pessoa. Como pessoa possui a propriedade nome, será exibido no alerta o valor Salsifufu.
+
+É por isso que fizemos ao longo deste capítulo:
+
+let $  = document.querySelector.bind(document);
+O retorno da função bind é a função querySelector, que tem como contexto o document, ou seja, seu this será document. Se tivéssemos feito apenas:
+
+let $  = document.querySelector;
+A variável $ passa a ser querySelector, mas seu this deixará de ser document, porque estará sendo executada fora deste contexto.
 *******************
-10-
+14-
 *******************
 10-
 *******************
