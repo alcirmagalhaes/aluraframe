@@ -757,7 +757,28 @@ let listaDeNomes2 = ['Vieira', 'Fernanda', 'Gerson'];
 exibeNoConsole([].concat(listaDeNomes1, listaDeNomes2, 'Rômulo'));
 Com isso, a lista criada terá também um item de valor Rômulo.
 *******************
-10-
+10-Exercicio - Template String
+Qual a maneira correta de se utilizar a Template String?
+
+Alternativa correta
+let nome = 'Juca';
+let sobrenome = 'Monteiro';
+
+let frase = `${nome} ${sobrenome} também sabe JavaScript`;
+
+Correta!
+
+Alternativa correta
+let nome = 'Juca';
+let sobrenome = 'Monteiro';
+
+let frase = '${nome} ${sobrenome} também sabe JavaScript.';
+
+Alternativa correta
+let nome = 'Juca';
+let sobrenome = 'Monteiro';
+
+let frase = `#{nome} #{sobrenome} também sabe JavaScript.`;
 *******************
 11-
 *******************
