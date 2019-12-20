@@ -724,9 +724,75 @@ O retorno da função bind é a função querySelector, que tem como contexto o 
 let $  = document.querySelector;
 A variável $ passa a ser querySelector, mas seu this deixará de ser document, porque estará sendo executada fora deste contexto.
 *******************
-14-
+14-"Prefiro evitar a fadiga!"
+Temos o seguinte controller:
+
+// ContadorController.js
+class ContadorController {
+
+    constructor() {
+        this._contador = 0;
+        alert(this._contador);
+    }
+
+    get contador() {
+        return this._contador;
+    }
+
+    incrementa() {
+        this._contador++;
+        document.querySelector('#p1').textContent = this._contador;
+    }
+}
+E claro, uma página que importa o script do controller, instanciando-o e associando um botão à ação contadorController.incrementa():
+
+<html>
+    <head></head>
+    <body>
+        <p id="p1">0</p>
+        <button onclick="contadorController.incrementa()">Incrementar</button>
+        <script src="ContadorController.js"></script>
+        <script>
+            let contadorController = new ContadorController();
+        </script>
+    </body>
+</html>
+Nosso código funciona, contudo, a maneira como organizamos nosso código pode causar problemas de performance em uma aplicação com escopo maior.
+
+VER OPINIÃO DO INSTRUTOR
+-----
+Opinião do instrutor
+
+Sob o ponto de vista funcional, não há problema algum em nosso código, pois ele funciona e atende o requisito, que é incrementar o total do contador e exibir o seu estado atual na view. Contudo, podemos melhorar esse código. Veja que a cada clique do usuário, solicitamos ao document que busque o elemento que desejamos. Qual o problema? Uma analogia pode nos ajudar.
+
+Você tem 200 papéis importantes e pega na sala ao lado uma caneta para assinar o primeiro deles, para logo em seguida devolver a caneta. Imagine repetir esse processo para os 199 papéis restantes? Pois é, o DOM (document) também ficará fadigado se você buscar o mesmo elemento 200 vezes!
+
+Para evitar a "fadiga", uma boa estratégia é realizar uma espécie de cache do elemento do DOM que você deseja manipular, ou seja, guardar sua referência, para que você o busque apenas uma vez. Em nosso modelo MVC, com o uso de classes fica fácil definir em que lugar guardaremos uma referência para o elemento que estamos buscando.
+
+Podemos guardar a referência do elemento em uma propriedade na classe e toda vez que alguém precisar desse elemento basta acessar a propriedade que o referencia, evitando assim, percorrer o DOM, fatigando-o! Como as propriedades na classe são inicializadas através do operador new, que chama por debaixo dos panos o constructor da classe, podemos buscar o elemento assim que o nosso controller for instanciado, apenas.
+
+Aplicando os conceitos que vimos anteriormente, nossa classe ContadorController fica assim:
+
+class ContadorController {
+
+    constructor() {
+        this._contador = 0;
+        this._elemento = document.querySelector('#p1'); // busca uma única vez
+        alert(this._contador);
+    }
+
+    get contador() {
+        return this._contador;
+    }
+
+    incrementa() {
+        this._contador++;
+        this._elemento.textContent = this._contador; // não precisa buscar o elemento, já temos uma referência para ele
+    }
+}
+Apesar do problema original não ser suficiente para fatigar o DOM, ter sempre em mente escrever um código otimizado e sem comprometer sua legibilidade é um bom caminho a se trilhar.
 *******************
-10-
+15-
 *******************
 10-
 *******************
