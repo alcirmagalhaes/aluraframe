@@ -626,7 +626,83 @@ Como a Negociacao está pronta, começamos a preparar a listagem de negociaçõe
 
 Caso o getter de ListaNegociacoes fosse chamado, o retorno seria um array original e independente de qualquer interferência de fora. Fizemos isto utilizando um array vazio, seguido da função concat(). Criamos também alguns métodos auxiliares "privados" na Controller, além de brincarmos um pouco com as expressões regulares para validarmos o texto passado para conversão de data.
 *******************
-08-
+08-Olhar aguçado para o paradigma da orientação a objetos
+Temos o seguinte código que define uma função que sabe validar um código:
+
+
+let codigo = 'GWZ-JJ-12';
+
+function validaCodigo(codigo) {
+
+    if(/\D{3}-\D{2}-\d{2}/.test(codigo)) {
+          alert('Código válido!');
+      } else {
+          alert('Código inválido');
+      }
+
+}
+
+validaCodigo('GWZ-JJ-12'); // válido
+validaCodigo('1X1-JJ-12'); // inválido
+Muita coisa acontecendo? Se você não é ninja em expressão regular, vamos desmembrar o código para facilitar sua leitura:
+
+
+function validaCodigo(codigo) {
+
+    // cria a expressão regular. Poderíamos ter usado 
+    // a sintaxe new RegExp(/\D{3}-\D{2}-\d{2}/)
+    // \D é qualquer coisa não dígito
+    // \D{3} é qualquer coisa não dígito que forme um grupo de 3 caracteres
+    // \d é qualquer dígito.
+    let expressao = /\D{3}-\D{2}-\d{2}/; 
+
+    // toda expressão regular possui o método test 
+    // que recebe o alvo do teste, retornando true
+    // se passou, e false se falhou
+    if(expressao.test(codigo)) {
+          alert('Código válido!');
+      } else {
+          alert('Código inválido');
+      }
+
+}
+
+validaCodigo('GWZ-JJ-12'); // válido
+validaCodigo('1X1-JJ-12'); // inválido
+Essa solução é procedural. Veja que toda vez que criarmos um código precisaremos buscar em algum lugar do nosso sistema alguém que o valide. Temos uma separação entre dado e comportamento.
+
+Refaça o código acima adotando o paradigma da orientação a objetos. Uma dica: tudo começa com a criação da classe Codigo. Não se preocupe, a ideia aqui é instigar algumas percepções em você sobre este paradigma.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Vou criar uma classe que representa um código e encapsular a regra de que o código deve ter determinado formato. Realizarei a validação no construtor da classe. Se o código for inválido, nenhum objeto será instanciado e o programador ainda receberá uma mensagem de erro o alertando do problema. Isto é, independente do lugar que eu tenha uma instância de Codigo todo código criado será validado!
+
+class Codigo {
+
+    constructor(texto) {
+
+        if(!this._valida(texto)) throw new Error(`O texto ${texto} não é um código válido`);
+        this._texto = texto;        
+    }
+
+    _valida(texto) {
+
+        return /\D{3}-\D{2}-\d{2}/.test(texto);
+    }
+
+    get texto() {
+
+        return this._texto;
+    }
+}
+
+let codigo1 = new Codigo('GWZ-JJ-12'); // válido
+console.log(codigo1.texto);
+let codigo2 = new Codigo('1X1-JJ-12'); // inválido
+console.log(codigo2.texto);
+Onde quer que tenhamos um código, dado e comportamento caminham juntos, mesmo que esse comportamento/regra esteja no construtor. Aliás, o _valida está prefixado desta forma porque esse método só deve ser chamado pela própria classe.
 *******************
 09-
 *******************
