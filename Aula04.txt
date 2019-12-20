@@ -924,7 +924,68 @@ envia() {
 }
 A prática leva à perfeição :)
 *******************
-13-
+13-Por que...
+Temos a seguinte classe:
+
+class ConversorXML {
+
+    static converte(objeto) {
+        // converte um objeto em XML
+    }
+}
+Agora, vamos criar uma instância desta classe e chamar o método converte:
+
+let conversor = new ConversorXML();
+conversor.converte({nome: 'Guaraci', idade: 40});
+Teste este código no console.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Este código não funciona porque o método converte é estático e não será encontrado na instância de uma classe, mas diretamente na classe. Alterando o código para ser válido:
+
+ConversorXML.converte({nome: 'Guaraci', idade: 40});
+Métodos estáticos antes do ES6
+Curiosidade: como criávamos métodos estáticos antes do ES6? Vejamos um exemplo, com a classe Pessoa:
+
+Vejamos um exemplo do ES6 para declarar uma classe com métodos de instância e métodos estáticos:
+
+class Pessoa {
+
+    constructor(nome, sobrenome) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+    }
+
+    obterNomeCompleto() {
+        return `${this.nome} ${this.sobrenome}`;
+    }
+
+    static metodoStaticoQualquer() {
+        console.log('Método estático chamado');
+    }
+
+}
+E antes do ES6. Como implementávamos algo semelhante a métodos estáticos? Vejamos um exemplo:
+
+function Pessoa(nome, sobrenome) {
+    this.nome = nome;
+    this.sobrenome = sobrenome;
+}
+
+// método de instância
+Pessoa.prototype.obterNomeCompleto = function() {
+    return this.nome + ' ' + this.sobrenome;
+};
+
+// declarando equivalente a método estático
+
+Pessoa.metodoStaticoQualquer = function() {
+
+    console.log('Método estático chamado');
+
+};
 *******************
 14-
 *******************
