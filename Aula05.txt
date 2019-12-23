@@ -263,7 +263,39 @@ Se completarmos os dados do formulário novamente, a tabela terá dados das trê
 
 Conseguimos de maneira elegante, utilizando apenas recursos do JavaScript, fazer um template render. Porém, faltam algumas ações para que nossa tabela fique completa.
 *******************
-03-
+03-Enxugando o código
+Faremos um pequeno ajuste que passou despercebido no vídeo anterior, antes de completarmos o código. Deixamos incompleto o fechamento da tag <tr>. Corrigiremos a falha dentro da <tbody>:
+
+<tbody>
+    ${model.negociacoes.map(n => {
+
+      return `
+        <tr>
+            <td>${DateHelper.dataParaTexto(n.data)}</td>
+            <td>${n.quantidade}</td>
+            <td>${n.valor}</td>
+            <td>${n.volume}</td>
+        </tr>
+      `
+      })}
+</tbody>
+Felizmente, o navegador entendeu que tratava-se de um tag <tr>. Outro ajuste será na arrow function. Quando trabalhamos com um único retorno, não precisamos usar as chaves ({}). Também podemos remover o return. Veja como nosso código ficará mais enxuto:
+
+<tbody>
+    ${model.negociacoes.map(n => `
+
+          <tr>
+            <td>${DateHelper.dataParaTexto(n.data)}</td>
+            <td>${n.quantidade}</td>
+            <td>${n.valor}</td>
+            <td>${n.volume}</td>
+          </tr>
+
+      `).join('')}
+</tbody>
+Facilitamos a leitura do código. Fizemos a declaração do template.
+
+A seguir, trabalharemos com a tag <tfoot>, com a qual criaremos o rodapé.
 *******************
 04-
 *******************
