@@ -9,7 +9,7 @@ class DateHelper {
         return new Date(...texto.split('-').map((item,indice) => item - indice % 2));
     }
 
-    static dataParatexto(data){
+    static dataParaTexto(data){
         //template string
         return `${data.getDate()}/${data.getMonth()+1}/${data.getFullYear()}`;
 
