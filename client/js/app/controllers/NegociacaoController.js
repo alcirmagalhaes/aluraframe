@@ -14,7 +14,8 @@ class NegociacaoController {
     adiciona(event) {
 
         event.preventDefault();
-        this._listaNegociacoes.adiciona(this._criaNegociacao());
+        const negociacao = this._criaNegociacao();
+        this._listaNegociacoes.adiciona(negociacao);
         this._negociacoesView.update(this._listaNegociacoes);
         this._limpaFormulario();    
         //console.log(this._listaNegociacoes.negociacoes); 
