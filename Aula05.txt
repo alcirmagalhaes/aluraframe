@@ -862,7 +862,28 @@ let metade = numeros.map(num => num/2);
 let raiz = numeros.map(num => Math.sqrt(num));
 Repare que conseguimos enxugar bem o nosso código. Esta é mais uma vantagem das arrow functions!
 *******************
-13-
+13-View declarada no JS ou no HTML?
+Aprendemos a declarar nossas views no mundo JavaScript. Um framework que segue este caminho é o React do Facebook. Contudo, há uma outra abordagem que é declarar as views em arquivos HTML, inclusive o famoso Angularjs faz dessa maneira.
+
+Neste treinamento optei por declarar a view no mundo JS, pois essa solução me permitiu implementar o modelo MVC sem grandes voltas e ainda manter o foco em boas práticas e ES6, tornando o treinamento mais acessível para diversos perfis de "ninjas" em JavaScript.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Um fato curioso é que no React declaramos nossos componentes de view usando o JSX que permite escrever HTML mais facilmente no mundo JS. Apesar de não termos esses recursos, as templates strings do ES6 nos ajudam bastante com nossas declarações e tudo sem precisar de um framework ou biblioteca!
 *******************
-14-
+14-Consolidando seu conhecimento
+Chegou a hora do exercício do capítulo. Para fazê-lo, é importante que você tenha feito o último exercício do capítulo anterior ou tenha baixado o stage com o código completo do capítulo anterior no texto explicativo deste capítulo. Pronto para as linhas gerais do que deve ser feito? Vamos lá!
+
+1 - Precisamos apresentar o estado do nosso modelo ListaNegociacoes em nossa página index.html. Para isso crie o script aluraframe/client/js/app/views/NegociacoesView.js e declare a classe NegociacoesView. Lembre-se que ela deve receber em seu construtor o elemento do DOM que precisará atualizar. Não esqueça de definir o método _template especializado em criar uma string dinamicamente mesclando marcação HTML com os dados do modelo.
+
+2 - Por fim, implemente o método update, aquele que receberá um modelo e o repassará para a função _template. O resultado de _template, uma string, deve ser convertido em elementos do DOM. Lembra de innerHTML?
+
+3 - Com o script importado em index.html, altere NegociacaoController. Adicione uma nova propriedade em seu construtor para guardar uma instância da classe que acabamos de criar. Não esqueça de chamar a função update sempre que necessário.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
 *******************
