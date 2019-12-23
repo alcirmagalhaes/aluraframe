@@ -837,7 +837,30 @@ let raiz = numeros.map((num) {
     return Math.sqrt(num);
 });
 *******************
-12-
+12-Map com arrow functions
+Pratique seu conhecimento de ES6 reescrevendo as 3 funções map do exercício anterior, utilizando arrow functions.
+
+Aqui estão elas:
+
+let dobro = numeros.map(function(num) {
+    return num * 2;
+});
+let metade = numeros.map(function(num) {
+    return num/2;
+});
+let raiz = numeros.map(function(num) {
+    return Math.sqrt(num);
+});
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O seu código deve ficar assim:
+
+let dobro = numeros.map(num => num * 2);
+let metade = numeros.map(num => num/2);
+let raiz = numeros.map(num => Math.sqrt(num));
+Repare que conseguimos enxugar bem o nosso código. Esta é mais uma vantagem das arrow functions!
 *******************
 13-
 *******************
