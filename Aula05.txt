@@ -540,7 +540,258 @@ Refatorando o reduce com uma arrow function, ele deve ficar assim:
 numeros.reduce((total, num) => total * num , 1);
 Mais uma vez podemos ver um exemplo aonde uma arrow function deixou o código mais elegante. Continue praticando seu uso que logo logo você ficará especialista nessa feature do ES6!
 *******************
-10-
+10-Imprimindo com map
+Silvio, um funcionário da empresa Argentum, foi encarregado de desenvolver uma aplicação que é responsável por imprimir todos os dados dos funcionários da empresa. Ele queria economizar tempo e em vez de desenvolver todo um software para se comunicar com a impressora e gerar o relatório pedido, ele resolveu aproveitar-se da famosa opção de imprimir que todo browser tem. Sendo assim, basta ele gerar dinamicamente um HTML e imprimi-lo!
+
+Este foi seu plano:
+
+1- Criar um array com todos os funcionários da empresa. Se novos funcionários entrarem, basta adicioná-los no array.
+
+2- Gerar uma tabela em HTML e preenchê-la com os dados desse array.
+
+3- Utilizar o próprio browser para imprimir a página HTML gerada dinamicamente com os dados do relatório da tabela.
+
+A tabela que ele montou tem esta cara:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- ELE ESTÁ COM DIFICULDADES AQUI -->
+        <tbody>
+    </table>
+
+    <script>
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco" : "Rua da esquina, 123",
+                "salario" : "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco" : "Rua da virada, 456",
+                "salario" : "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco" : "Rua da aresta, 789",
+                "salario" : "6000"
+            }
+        ];
+    </script>
+</body>
+</html>
+Seu único problema é que ele não está conseguindo mapear todos os elementos do array para uma tabela de verdade no HTML. Faça uso da função map, que vimos neste capítulo, para preencher a tabela do Silvio, lembrando que cada funcionário tem 3 atributos (nome, endereco e salario) e ele já tem acesso ao array funcionarios, que tem diversos objetos funcionario lá dentro.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Nosso primeiro passo é conseguir colocar os dados dos funcionários em <tr> e <td>'s para preencher a nossa tabela.
+
+Vamos utilizar a função map, para transformar o array de objetos em um array de strings, com o HTML correto para preencher a tabela:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>    
+    </table>
+
+    <script>
+
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco" : "Rua da esquina, 123",
+                "salario" : "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco" : "Rua da virada, 456",
+                "salario" : "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco" : "Rua da aresta, 789",
+                "salario" : "6000"
+            }
+        ];
+
+        // Antes tinhamos : funcionarios = [{objeto_func1},{objeto_func2},{objeto_func3}];
+
+        let funcionariosEmHtml = funcionarios.map(f => `
+                <tr>
+                    <td>${f.nome}</td>
+                    <td>${f.endereco}</td>
+                    <td>${f.salario}</td>
+                </tr>
+            `);
+
+        // Agora temos: funcionariosEmHtml = ["<tr><td>...</td></tr>","<tr><td>...</td></tr>","<tr><td>...</td></tr>"];
+
+    </script>
+</body>
+</html>
+Mas precisamos juntar estes 3 HTML's em um só, para poder preencher o <tbody> da tabela, assim vamos utilizar a função join('') que será :
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>    
+
+    </table>
+
+    <script>
+
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco" : "Rua da esquina, 123",
+                "salario" : "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco" : "Rua da virada, 456",
+                "salario" : "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco" : "Rua da aresta, 789",
+                "salario" : "6000"
+            }
+        ];
+
+        // Antes tinhamos : funcionarios = [{objeto_func1},{objeto_func2},{objeto_func3}];
+
+        let funcionariosEmHtml = funcionarios.map(f => `
+                <tr>
+                    <td>${f.nome}</td>
+                    <td>${f.endereco}</td>
+                    <td>${f.salario}</td>
+                </tr>
+            `);
+
+        // Agora temos: funcionariosEmHtml = ["<tr><td>...</td></tr>","<tr><td>...</td></tr>","<tr><td>...</td></tr>"];
+
+        let htmlConcatenado = funcionariosEmHtml.join('');
+
+        // Agora temos: htmlConcatenado = ["<tr><td>...</td></tr><tr><td>...</td></tr><tr><td>...</td></tr>"];            
+    </script>
+</body>
+</html>
+Conseguimos agora uma única string com todas as linhas que representam nosso funcionário!
+
+Vamos selecionar o <tbody> e preencher seu conteúdo, utilizando a propriedade .innerHTML:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Salário</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>    
+
+    </table>
+
+    <script>
+
+        let funcionarios = [
+            {
+                "nome": "Douglas",
+                "endereco" : "Rua da esquina, 123",
+                "salario" : "4500"
+            },
+            {
+                "nome": "Felipe",
+                "endereco" : "Rua da virada, 456",
+                "salario" : "5000"
+            },
+            {
+                "nome": "Silvio",
+                "endereco" : "Rua da aresta, 789",
+                "salario" : "6000"
+            }
+        ];
+
+        // Antes tinhamos : funcionarios = [{objeto_func1},{objeto_func2},{objeto_func3}];
+
+        let funcionariosEmHtml = funcionarios.map(f => `
+                <tr>
+                    <td>${f.nome}</td>
+                    <td>${f.endereco}</td>
+                    <td>${f.salario}</td>
+                </tr>
+            `);
+
+        // Agora temos: funcionariosEmHtml = ["<tr><td>...</td></tr>","<tr><td>...</td></tr>","<tr><td>...</td></tr>"];
+
+        let htmlConcatenado = funcionariosEmHtml.join('');
+
+        // Agora temos: htmlConcatenado = ["<tr><td>...</td></tr><tr><td>...</td></tr><tr><td>...</td></tr>"];            
+
+        let tabela =  document.querySelector("tbody");
+        tabela.innerHTML = htmlConcatenado;
+
+    </script>
+</body>
+</html>
+Trabalho realizado! :)
 *******************
 11-
 *******************
