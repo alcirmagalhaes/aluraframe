@@ -793,7 +793,49 @@ Vamos selecionar o <tbody> e preencher seu conteúdo, utilizando a propriedade .
 </html>
 Trabalho realizado! :)
 *******************
-11-
+11-Exercicio - Dominando o map
+Qual das funções abaixo aproveita-se dos recursos da função map para obter arrays com os valores dobrados, com valores pela metade e com raiz quadrada de todos os números abaixo, mantendo a ordem apresentada:
+
+let numeros = [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121];
+Alternativa correta
+let dobro = numeros.map((num) {
+    num * 2;
+});
+let metade = numeros.map((num) {
+    num/2;
+});
+let raiz = numeros.map((num) {
+    Math.sqrt(num);
+});
+
+Alternativa correta
+let dobro = numeros.map(function(num) {
+    return num * 2;
+});
+let metade = numeros.map(function(num) {
+    return num/2;
+});
+let raiz = numeros.map(function(num) {
+    return Math.sqrt(num);
+});
+
+Cada map recebe uma função como parâmetro, e em cada uma dessas funções, utilizamos um parâmetro que é o elemento de cada índice da array que deverá ser retornado em cada iteração.
+
+Alternativa correta
+let dobro = numeros.map(return num * 2);
+let metade = numeros.map(return num/2);
+let raiz = numeros.map(return Math.sqrt(num));
+
+Alternativa correta
+let dobro = numeros.map((num) {
+    return num * 2;
+});
+let metade = numeros.map((num) {
+    return num/2;
+});
+let raiz = numeros.map((num) {
+    return Math.sqrt(num);
+});
 *******************
 12-
 *******************
