@@ -523,9 +523,24 @@ Opinião do instrutor
 
 É sempre bom aprender mais um novo detalhe, não é mesmo? :)
 *******************
-09-
+09-Reduce com arrow function
+Demostre seu conhecimento de ES6 reescrevendo o exemplo da função reduce, do exercício anterior, utilizando uma arrow function no lugar da função tradicional.
+
+Aqui está ela, para você não precisar voltar:
+
+numeros.reduce(function(total,num) {
+    return total * num;
+}, 1);
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Refatorando o reduce com uma arrow function, ele deve ficar assim:
+
+numeros.reduce((total, num) => total * num , 1);
+Mais uma vez podemos ver um exemplo aonde uma arrow function deixou o código mais elegante. Continue praticando seu uso que logo logo você ficará especialista nessa feature do ES6!
 *******************
-11-
+10-
 *******************
 11-
 *******************
