@@ -297,7 +297,71 @@ Facilitamos a leitura do código. Fizemos a declaração do template.
 
 A seguir, trabalharemos com a tag <tfoot>, com a qual criaremos o rodapé.
 *******************
-04-
+04-Totalizando o volume em nosso Template
+Vamos trabalhar com o rodapé... Atualmente, o método _template() está assim:
+
+_template(model)
+
+    return `
+    table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>DATA</th>
+                        <th>QUANTIDADE</th>
+                        <th>VALOR</th>
+                        <th>VOLUME</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    ${model.negociacoes.map(n => `
+
+                          <tr>
+                            <td>${DateHelper.dataParaTexto(n.data)}</td>
+                            <td>${n.quantidade}</td>
+                            <td>${n.valor}</td>
+                            <td>${n.volume}</td>
+                          </tr>
+
+                      `)join('')
+                    }
+                </tbody>
+
+                <tfoot>
+                </tfoot>
+
+         </table>
+        `;
+      }
+Para totalizarmos o volume, adicionaremos a tag <td> dentro da <tfoot>:
+
+<tfoot>
+    <td colspan="3"></td>
+    <td>0</td>
+</tfoot>
+Observe que utilizamos a colspan com o valor 3, assim teremos três colunas. Usamos também uma <td> que tem o valor igual a 0. Mas se executarmos o código agora, ainda não será totalizado o volume.
+
+volume 0
+
+Para totalizar, poderíamos usar o forEach() e somar cada volume da negociação com uma variável.
+
+<tfoot>
+    <td colspan="3"></td>
+    <td>${
+        (function() {
+
+            let total = 0;
+            model.negociacoes.forEach(n => total+= n.volume);
+            return total;
+       })()
+      }
+    </td>
+</tfoot>
+Porém, dentro da expressão, precisamos retornar um valor. Só que quando usamos uma instrução, não podemos adicionar uma sequência de instruções. Seremos espertos e adicionaremos uma função dentro do $. Utilizaremos uma Immediately-invoked function expression (IIFE) ou a função imediata. Trata-se de um recurso usado na criação de escopo em JavaScript, que nos ajudará a colocar um bloco na expressão, sendo executado imediatamente. No caso, o $ receberá o total.
+
+tabela com o volume total
+
+Se testarmos no navegador, já será exibido o total do volume. Mas depois dessa "gambiarra", o código não ficou bonito. É possível fazer a ação de totalização de outra maneira funcional. Veremos mais adiante.
 *******************
 05-
 *******************
