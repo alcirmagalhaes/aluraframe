@@ -739,5 +739,18 @@ Opinião do instrutor
 
 O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
 *******************
-12-
+12-Preparado para o próximo módulo?
+PRÓXIMA ATIVIDADE
+
+Congratulações! Você está prestes a terminar o primeiro módulo do curso. Assim que clicar em "Continuar", será exibido o link para começar o segundo módulo. Nele você aprenderá a criar sua própria solução de data binding, proxy e promises e praticará ainda mais o que aprendeu neste primeiro módulo!
+
+Aqui está o projeto completo deste módulo!
+
+Sucesso e bom estudo!
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Continue seus estudos com o segundo módulo deste treinamento clicando aqui.
 *******************
