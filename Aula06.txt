@@ -565,7 +565,34 @@ Será que herança também tem desvantagens? Como qualquer coisa na vida, sempre
 
 No blog da Caelum, temos um artigo sobre esse assunto Herança vs Composição, chamado Como não aprender orientação a objetos: Herança. O artigo foca no Java, mas mesmo assim vale a leitura.
 *******************
-08-
+08-Modelando uma Conta
+Crie uma classe chamada Conta. Ela terá apenas um atributo: o saldo. Passe o atributo no construtor e crie também um getter para a propriedade.
+
+Além disso, defina o método atualiza, na classe Conta, que recebe um parâmetro taxa.
+
+Dentro do método atualiza, jogue uma exceção para garantir que ninguém chame o método sem ter uma filha em mãos.
+
+Não é necessário criar outra classe que herde de Conta por enquanto, a ideia aqui é apenas focar o design da classe.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O método atualiza deve ser sobrescrito pelas filhas da classe Conta por isso, criamos uma exceção nele. No próximo exercício vamos realmente criar as filhas da classe Conta:
+
+class Conta {
+
+    constructor(saldo) {
+        this._saldo = saldo;
+    }
+
+    get saldo() {
+        return this._saldo;
+    }
+
+    atualiza(taxa) {
+        throw new Error('Você deve sobrescrever o método ');
+    }
 *******************
 09-
 *******************
