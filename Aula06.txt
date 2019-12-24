@@ -538,7 +538,32 @@ Opinião do instrutor
 
 Não havia problema nenhum com o código que fiz com vocês durante o vídeo, porém era um código desnecessário naquele contexto. Aliás, isso acabou expandindo ainda mais o nosso conhecimento sobre classes com ES2015!
 *******************
-07-
+07-Exercicio - Vantagem da herança
+Qual vantagem da herança conseguimos identificar no vídeo?
+
+Alternativa correta
+Reutilização do código
+
+Alternativa correta
+Composição
+
+Alternativa correta
+Binding
+
+Alternativa correta
+Polymorfismus
+
+Dependendo da linguagem de programação, utilizar a herança pode trazer mais de uma vantagem. Em nosso código, com certeza, reutilização de código é uma delas.
+
+No nosso projeto, aproveitamos a herança para reutilizar código da classe mãe nas filhas. Cada filha já sabe atualizar o modelo através do método update, que herdou da classe View.
+
+var view = new NegociacoesView($('#negociacoesView'));
+e
+
+var view = new MensagemView($('#mensagemView'));
+Será que herança também tem desvantagens? Como qualquer coisa na vida, sempre têm dois lados da moeda. Herança define um relacionamento forte entre mãe e filha. Qualquer mudança na mãe pode causar um impacto nas filhas. Nem sempre isso é fácil de enxergar e pode quebrar o nosso código. Além disso, pode surgir situações onde você gostaria de colocar algum código na classe mãe mas nem todas as filhas precisam dele.
+
+No blog da Caelum, temos um artigo sobre esse assunto Herança vs Composição, chamado Como não aprender orientação a objetos: Herança. O artigo foca no Java, mas mesmo assim vale a leitura.
 *******************
 08-
 *******************
