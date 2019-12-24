@@ -656,7 +656,36 @@ conta2.atualiza(3);
 console.log(conta1.saldo); //202
 console.log(conta2.saldo); //306
 *******************
-10-
+10-Classes abstratas, tem como?
+Repare que a nossa classe View possui um método que deve ser reescrito pelas classes filhas:
+
+class View {
+
+   //construtor omitido
+
+    template(model) {
+         throw new Error('Você deve sobrescrever este método em seu template');
+    }
+
+   //método update omitido
+}
+Já que esse método não funciona sem ter um filho será que faz sentido criar um objeto da classe View? Por exemplo:
+
+var view = new View(elemento); //faz sentido?
+view.template(model); //joga uma exceção
+Criamos a classe View apenas para reutilizar o código mas não deveria ter um objeto concreto dela! No mundo OO, essas classes que foram criadas para não ter instancias delas, são chamadas de classes abstratas. Ideal seria proibir criar um objeto da classe View, não?
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+No JavaScript ( ECMAScript) não há uma forma de evitar alguém dar new na classe View, no entanto isso existe no TypeScript. A linguagem TypeScript que se baseia no JavaScript, já possui vários recursos que ainda não existem no JavaScript, incluindo classes abstratas.
+
+Resumindo, com TypeScript poderíamos usar a palavra chave abstract que proíbe instanciar objetos dessa classe, por exemplo:
+
+abstract class View {
+
+}
 *******************
 11-
 *******************
