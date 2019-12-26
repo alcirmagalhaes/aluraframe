@@ -12,4 +12,9 @@ class ListaNegociacoes{
         //para evitar a alterção da original.
         return [].concat(this._negociacoes);
     }
+
+    esvazia() {
+
+        this._negociacoes = [];
+    }
 }
