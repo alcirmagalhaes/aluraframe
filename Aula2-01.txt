@@ -359,5 +359,14 @@ As arrow functions possuem um escopo léxico, enquanto as funções padrões tê
 
 Nos exercícios, você terá a chance de praticar o conteúdo trabalhado, mas vale ressaltar que poluir o modelo com esse código de infraestrutura não é uma boa ideia. Atacaremos tal questão na próxima seção do curso, e descobriremos como disparar atualizações na View sem colocar "armadilhas". No entanto, os conceitos abordados aqui já devem estar bem consolidados. Vamos praticar!
 ************
-06-
+06-Você fez PARTE 1 antes?
+ocê precisa ter feito a Parte 1 antes. Caso ainda não tenha feito, comece já o treinamento aqui.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+E aí, preparado? Sucesso e bom estudo!
+************
+07-
 ************
