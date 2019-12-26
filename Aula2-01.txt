@@ -611,5 +611,57 @@ class Relogio {
 var relogio = new Relogio();
 Assim, ao alterar o valor de this._segundos, estamos ainda no contexto de Relogio e o valor é acrescido corretamente. E deste modo o código ficou ainda mais sucinto!
 ************
-10-
+10-Exercicio - Mais um pouco de arrow function!
+Temos o seguinte objeto criado literalmente usando {}:
+
+<script>
+    let carro = {
+        velocidade: 100,
+        acelera :function() {
+            console.log(this);
+            console.log(`Carro a ${this.velocidade} km por hora!`);
+        }
+    };
+    carro.acelera();
+</script>
+Perfeito, quando chamamos carro.acelera(), é exibida a mensagem "Carro a 100 km por hora!".
+
+Será que podemos atribuir uma arrow function para a propriedade acelera? Vamos tentar:
+
+<script>
+    let carro = {
+        velocidade: 100,
+        acelera : () =>  {
+            console.log(this);
+            console.log(`Carro a ${this.velocidade} km por hora!`);
+        }
+    };
+    carro.acelera();
+</script>
+Levando em consideração este último código, qual será o resultado exibido no console do seu Chrome?
+
+Alternativa correta
+Object {velocidade: 100}
+
+Carro a undefined km por hora!
+
+Alternativa correta
+Window {external: Object, chrome: Object, document: document, speechSynthesis: SpeechSynthesis, caches: CacheStorage…}
+
+Carro a 100 km por hora!
+
+Alternativa correta
+Object {velocidade: 100}
+
+Carro a 100 km por hora!
+
+Alternativa correta
+Window {external: Object, chrome: Object, document: document, speechSynthesis: SpeechSynthesis, caches: CacheStorage…}
+
+Carro a undefined km por hora!
+
+Como escrevemos nosso código dentro da tag script, não estamos dentro de um método ou de outra função, estamos no escopo de window, ou seja, o escopo global. Lembre-se que o this de uma arrow function é léxico, isto é, estático e pega emprestado seu valor do ambiente no qual foi declarado. Como o this naquele ponto em que a arrow function foi declarada é window, seu valor será window. É claro que o escopo global não possui a propriedade velocidade. Veja que este é um exemplo no qual a arrow function atrapalha e que o uso de uma function tradicional é o mais indicado. O this de uma function é dinâmico e muda de acordo com o contexto de evocação da função. Como nossa função está sendo chamada a partir de um objeto, por padrão, o this dessa função será o objeto.
+
+************
+11-
 ************
