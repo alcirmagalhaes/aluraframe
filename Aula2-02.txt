@@ -573,5 +573,34 @@ var objeto = {
 }
 Assim conseguimos enxugar um pouco mais o código, aproveitando essa feature do ES2015.
 *****************
-11-
+11-Exercicio - Vantagens do Proxy
+Sobre o padrão de projeto Proxy, podemos afirmar que:
+
+1) Ele é útil quando queremos deixar os nossos modelos mais limpos, sem várias armadilhas penduradas nos seus métodos. Por exemplo, evitando pendurar um código de infraestrutura em nossos modelos.
+
+2) Ele modifica o objeto original, enxertando nele todo aquele código que desejamos executar.
+
+3) Ele serve como um placeholder de um objeto real, servindo como uma interface para o objeto que queremos interagir, nos permitindo controlar o acesso às suas propriedades e métodos.
+
+Alternativa correta
+Apenas as afirmativas 1 e 2 são corretas.
+
+
+Quando usamos o Proxy, não modificamos o objeto real.
+
+Alternativa correta
+Apenas a afirmativa 1 é correta.
+
+
+Alternativa correta
+Apenas as afirmativas 2 e 3 são corretas.
+
+
+Alternativa correta
+Apenas as afirmativas 1 e 3 são corretas.
+
+
+O padrão de projeto Proxy nada mais é do que um objeto "falso", "mentiroso", que envolve e encapsula o objeto real que queremos interagir. É como se fosse uma interface, entre o objeto real e o resto do código. Conseguimos assim controlar o acesso aos seus atributos e métodos. Nele também podemos pendurar códigos que não cabem de estar alocados nos nossos modelos, mas que necessitam ser executados no caso de uma alteração ou atualização do mesmo.
+*****************
+12-
 *****************
