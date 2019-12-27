@@ -815,5 +815,18 @@ let funcionarioProxy = new Proxy(funcionario,  {
 funcionarioProxy.email = 'aaa@aaa.com';
 A diferença é que essa última solução altera diretamente o valor o objeto encapsulado. A primeira forma, com Reflect.set sempre deve retornar um valor, que é uma função que será chamada para realizar a operação de atribuição. Por enquanto, podemos usar uma ou outra forma que o resultado será o mesmo.
 *****************
-17-
+17-Um esclarecimento extra é sempre bom!
+Durante o vídeo, para explicar como executar uma armadilha quando uma propriedade for modificada, eu usei como exemplo uma instância da classe Negociacao. Contudo, nossa classe era imutável porque usamos Object.freeze. Sendo assim, o seguinte código não teria efeito:
+
+n1._quantidade = 10;
+n1._valor = 10;
+E realmente não tem, mas ainda sim a armadilha definida no proxy será executada! Resumindo a moral da história: armadilhas serão disparadas mesmo se tentarmos modificar uma propriedade congelada de um objeto, ainda que ele não seja modificado.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+São detalhes que fazem diferença no final!
+*****************
+18-
 *****************
