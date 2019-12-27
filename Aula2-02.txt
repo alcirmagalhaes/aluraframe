@@ -777,5 +777,43 @@ let funcionario = new Proxy(new Funcionario('abc@abc.com'), {
 
 console.log(funcionario.email);
 *****************
-16-
+16-Mais um proxy, agora para lidar escrita!
+Olha o funcionário no formato literal novamente aí gente:
+
+let funcionario = {email: 'abc@abc.com'};
+Crie um proxy que exibe no console o valor da propriedade antes dela ser alterada e o valor novo.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Uma implementação possível:
+
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    set(target, prop, value, receiver) {
+        console.log(`Valor antigo ${target[prop]}, valor atual: ${value}`);
+        return Reflect.set(target, prop, value, receiver);
+    }
+
+});
+funcionarioProxy.email = 'aaa@aaa.com';
+Veja que usamos set no handler passado para o proxy. Além disso, muito cuidado que quando usamos set, a função deve receber quatro parâmetros e não três, como no caso do get.
+
+Poderíamos conseguir o mesmo resultado desta forma:
+
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    set(target, prop, value, receiver) {
+        console.log(`Valor antigo ${target[prop]}, valor atual: ${value}`);
+        target[prop] = value;
+    }
+
+});
+funcionarioProxy.email = 'aaa@aaa.com';
+A diferença é que essa última solução altera diretamente o valor o objeto encapsulado. A primeira forma, com Reflect.set sempre deve retornar um valor, que é uma função que será chamada para realizar a operação de atribuição. Por enquanto, podemos usar uma ou outra forma que o resultado será o mesmo.
+*****************
+17-
 *****************
