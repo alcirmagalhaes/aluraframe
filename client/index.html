@@ -62,15 +62,17 @@
     </script>
     <script>
         //proxy negociação
-        let negociacao = new Proxy( new Negociacao(new Date(), 2 , 50), {
+        let lista = new Proxy( new ListaNegociacoes(), {
             set: function (target, prop, value, receiver) {
 
                 console.log(`Valor anterior: ${target[prop]},  Novo valor: ${value}`);
                 return Reflect.set(target, prop, value, receiver);
             }
         });
-        negociacao._quantidade = 100;
-        negociacao._valor = 10;
+        //nao funcionou
+        lista.adiciona(new Negociacao(new Date(), 2, 22));
+        //funcionou
+        lista.esvazia();
     </script>
     
 
