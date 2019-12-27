@@ -550,5 +550,28 @@ Então, o código está funcionando. Nós tivemos que aprender a lidar com as pa
 
 Por enquanto, só brincaremos com o listaNegociacoes. A seguir, vamos aplicar um outro padrão de projeto que nos ajudará bastante na criação de um Proxy. Mas a forma de se trabalhar internamente já foi apresentada.
 *****************
-10-
+10-Truque com ES2015
+Sabemos que podemos declarar um objeto JavaScript com propriedades que podem armazenar funções (uma função que pertence ao objeto podemos chamar de método). Por exemplo:
+
+var objeto = {
+    exibeMensagem : function(){
+        console.log("Olá");
+    }
+};
+Neste capítulo, aprendemos um modo de reescrever este mesmo código acima, só que de modo mais sucinto. Você consegue lembrar como era?
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Com o ES2015 , podemos reescrever aquele código da seguinte maneira:
+
+var objeto = {
+    exibeMensagem() {
+        console.log("Olá");
+    }
+}
+Assim conseguimos enxugar um pouco mais o código, aproveitando essa feature do ES2015.
+*****************
+11-
 *****************
