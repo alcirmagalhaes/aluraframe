@@ -5,8 +5,9 @@ class ListaNegociacoes{
     }
 
     adiciona(negociacao) {
-       
-        this._negociacoes.push(negociacao);
+        //gambiarra para funcionar (baixa performance)
+        this._negociacoes = [].concat(this._negociacoes, negociacao);
+        //this._negociacoes.push(negociacao);
     }
 
     get negociacoes(){
