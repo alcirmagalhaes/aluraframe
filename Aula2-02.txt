@@ -867,5 +867,30 @@ Veja que usamos set no handler passado para o proxy. Além disso, muito cuidado 
 
 Reparou que a mensagem do proxy é exibida duas vezes? É que email é um setter. Nosso proxy irá executar seu código quando o setter for chamado e também para a propriedade _email, que é modificada pelo setter.
 *****************
-19-
+19-Arguments
+Aprendemos lá no jardim de infância em JavaScript a passar parâmetros para funções e métodos. Vejamos um exemplo:
+
+function exibeNomeCompleto(nome, sobrenome) {
+
+  alert(`${nome} ${sobrenome}`);
+}
+
+exibeNomeCompleto('Flávio', 'Almeida');
+Contudo, podemos conseguir o mesmo resultado sem passar parâmetros para a função:
+
+function exibeNomeCompleto() {
+
+  alert(`${arguments[0]} ${arguments[1]}`);
+}
+
+exibeNomeCompleto('Flávio', 'Almeida');
+Por mais que nossa função não receba parâmetros, podemos ter acesso aos parâmetros passados com arguments. É uma variável implícita que nos dá acesso a todos os parâmetros passados para a função ou método. É claro que a primeira forma, nomear os parâmetros da função, é menos verbosa e mais legível. Mas há muitos hacks em JavaScript que podem fazer uso de arguments.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Inclusive em nossa solução de proxy para interceptar métodos tivemos que recorrer ao arguments!
+*****************
+20-
 *****************
