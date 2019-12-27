@@ -663,5 +663,348 @@ Carro a undefined km por hora!
 Como escrevemos nosso código dentro da tag script, não estamos dentro de um método ou de outra função, estamos no escopo de window, ou seja, o escopo global. Lembre-se que o this de uma arrow function é léxico, isto é, estático e pega emprestado seu valor do ambiente no qual foi declarado. Como o this naquele ponto em que a arrow function foi declarada é window, seu valor será window. É claro que o escopo global não possui a propriedade velocidade. Veja que este é um exemplo no qual a arrow function atrapalha e que o uso de uma function tradicional é o mais indicado. O this de uma function é dinâmico e muda de acordo com o contexto de evocação da função. Como nossa função está sendo chamada a partir de um objeto, por padrão, o this dessa função será o objeto.
 
 ************
-11-
+11-E tem espaço para self?
+Neste capítulo você aprendeu gradativamente como resolver o problema do contexto de invocação da nossa armadilha passada para nosso modelo. A primeira solução foi passar o contexto de invocação como parâmetro e usar a mágica de Reflect.apply para alterar o contexto de invocação:
+
+class NegociacaoController {
+
+    constructor() {
+
+        // código anterior omitido
+
+        this._listaNegociacoes = new ListaNegociacoes(this, function(model) { 
+
+            this._negociacoesView.update(model);
+        });
+    }
+
+    // código posterior omitido
+}
+Depois, aprendemos que o uso de uma arrow function resolvia essa questão, porque o valor de seu this é definido no local onde ela é declarada em nosso código e seu valor não muda (diferente do this de uma function que é dinâmico). Sendo assim, o this da nossa armadilha será a instância de NegociacaoController:
+
+class NegociacaoController {
+
+    constructor() {
+
+        // código anterior omitido
+
+        this._listaNegociacoes = new ListaNegociacoes(model => 
+            this._negociacoesView.update(model));
+    }
+
+    // código posterior omitido
+}
+Essa solução evitou passarmos mais um parâmetro em nosso modelo, o contexto de invocação e ficou mais compacta e elegante.
+
+Contudo, há ainda uma terceira solução, mas envolve a declaração de uma variável extra. Podemos guardar uma referência para a instância de NegociacaoController em uma variável. Geralmente essa variável é chamada de self:
+
+class NegociacaoController {
+
+    constructor() {
+
+        // a variável self guarda uma referência para this, instância de NegociacaoController
+
+        let self = this;
+
+        // aqui usei uma function tradicional, mas poderia ser uma arrow function também
+
+        this._listaNegociacoes = new ListaNegociacoes(function(model) { 
+            self._negociacoesView.update(model);
+        });
+    }
+
+    // código posterior omitido
+}
+Quando nossa armadilha for executada, o self será nosso NegociacaoController.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Eu prefiro usar a solução da arrow function porque evita o uso dessa variável auxiliar e claro, nosso código fica menos verboso.
+************
+12-Revisando Reflect.apply
+Esse é mais um exercício de revisão. Não é necessário respondê-lo, no entanto praticar esse código vale a pena.
+
+Temos dois objetos criados de maneira literal por uma questão de brevidade, mas que poderiam ser instâncias de uma classe:
+
+let objeto1 = {
+
+    nome: 'Bob'
+};
+
+let objeto2 = {
+
+    nome: 'Leo'
+}
+Temos a seguinte função:
+
+function exibeNome() {
+
+    alert(this.nome);
+}
+O que acontecerá se chamarmos exibeNome? O resultado será undefined, porque o this da função, ou seja, seu contexto não possui a propriedade nome.
+
+Agora, que tal chamarmos a função exibeNome, mas indicando que seu contexto de execução será objeto1? Vejamos:
+
+Reflect.apply(exibeNome, objeto1, []); // exibe 'Bob'
+O resultado será o alerta sendo exibido com o texto Bob. Podemos executar a função agora fazendo com que o seu this (contexto) seja objeto2:
+
+Reflect.apply(exibeNome, objeto2, []); // exibe 'Leo'
+Como Reflect.apply funciona? O primeiro parâmetro é o método ou função que desejamos invocar. O segundo parâmetro é o contexto que o método ou função adotará, ou seja, o valor que será assumido pelo this. Por fim, o último parâmetro é um array que contém todos os parâmetros que o método passado como primeiro parâmetro receberá. Como ele não recebe parâmetro nenhum, passamos um array vazio.
+
+Vamos alterar nossa função para receber dois parâmetros. O primeiro será um prefixo que será adicionando no nome e o último um sufixo:
+
+function exibeNome(prefixo, sufixo) {
+
+    alert(prefixo + this.nome + sufixo);
+}
+Agora, vamos chamar o método através de Reflect.apply:
+
+Reflect.apply(exibeNome, objeto1, ['(', ')']); // exibe '(Bob)'
+Veja que agora estamos passando dois parâmetros para o método.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Usaremos Reflect.apply em outras ocasiões, e toda revisão é bem-vinda!
+************
+13-Reutilização de código com Composição e Mixin
+Esse exercício é de apenas reflexão. Você pode executar seu código se assim desejar.
+
+Temos as seguintes classes:
+
+<!-- troca-troca.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p class="info">Era uma vez...</p>
+    <script>
+
+        class Aviao {
+
+            constructor(nome) {
+                this._nome = nome;
+            }
+
+            voa() {
+                alert(`${this._nome} está voando`);
+            }
+
+            ligaMotor() {
+                console.log('liga o motor');
+            }
+
+            fechaPortas() {
+                console.log('Portas sendo fechadas');
+            }
+        }
+
+        class Passarinho {
+
+            constructor(nome) {
+                this._nome = nome;
+            }
+
+            voa() {
+                // hum..precisamos implementar esse método também!
+            }
+        }
+
+    </script>
+</body>
+</html>
+Veja que o método voa de Passarinho não esta completo. Podemos até usar herança e herdar de Aviao, mas com certeza um passarinho não ligaMotor nem fechaPortas. Não podemos usar herança porque Passarinho não é um Aviao.
+
+Reutilização de código através de composição
+Uma maneira de solucionar esse problema é usar composição no lugar de herança. Na composição, a classe que deseja usar o método de outra possui uma instância dessa classe. Por mais que a instância tenha vários métodos, só chamamos aqueles que nos interessa:
+
+Alterando nosso código para usar composição:
+
+<!-- troca-troca.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p class="info">Era uma vez...</p>
+    <script>
+
+        class Aviao {
+
+            constructor(nome) {
+                this._nome = nome;
+            }
+
+            voa() {
+                alert(`${this._nome} está voando`);
+            }
+
+            ligaMotor() {
+                console.log('liga o motor');
+            }
+
+            fechaPortas() {
+                console.log('Portas sendo fechadas');
+            }
+        }
+
+        class Passarinho {
+
+            constructor(nome) {
+                this._nome = nome;
+                // guarda uma instância de avião
+                this._aviao = new Aviao(nome);
+            }
+
+            voa() {
+                // usa o método voa de Aviao
+                this._aviao.voa();
+            }
+        }
+
+    </script>
+</body>
+</html>
+Nessa solução, quem usa a instância da classe Passarinho nem sabe que o método voa usa por debaixo dos panos uma instância de Aviao para funcionar. Veja que a composição tem a vantagem de podermos escolher quais métodos queremos reaproveitar, diferente da herança que é tudo ou nada. Contudo, veja que com composição precisamos escrever um pouco mais, pois temos que delegar as chamadas dos métodos voa de Passarinho para o voa de avião.
+
+Ainda há outra forma de resolver este problema sem usar herança nem composição, mas usando mixin!
+
+Reutilização de código através de mixin!
+Com mixin podemos "pegar emprestado" o método de outra classe sem termos que ter uma instância dessa classe como é o caso de composição.
+
+Vamos alterar a classe Passarinho removendo a instância de Aviao:
+
+<!-- troca-troca.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <p class="info">Era uma vez...</p>
+    <script>
+
+        class Aviao {
+
+            constructor(nome) {
+                this._nome = nome;
+            }
+
+            voa() {
+                alert(`${this._nome} está voando`);
+            }
+
+            ligaMotor() {
+                console.log('liga o motor');
+            }
+
+            fechaPortas() {
+                console.log('Portas sendo fechadas');
+            }
+        }
+
+        class Passarinho {
+
+            constructor(nome) {
+                this._nome = nome;
+            }
+
+            voa() {
+                // executa o método `voa` de `Avião` usando como contexto a instância de `Passarinho`
+                Reflect.apply(Aviao.prototype.voa, this, []);
+            }
+        }
+
+    </script>
+</body>
+</html>
+Olha ai o Reflect.apply novamente! Nesta linha de código estamos querendo executar o método voa da classe Aviao, mas usando como contexto o this da instância de Passarinho. O último parâmetro é um array que contém os parâmetros do método. Como voa não recebe parâmetro algum, passamos um array vazio.
+
+Um detalhe: foi necessário fazer Aviao.prototype.voa porque métodos criados usando ES6 são adicionados no prototype. Qualquer método adicionado em prototype estará disponível para todas as instâncias.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Reflect é um artefato novo do ES2015! Contudo, poderíamos conseguir o mesmo resultado dessa forma:
+
+// No ES5
+voar() {
+    Aviao.prototype.voa.apply(this, []);
+}
+Essa solução é menos verbosa, mas a ideia do ES2015 foi centralizar operações como essa em Reflect e com o tempo esse deve se tornar o método mais indicado para realizar operações como essa.
+************
+14-Function.apply vs Reflect.apply
+Aprendemos a alterar o contexto de execução de uma função/método através de Reflect.apply. Vejamos um trecho de código que faz isso:
+
+class ListaNegociacoes {
+
+    constructor(contexto, armadilha) {
+        this._negociacoes = [];
+        this._armadilha = armadilha;
+        this._contexto = contexto;
+    }
+
+    adiciona(negociacao) {
+        this._negociacoes.push(negociacao);
+        Reflect.apply(this._armadilha, this._contexto, [this]);
+    }
+
+    get negociacoes() {
+        return [].concat(this._negociacoes);
+    }
+
+    esvazia() {
+        this._negociacoes = [];
+        Reflect.apply(this._armadilha, this._contexto, [this]);
+    }
+}
+O artefato Reflect é algo novo do ES6, contudo poderíamos conseguir com ES5 o mesmo resultado, assim:
+
+class ListaNegociacoes {
+
+    constructor(contexto, armadilha) {
+        this._negociacoes = [];
+        this._armadilha = armadilha;
+        this._contexto = contexto;
+    }
+
+    adiciona(negociacao) {
+        this._negociacoes.push(negociacao);
+        this._armadilha.apply(this._contexto, [this]);
+    }
+
+    get negociacoes() {
+        return [].concat(this._negociacoes);
+    }
+
+    esvazia() {
+        this._negociacoes = [];
+        this._armadilha.apply(this._contexto, [this]);
+    }
+}
+Veja que estamos chamando o método apply, mas diretamente na função atribuída à propriedade this._armadilha. O resultado é o mesmo quando usamos Reflect.apply.
+
+Apesar de um pouco menos verbosa, a ideia é que operações como essa sejam feitas através de Reflect, pois é uma primeira tentativa da linguagem JavaScript de centralizar funcionalidades como vimos em um único lugar.
+
+Achei interessante mostrar como esse procedimento é feito no ES5 para que o aluno entenda que o ES6, além de trazer muitas novidades, procura padronizar bastante coisa da própria linguagem.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+ES6 não veio criar apenas novas funcionalidades, ele veio também padronizar o que já existia.
+************
+15-O padrão de projeto Observer
+************
+16-
 ************
