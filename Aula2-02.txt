@@ -687,5 +687,43 @@ let funcionarioProxy = new Proxy(funcionario,  {
 console.log(funcionarioProxy.email);
 Há uma ligeira diferença entre as duas. Na primeira, get retorna uma função que é invocada para obter o valor da propriedade original, na segunda, o valor é retornado diretamente. Entenda que Reflect.get cria algo semelhante a uma getter. Você ainda lembra que um getter é uma espécie de função?
 *****************
-14-
+14-Proxy modificando retorno de método
+Temos mais uma vez o seguinte objeto literal:
+
+let funcionario = {email: 'abc@abc.com'};
+Desta vez, imprima a mensagem "Armadilha aqui!", além disso, modifique o retorno do getter, fazendo-o retornar o email, começando e terminando com dois asteriscos. Por exemplo, se fizermos:
+
+console.log(funcionario.email);
+Queremos que saia no console:
+
+**abc@abc.com**
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Temos a seguinte implementação. Veja que ele concatena os asteriscos com o retorno de Reflect.get, aquele que efetivamente executa a operação de leitura no objeto real. Ou seja, nosso proxy executa a leitura no objeto original e devolve para quem chamou o próprio proxy o valor concatenado com asteriscos:
+
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return '**' + Reflect.get(target, prop, receiver) + '**' ;        
+    }
+
+});
+console.log(funcionarioProxy.email);
+Agora, podemos evitar a declaração da variável funcionarioProxy desta forma:
+
+funcionario = new Proxy({email: 'abc@abc.com'},  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return '**' + Reflect.get(target, prop, receiver) + '**' ;        
+    }
+
+});
+console.log(funcionario.email);
+*****************
+15-
 *****************
