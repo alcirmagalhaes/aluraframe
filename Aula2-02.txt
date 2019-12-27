@@ -892,5 +892,84 @@ Opinião do instrutor
 
 Inclusive em nossa solução de proxy para interceptar métodos tivemos que recorrer ao arguments!
 *****************
-20-
+20-Exercicio - Proxy Intercepta métodos?
+Temos a seguinte declaração de classe:
+
+class Pessoa {
+
+    constructor(nome) {
+        this._nome = nome;
+    }
+
+    get nome() {
+        return this._nome;
+    }
+
+    set nome(nome) {
+        this._nome = nome;
+    }
+
+    grita(frase) {
+            return `${this._nome} grita ${frase}`;
+    }
+}
+Criando uma instância e chamando o método grita:
+
+let pessoa = new Pessoa('Barney');
+pessoa.grita('Olá');
+E se quisermos interceptar a chamada do método grita? A má notícia é que toda proxy criada, por padrão, não esta preparada para interceptar métodos (getters e setters são exceções a este problema). Essa limitação ocorre porque sempre que um método de um objeto (que não deixa de ser uma propriedade que armazena uma função) é chamado, primeiro é realizado uma operação de leitura (get, do nosso handler da proxy) e depois os parâmetros são passados através de Reflect.apply. O problema é que, como o método é interceptado pelo get do handler passado para a proxy, não temos acesso aos seus parâmetros. E agora?
+
+Uma solução é implementar o seguinte código:
+
+let pessoa = new Proxy(new Pessoa('Barney'), {
+
+        get(target, prop, receiver) {
+            if(prop == 'grita' && typeof(target[prop]) == typeof(Function)) {
+         // essa função retornada irá substituir o método 'grita' no proxy!!! Ou seja, estamos usando o handler do proxy para modificar o próprio proxy, que loucura!
+                return function() {
+                    console.log(`Método chamado: ${prop}`);    
+                    // Quando usarmos Reflect.apply, Reflect.get e Reflect.set precisamos retornar o resultado da operação com return
+                    // arguments é uma variável implícita que dá acesso à todos os parâmetros recebidos pelo método/função
+                    return Reflect.apply(target[prop], target, arguments);       
+                }
+            }
+            // só executa se não for função
+            return Reflect.get(target, prop, receiver);
+        }
+    });
+
+   pessoa.grita('Olá');
+No código acima, verificamos se a propriedade que está sendo acessada é uma função através de typeof(target[prop]) == typeof(Function)). Se for, trocaremos o valor da propriedade (nosso método) por outra função, e, essa sim, executa nosso código antes de o método ser executado.
+
+Sobre o código anterior, qual o papel de arguments?
+
+Alternativa correta
+Não tem papel algum, ela não foi declarada no código e por isso teremos um erro.
+
+
+Alternativa correta
+A variável arguments é uma variável implícita que pode ser acessada em métodos ou funções. Ele se comporta como um array onde cada posição equivale ao parâmetro que foi passado para o método ou função. Existe desde o ES5!
+
+
+Alternativa correta!
+
+Alternativa correta
+A variável arguments é uma variável implícita que pode ser acessada em métodos ou funções. Ele se comporta como um array em que cada posição equivale ao parâmetro que foi passado para o método ou função. Esse recurso foi adotado a partir do ES6.
+
+
+Na verdade, esse recurso existe desde o ES5!
+
+Vejamos um exemplo:
+
+function geraNomeCompleto() {
+
+    alert(`Nome completo: ${arguments[0]} ${arguments[1]}`);
+}
+
+geraNomeCompleto('Flávio', 'Almeida');
+Apesar de a função não receber parâmetros e estarmos passando dois, não haverá qualquer erro. Inclusive, dentro da função usamos a variável implícita arguments para termos acesso ao primeiro e ao segundo parâmetros passado para a função.
+
+Veja que no código do nosso proxy, como estamos substituindo o método grita por outra função e não sabemos se ela recebe ou não um parâmetro, usamos arguments na função substituta para chamarmos Reflect.apply, garantindo assim que a nova função, quando executada, receba corretamente seus parâmetros logo após executarmos o código que desejarmos (armadilha).
+*****************
+21-
 *****************
