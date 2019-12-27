@@ -1005,6 +1005,28 @@ Opinião do instrutor
 ES6 não veio criar apenas novas funcionalidades, ele veio também padronizar o que já existia.
 ************
 15-O padrão de projeto Observer
+Usamos o padrão de projeto Observer sempre que queremos notificar partes do sistema interessadas quando um evento importante for disparado em nosso sistema.
+
+No contexto da nossa aplicação, entendemos um evento como o ato de adicionar ou esvaziar nossa lista de negociações. É a view que está interessada em observar esse evento e tomar uma ação, no caso, se atualizar com base no estado mais atual do modelo.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Aprenderemos outros padrões de projeto ao longo desse treinamento.
 ************
-16-
+16-Consolidando seu conhecimento
+Hora de praticar, implementando as novas funcionalidades apresentadas no capítulo. Como de costume, segue um resumo dos passos que devem ser executados:
+
+1 - Conceitual: veja que toda vez que alterarmos nosso modelo, precisaremos lembrar de atualizar sua respectiva view. Esse é o caso do modelo ListaNegociacao, que precisa atualizar a view na inclusão de novas negociações e quando apagamos a lista.
+
+2 - Conceitual: uma maneira de solucionar esse problema é passar a estratégia para o constructor dos nossos modelos, ou seja, a função que queremos que ele execute. Mas como ele saberá quando executar cada função? Basta o programador invocar esta função nos métodos da classe que ele deseja que ela seja executada.
+
+3 - Implemente a solução apresentada no vídeo, mas com muita atenção na problemática do this apresentada no vídeo e como Reflect.apply pode nos ajudar.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
 ************
