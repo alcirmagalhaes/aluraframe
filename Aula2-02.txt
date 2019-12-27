@@ -1068,5 +1068,16 @@ let pessoa = new Proxy(new Pessoa('Barney'), {
 
     return Reflect.get(target, prop, receiver);
 *****************
-22-
+22-Consolidando seu conhecimento
+Hora de praticar, implementando as novas funcionalidades apresentadas no capítulo. Como de costume, segue um resumo dos passos que devem ser executados:
+
+1 - Para não precisar lembrar de atualizar a view toda vez que qualquer operação de mudança ocorrer em nosso modelo, nós alteramos ListaNegociacoes e adicionamos armadilhas que são executadas quando determinados métodos são chamados. O problema dessa solução é que se quisermos fazer algo parecido com outras classes do nosso modelo precisaremos alterar cada uma delas. Além disso, misturar código de infraestrutura com o modelo não é salutar, porque ele passa a ter responsabilidade demais tornando difícil compreender a abstração do mundo real que ele materializa.
+
+2 - Implemente nesta seção a solução baseada em proxy. Nela, nosso modelo fica intacto, e toda a parte das armadilhas ficam no proxy, que nada mais é do que um cara mentiroso que se faz passar pelo objeto que ele encapsula.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo!
 *****************
