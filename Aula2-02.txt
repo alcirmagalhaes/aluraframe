@@ -602,5 +602,53 @@ Apenas as afirmativas 1 e 3 são corretas.
 
 O padrão de projeto Proxy nada mais é do que um objeto "falso", "mentiroso", que envolve e encapsula o objeto real que queremos interagir. É como se fosse uma interface, entre o objeto real e o resto do código. Conseguimos assim controlar o acesso aos seus atributos e métodos. Nele também podemos pendurar códigos que não cabem de estar alocados nos nossos modelos, mas que necessitam ser executados no caso de uma alteração ou atualização do mesmo.
 *****************
-12-
+12-Exercicio - Target, prop ou receiver ?
+Vejamos o seguinte exemplo:
+
+let pessoa = {
+    nome: 'Flávio'    
+}
+
+let pessoaProxy = new Proxy(pessoa, {
+    get(target, prop, receiver) {
+         //...
+    }
+});
+Como segundo argumento de um proxy, passamos um handler, que é um objeto JavaScript que contém as armadilhas (traps) do nosso Proxy. Neste objeto, podemos criar uma propriedade get e passar para ela uma função com 3 parâmetros.
+
+get(target, prop, receiver) {
+    //...
+}
+Sobre estes 3 parâmetros, qual das afirmativas abaixo é completamente verdadeira?
+
+Alternativa correta
+O target é o objeto real, que é encapsulado pelo proxy.
+
+O prop é a propriedade que está sendo lida.
+
+O receiver é uma referência ao próprio proxy.
+
+
+O target é o objeto real que é encapsulado pela proxy. É este objeto que não queremos "sujar" com armadilhas ou qualquer código que não diga respeito ao modelo.
+
+O prop é a propriedade em si, que está sendo lida naquele momento.
+
+O receiver é a referência ao próprio proxy. É na configuração do handler do Proxy que colocamos armadilhas.
+
+Alternativa correta
+O target é a propriedade alvo do proxy, que ele vai ler.
+
+O prop é o objeto real encapsulado pelo proxy.
+
+O receiver é uma referência ao próprio proxy.
+
+
+Alternativa correta
+O target é uma referência ao proxy.
+
+O prop é a propriedade que está sendo lida.
+
+O receiver é a referência ao objeto que está sendo encapsulado pelo proxy.
+*****************
+13-
 *****************
