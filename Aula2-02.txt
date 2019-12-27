@@ -71,5 +71,61 @@ A boa notícia é que não precisamos implementar esse padrão de projeto.
 
 A partir da versão 2015 do ECMAScript, a própria linguagem já possui um recurso de Proxy. Então, implementaremos o padrão de projeto Proxy usando o ES6.
 *****************
-03-
+03-Aprendendo a trabalhar com o Proxy
+Vamos aprender a trabalhar com o Proxy. Começaremos comentando o código de NegociacaoController, porque ele não está válido devido a remoção da armadilha passada para o construtor.
+
+class NegociacaoController {
+
+    constructor() {
+
+        let $ = document.querySelector.bind(document);
+        this._inputData = $('#data');
+        this._inputQuantidade = $('#quantidade');
+        this._inputValor = $('#valor');
+
+        /*
+        this._listaNegociacoes = 
+            new ListaNegociacoes(model => this._negociacoesView.update(model));
+            */
+//...
+Depois, abriremos o Console no navegador. Veremos uma mensagem de erro, porque a negociação está com problema. Começaremos criando um negociacao:
+
+let negociacao = new Negociacao(new Date(), 1, 100);
+undefined
+let negociacaoProxy = new Proxy(negociacao, {});
+Criaremos um Proxy de negociacao. O segundo parâmetro é um objeto no formato literal {}, em que iremos configurar nossas armadilhas. Em seguida, digitaremos a seguinte linha:
+
+negocicacaoProxy.valor
+100
+Ao acessarmos valor, o retorno será 100. Conseguimos ter acesso a quantidade e volume:
+
+negocicacaoProxy.valor
+100
+negociacaoProxy.quantidade
+1
+negocicacaoProxy.volume
+100
+O Proxy terá exatamente o mesmo comportamento do objeto.
+
+Proxy no console
+
+No entanto, não queremos que ninguém tenha acesso ao objeto real (negociacao), caso contrário, ninguém cairá nas armadilhas. Para isto, executaremos a seguinte linha no Console:
+
+let negociacao = new Proxy(new Negociacao(new Date(), 1, 100), {});
+Neste caso, negociacao é o Proxy:
+
+negociacao é o Proxy
+
+Agora, a única maneira de lidar com a instância de negociação criada é por intermédio do Proxy. Precisamos aprender como passamos o handlers ({}) para colocarmos nossas armadilhas. Adicionaremos outra tag <script> no index.html e depois, colocaremos o código que executamos no Console.
+
+<script>
+
+    let negociacao = new Proxy(new Negociacao(new Date(), 2, 100), {
+
+      });
+
+</script>
+Mais adiante, definiremos o handler.
+*****************
+04-
 *****************
