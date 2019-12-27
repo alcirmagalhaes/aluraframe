@@ -60,28 +60,6 @@
         let negociacaoController = new NegociacaoController();
         
     </script>
-    <script>
-        //proxy negociação
-        let lista = new Proxy( new ListaNegociacoes(), {
-            get: function (target, prop, receiver) {
-                
-                if (['adiciona', 'esvazia'].includes(prop) && typeof(target[prop])==typeof(Function)){
-                    
-                    return function () {
-                        console.log(`interceptando ${prop}`);
-                        Reflect.apply(target[prop], target, arguments);
-                    }
-                }
-                return Reflect.get(target, prop, receiver);
-            }
-        });
-        //nao funcionou
-        lista.adiciona(new Negociacao(new Date(), 2, 22));
-        //funcionou
-        lista.esvazia();
-    </script>
-    
-
     
 </body>
 </html>
