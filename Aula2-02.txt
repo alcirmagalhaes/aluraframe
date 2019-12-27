@@ -650,5 +650,42 @@ O prop é a propriedade que está sendo lida.
 
 O receiver é a referência ao objeto que está sendo encapsulado pelo proxy.
 *****************
-13-
+13-O Primeiro proxy a gente nunca esquece
+Aprendemos neste capítulo a criar proxies, que nada mais são do que objetos mentirosos que encapsulam outros, mais notadamente objetos do nosso modelo. Pense em proxies como "cascas" que envolvem objetos. Dentro desse contexto, só podemos "tocar" os objetos encapsulados passando pelo proxy. É justamente essa característica que torna o uso desse padrão de projeto tão poderoso.
+
+Temos o seguinte objeto literal (aquele criado com chaves):
+
+let funcionario = {email: 'abc@abc.com'};
+Crie um proxy para este objeto, exibindo no console a mensagem "Armadilha aqui", toda vez que a propriedade email for lida.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Uma implementação possível é:
+
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return Reflect.get(target, prop, receiver);
+    }
+
+});
+console.log(funcionarioProxy.email);
+Veja que a instrução a seguir é muito importante: return Reflect.get(target, prop, receiver). É ela que efetivamente realiza a operação no objeto real. Aliás, poderíamos ter conseguido o mesmo resultado da seguinte maneira:
+
+let funcionario = {email: 'abc@abc.com'};
+let funcionarioProxy = new Proxy(funcionario,  {
+
+    get(target, prop, receiver) {
+        console.log('Armadilha aqui!');
+        return target[prop];
+    }
+
+});
+console.log(funcionarioProxy.email);
+Há uma ligeira diferença entre as duas. Na primeira, get retorna uma função que é invocada para obter o valor da propriedade original, na segunda, o valor é retornado diretamente. Entenda que Reflect.get cria algo semelhante a uma getter. Você ainda lembra que um getter é uma espécie de função?
+*****************
+14-
 *****************
