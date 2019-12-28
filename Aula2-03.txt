@@ -387,5 +387,76 @@ class NegociacaoController {
     }
 Não vamos mais manipular a View manualmente, ela será atualizada automaticamente quando o modelo for alterado. Mas precisaremos de um modelo para trabalhar. Quando usamos o new Bind(), associaremos o modelo com a View e o ListaNegociacoes será o Proxy. Então, agora, o código ficou mais enxuto.
 *****************
-05-
+05-Exercicio - Será que cabe na cesta?
+Vimos o parâmetro rest (i.e. resto) nesse capítulo, quando enviamos diversos métodos para serem monitorados no Proxy. Agora, considere que um aluno está tentando usar rest, mas sem sucesso:
+
+// o código abaixo tem um problema, não funciona
+class Cesta{
+    constructor(tipo, [itens...]){
+        //lógica
+    }
+}
+E em algum outro lugar, alguém que cria uma instância da classe Cesta:
+
+let cesta = new Cesta('fruta', ['banana', 'tomate', 'maçã']);
+Vemos que tem algo errado! Como podemos consertar esse código com rest, para que possamos passar infinitas frutas, e no constructor declarar apenas uma variável para elas?
+
+Alternativa correta
+Alteramos o constructor:
+
+constructor(tipo, [...items]) {
+    //lógica
+}
+E chamamos:
+
+let cesta = new Cesta('fruta', 'banana', 'tomate', 'maçã');
+
+Alternativa correta
+Alteramos o constructor:
+
+constructor(tipo, ...items) {
+    //lógica
+}
+E chamamos:
+
+let cesta = new Cesta('fruta', ['banana', 'tomate', 'maçã']);
+
+Alternativa correta
+Alteramos o constructor:
+
+constructor(tipo, items...) {
+    //lógica
+}
+E chamamos:
+
+let cesta = new Cesta('fruta', 'banana', 'tomate', 'maçã');
+
+Alternativa correta
+Alteramos o constructor:
+
+constructor(tipo, ...items) {
+    //lógica
+}
+E chamamos:
+
+let cesta = new Cesta('fruta', 'banana', 'tomate', 'maçã');
+
+.
+
+A resposta correta é: Sim, tomate é uma fruta!
+
+Mas sobre REST, temos que o correto é utilizarmos "..." antes do último parâmetro, e assim tudo que nós passarmos de "extra" será colocado dentro de um array, no nosso caso, itens:
+
+constructor(tipo, ...itens) {
+    //lógica
+}
+E chamamos:
+
+let cesta = new Cesta('fruta', 'banana', 'tomate', 'maçã');
+No final, as variáveis no construtor ficarão:
+
+tipo : 'fruta';
+itens : ['banana', 'tomate', 'maçã'].
+*****************
+06-
 *****************
