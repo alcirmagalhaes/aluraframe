@@ -484,5 +484,51 @@ Todas as afirmativas são verdadeiras.
 
 O padrão de projeto Factory é um dos padrões mais utilizados no desenvolvimento. Ele é mais um da categoria dos patterns responsáveis por criar objetos, como o Builder e o Prototype.
 *****************
-07-
+07-Mais fábrica
+Vamos misturar os conceitos um pouco, afinal isso é um treinamento avançado, certo?
+
+Usamos o padrão Factory para isolar ou encapsular a complexidade da criação do proxy, mas uma fábrica pode fazer mais! Quero dizer que existem outros motivos para usar uma fábrica.
+
+Não sou especialista em bolsa de valores, no entanto sei que, além de ações de uma empresa, existem também opções para comprar. Uma opção dá o direito de comprar ou vender uma determinada ação/índice na bolsa de valores. Opções também são negociadas! Ou seja, além de ações podemos negociar, comprar e vender opções.
+
+Para representar isso no nosso modelo, poderíamos criar duas filhas da classe Negociacao: NegociacaoAcao e NegociacaoOpcao.
+
+
+
+Agora precisamos decidir no nosso código qual das duas classes devemos instanciar! Não vai ter jeito, e em algum lugar precisará ter um if:
+
+var negociacao = null;
+
+let tipoNegociacao = "opcao"; //isso poderia vir de um formulário web
+
+if(tipoNegociacao == "opcao") {
+    negociacao = new NegociacaoOpcao(/*passando params aqui*/);
+} else {
+    negociacao = new NegociacaoAcao(/*passando params aqui*/);
+}
+Nesse exemplo, a decisão é relativamente simples, mas se tivesse mais parâmetros para avaliar? E se a gente precisasse desse if em mais de um lugar?
+
+Onde vamos colocar essa decisão?
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+A resposta é: vamos colocar aquele if dentro de uma factory.
+
+Podemos criar uma classe NegociacaoFactory, que possui um método de criação:
+
+class NegociacaoFactory {
+
+    static create(tipoNegociacao, dados) {
+        if(tipoNegociacao == "opcao") {
+            return new NegociacaoOpcao(dados.data, dados.quantidade, dados.valor);
+        }
+        return new NegociacaoAcao(dados.data, dados.quantidade, dados.valor);
+    }
+}
+
+let n = NegociacaoFactory.create("acao", {'data': new Date(), 'quantidade': 2, 'valor': 34.3});
+Repare que a Factory possui mais uma outra responsabilidade, instanciar NegociacaoAcao ou NegociacaoOpcao. A fábrica decide então qual implementação usar. Para quem chama, isso pouco importa, pois basta saber que recebemos uma Negociacao.
+*****************
+08-
 *****************
