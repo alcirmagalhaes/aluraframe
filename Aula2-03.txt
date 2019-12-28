@@ -566,5 +566,20 @@ Opinião do instrutor
 
 Meditar faz bem, ainda mais quando engrandece uma questão!
 *****************
-10-
+10-Consolidando seu conhecimento 1
+Hora de praticar, implementando as novas funcionalidades apresentadas na seção. Como de costume, segue um resumo dos passos que devem ser executados:
+
+1 - Isole o código que constrói um Proxy e sua complexidade na classe ProxyFactory.
+
+2 - Esconda a construção do Proxy utilizando um objeto Bind.
+
+3 - Altere NegociacaoController para usar as classes que você acabou de criar.
+
+4 - Remova os atributos que representam as views do controller passando direto para o Proxy, afinal, apenas ele deverá manipular a view!
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
 *****************
