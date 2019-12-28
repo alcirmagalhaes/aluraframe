@@ -458,5 +458,31 @@ No final, as variáveis no construtor ficarão:
 tipo : 'fruta';
 itens : ['banana', 'tomate', 'maçã'].
 *****************
-06-
+06-Exercicio - O padrão de projeto Factory
+Sobre o padrão de projeto Factory, julgue as afirmativas abaixo:
+
+1) Ele é utilizado quando precisamos facilitar a criação de um objeto.
+
+2) É ideal quando queremos criar objetos similares, com apenas seus detalhes diferentes, que podemos passar nos argumentos da Factory.
+
+3) É bom para abstrair a criação de um objeto complexo, já que o programador que utilizar a Factory não precisa necessariamente saber como é feita esta operação.
+
+Alternativa correta
+Apenas as afirmativas 1 e 3 são verdadeiras.
+
+
+Alternativa correta
+Apenas as afirmativas 1 e 2 são verdadeiras.
+
+
+Alternativa correta
+Apenas as afirmativas 2 e 3 são verdadeiras.
+
+
+Alternativa correta
+Todas as afirmativas são verdadeiras.
+
+O padrão de projeto Factory é um dos padrões mais utilizados no desenvolvimento. Ele é mais um da categoria dos patterns responsáveis por criar objetos, como o Builder e o Prototype.
+*****************
+07-
 *****************
