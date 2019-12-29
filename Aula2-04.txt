@@ -533,5 +533,138 @@ jQuery I: Domine a biblioteca mais popular do mercado
 jQuery II: Avance na biblioteca mais popular do mercado parte 2
 AngularJS: crie webapps poderosas
 ***********************
-07-
+07-Error-first Callback, nome chique!
+O Error-first Callback, ou errorback, é um padrão que foi adotado no mundo Node.js. Como você já aprendeu, o callback é uma função chamada quando uma tarefa for executada, como uma requisição Ajax ou o acesso ao banco de dados. No entanto, a qualquer momento pode acontecer um erro no processamento e aí vem a questão de como lidar com isso.
+
+A convenção é que cada callback receba sempre o erro no primeiro parâmetro. Na função callback, basta então verificar esse parâmetro para saber se ocorreu um erro ou não!
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Não abordamos Node.js neste treinamento, mas um exemplo não faz mal a ninguém.
+
+Por exemplo, para ler um arquivo com Node.js, podemos escrever o seguinte código:
+
+fs = require('fs');
+fs.readFile('./arquivo.txt', function(erro, dados) {
+    if(erro) {
+        console.log('Um erro ocorreu');
+        return;
+    }
+    console.log(dados);
+});
+Repare que a função readFile recebe como segundo parâmetro o callback, que por sua vez tem dois parâmetros: o erro e os dados; e dentro do callback testamos o erro!
+***********************
+08-Que tal enviar dados para o servidor?
+Durante o treinamento, lidamos apenas com requisições do tipo GET, porque eu pressupunha que você já conhecia o XMLHttpRequest. Contudo, para dar um brilho ainda maior em sua experiência, vamos praticar um pouquinho mais. Desta vez, realizaremos uma requisição do tipo POST para enviar dados para o servidor. Só fique atento com a volatilidade dos dados cadastrados, isto é, se você reiniciar o servidor, perderá os dados enviados. Aliás, não há problema nenhum nisso, porque a ideia aqui é focar o código no lado do cliente, ou seja, código JavaScript e não código do back-end.
+
+Para conseguir realizar uma requisição do tipo POST você precisa:
+
+HTTP POST para /negociacoes;
+Usar o cabeçalho Content-type sendo application/json;
+No body um JSON da negociação.
+Já preparamos um HTML bem básico para começar o cadastro! Para usá-lo no projeto crie uma nova página post.html, dentro do diretório aluraframe/client:
+
+<!-- aluraframe/client/post.html -->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Negociações</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+</head>
+
+<body class="container">
+    <form class="form">
+
+        <div class="form-group">
+            <label for="data">Data</label>
+            <input type="date" id="data" class="form-control" required autofocus/>        
+        </div>    
+
+        <div class="form-group">
+            <label for="quantidade">Quantidade</label>
+            <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="valor">Valor</label>
+            <input id="valor" type="number" class="form-control"  min="0.01" step="0.01" value="0.0" required />
+        </div>
+
+        <button class="btn btn-primary" type="submit" onclick="sendPost(event)">Enviar dados para servidor</button>
+    </form>
+
+    <script>
+
+        function sendPost(event) {
+
+            event.preventDefault();
+            console.log("Enviando post");
+
+            //aqui você deve ler os dados do formulário
+            //construir o json
+            //enviar o XMLHttpRequest
+        }
+    </script>
+</body>
+</html>
+Se você achou que eu daria a solução logo de cara, se enganou! Contudo, depois de quebrar a cabeça, veja a solução do problema na minha resposta :)
+
+Obs: Não esqueça de subir o servidor com npm start. Para acessar a página post.html, basta digitar localhost:3000/post.html
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Nosso código é bem simplório e não aproveita toda nossa estrutura MVC, mas vale para conhecer melhor o objeto XMLHttpRequest.
+
+<!-- aluraframe/client/post.html -->
+<!-- código anterior omitido -->
+    <script>
+        function sendPost(event) {
+
+            event.preventDefault();
+
+            console.log("Enviando post");
+
+            let $ = document.querySelector.bind(document);
+            inputData = $('#data');
+            inputQuantidade = $('#quantidade');
+            inputValor = $('#valor');
+
+            let negociacao = {
+                data: inputData.value,
+                quantidade: inputQuantidade.value,
+                valor: inputValor.value
+            };
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "/negociacoes", true);
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            xhr.onreadystatechange = () => {
+
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status == 200) {
+                        inputData.value = '';
+                        inputQuantidade.value = 1;
+                        inputValor.value = 0.0;
+                        inputData.focus();
+                        alert('Negociação enviada com sucesso');
+                    } else {
+                        alert(`Não foi possível enviar a negociação: ${xhr.responseText}`);
+                    }
+                }
+            }
+            xhr.send(JSON.stringify(negociacao));
+
+    }
+    </script>
+<!-- código posterior omitido -->
+Um detalhe: não podemos enviar o objeto negociacao diretamente, precisamos convertê-lo para string, porque no protocolo HTTP os dados são transmitidos no formato texto. Veja que fizemos o contrário de quando recebemos os dados vindos do servidor. Lá, convertemos string em objeto.
+***********************
+09-
 ***********************
