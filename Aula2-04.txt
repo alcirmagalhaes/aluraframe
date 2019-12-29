@@ -722,5 +722,24 @@ Opinião do instrutor
 
 O paradigma orientado a objetos ajuda bastante a organizar o código, e, sendo JavaScript uma linguagem multiparadigma podemos lançar mão de outros paradigmas quando necessário, por exemplo, o funcional.
 ***********************
-10-
+10-Consolidando seu conhecimento
+OBS.: Não deixe de fazer o exercício anterior, pois a alteração feita fará parte do projeto!
+
+Hora de praticar, implementando as novas funcionalidades apresentadas no capítulo. Como de costume, segue um resumo dos passos que devem ser executados:
+
+1 - Chegou a hora de você usar o servidor que preparamos pela primeira vez. As instruções de como subi-lo encontram-se no exercício obrigatório do primeiro capítulo.
+
+2 - Nosso servidor disponibiliza os endereços:
+
+negociacoes/semana
+negociacoes/anterior
+negociacoes/retrasada
+3 - Lembre-se de criar o NegociacaoService para separar as responsabilidades entre do NegociacaoController.
+
+4 - Na classe NegociacaoController, no novo método importaNegociacoes, use o objeto XMLHttpRequest para obter a lista de negociações dos endereços do servidor disponibilizado. Prepare-se: vários conceitos e técnicas serão empreendidas nessa tarefa. Há um botão no formulário que precisa ser associado ao novo método do controller.
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
 ***********************
