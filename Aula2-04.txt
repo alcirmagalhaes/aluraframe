@@ -516,5 +516,22 @@ Cada status é representado através de um inteiro. Os estados possíveis são:
 Você encontrará mais informações sobre o objeto XMLHttpRequest no da Mozilla Developer Network.
 
 ***********************
-06-
+06-Você sabia? Conheça a história do nome XMLHttpRequest
+Vimos como usar o objeto XMLHttpRequest para enviar uma requisição AJAX. O estranho foi que nem usamos XML, e sim JSON! Para que então esse XML no nome?
+
+A extensão XML foi um legado que ficou, mas hoje em dia é menos importante e até confuso. O XMLHttpRequest foi criado pela Microsoft (dentro da equipe Outlook), e o XML realmente era o mais usado na época . O Firefox implementou um objeto com o mesmo nome, mas que trabalhava com a estrutura de dados JSON e que acabou se tornando muito popular.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Muitas vezes, para usar AJAX, precisaremos de frameworks como o próprio jQuery, prototype ou AngularJS. Esses frameworks não só abstraem detalhes sobre o XMLHttpRequest como também oferecem vários outros recursos. Mas tenho certeza que você já sabe disso...
+
+Se quiser aprender mais sobre jQuery ou Angular, na Alura, temos alguns cursos preparados para você:
+
+jQuery I: Domine a biblioteca mais popular do mercado
+jQuery II: Avance na biblioteca mais popular do mercado parte 2
+AngularJS: crie webapps poderosas
+***********************
+07-
 ***********************
