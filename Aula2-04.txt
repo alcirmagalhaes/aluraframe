@@ -465,5 +465,56 @@ importaNegociacoes() {
 }
 Fizemos uma pequena revisão de AJAX. Trabalhamos com requisições assíncronas, usando JavaScript puro. Aprendemos a isolar a lógica que geramos para realizar a requisição do servidor. Aprendemos a trabalhar com a ideia do callback e Error-First.
 ***********************
-05-
+05-Exercicio - O objeto XMLHttpRequest
+Vimos na aula como enviar uma requisição usando o XMLHttpRequest que segue basicamente os passos seguintes:
+
+let xhr = new XMLHttpRequest();
+xhr.open('GET', 'negociacoes/semana');
+xhr.onreadystatechange = function() {
+
+}
+xhr.send();
+Criamos o objeto, abrimos uma conexão, usamos a propriedade onreadystatechange e enviamos a requisição. A propriedade onreadystatechange guarda uma função para:
+
+Alternativa correta
+... ser executada se há alguma mudança nos dados no lado do servidor.
+
+
+Alternativa correta
+... ser executada se há alguma mudança na interface.
+
+
+Alternativa correta
+... ser executada apenas se a requisição foi finalizada.
+
+
+Alternativa correta
+... ser executada automaticamente cada vez que há uma alteração no estado da requisição.
+
+
+Correto!
+
+Uma requisição passa por estados, por isso o nome da propriedade em português é pronto para mudança de estado. Podemos passar uma função que verifica os estados e executará uma ação, como fizemos no video:
+
+xhr.onreadystatechange = () => {
+    if(xhr.readyState == 4) { //status 4
+        if(xhr.status == 200) {
+            console.log(xhr.responseText);
+        } else {
+            console.log(xhr.responseText);
+            this._mensagem.texto = 'Não foi possível obter as negociações';
+        }
+    }
+}
+Cada status é representado através de um inteiro. Os estados possíveis são:
+
+0: requisição ainda não iniciada.
+1: conexão com o servidor estabelecida.
+2: requisição recebida.
+3: processando requisição.
+4: requisição concluída e a resposta esta pronta.
+Você encontrará mais informações sobre o objeto XMLHttpRequest no da Mozilla Developer Network.
+
+***********************
+06-
 ***********************
