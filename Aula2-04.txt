@@ -154,5 +154,316 @@ importaNegociacoes() {
 }
 Será exibida uma mensagem de erro quando o valor for diferente de 200. A questão é: como teremos acesso às requisições que vieram do servidor?
 ***********************
-03-
+03-Realizando o parse da resposta
+Para termos acesso às requisições que foram retornadas pelo servidor, vamos usar a propriedade xhr.responseText. Ela também vai capturar a mensagem de erro vinda do servidor:
+
+//...
+
+    if(xhr.readyState == 4) {
+
+        if(xhr.status == 200) {
+
+            console.log('Obtendo as negociações do servidor.');
+            console.log(xhr.responseText);
+        }else{
+            console.log('Não foi possível obter as negociações do servidor.');
+            console.log(xhr.responseText);
+        }
+    }
+};
+xhr.send();
+}
+Em seguida, recarregaremos a página e veremos o que será exibido no Console:
+
+texto exibido no Console
+
+Vemos um texto sendo exibido e, não, efetivamente um array. Isto acontece porque o JSON tem um formato textual para que os dados possam trafegar pela internet. Para transformarmos o JSON (texto) em um array de objetos, usaremos a função JSON.parse(), existente desde a versão anterior do JavaScript. Cada item do array é um objeto JavaScript. Mas nós poderíamos fazer como no exemplo abaixo?
+
+if(xhr.readyState == 4) {
+    if(xhr.status == 200) {
+
+        this._listaNegociacoes.adiciona(JSON.parse(xhr.responseText));
+
+    } else {
+
+      console.log('Não foi possível obter as negociações do servidor.');
+      console.log(xhr.responseText);
+    }
+}
+Não poderíamos fazer isto, porque o adiciona() recebe uma negociação por vez. Na verdade, ela recebe uma instância de negociação. Se observarmos o array exibido no Console, não veremos uma instância de negociação, na verdade, cada item é um object. Primeiramente teremos que converter o JSON, fazendo o parse() e para cada item do array, teremos que criar uma negociação. Para realizarmos esta ação, usaremos a função map() - que varrerá o array e criará um novo com modificações. Usaremos uma arrow function:
+
+if(xhr.readyState == 4) {
+    if(xhr.status == 200) {
+
+        JSON.parse(xhr.responseText)
+         .map(objeto => new Negociacao(objeto.data, objeto.quantidade, objeto.valor));
+
+    } else {
+
+      console.log('Não foi possível obter as negociações do servidor.');
+      console.log(xhr.responseText);
+    }
+}
+Os itens serão chamados de objeto e para cada um deles, retornaremos uma Negociacao(). Como trabalhamos com uma arrow function, não precisaremos usar o return. Da lista que foi criada pelo map, vamos iterar com o forEach(), e para cada item teremos um negociação. A seguir, vamos incluir this._listaNegociacoes:
+
+if(xhr.readyState == 4) {
+    if(xhr.status == 200) {
+
+        JSON.parse(xhr.responseText)
+         .map(objeto => new Negociacao(objeto.data, objeto.quantidade, objeto.valor))
+         .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+
+    } else {
+
+      console.log(xhr.responseText);
+      this._mensagem.texto = 'Não foi possível obter as negociações da semana'; 
+    }
+}
+Vamos entender o que foi feito: xhr.responseText é um texto, o JSON() irá transforma-lo para o formato textual para objeto. Para cada um dos objetos listados, converteremos em uma instância de negociação, no fim, um novo array será gerado. Depois, com o forEach(), percorreremos cada item e adiciono na minha lista de negociações. Dentro do else alteramos as mensagens no caso de erro. No console, será exibido o xhr.responseText e para o usuário, será mostrada uma mensagem de alto nível.
+
+Mas quando executarmos o código como está, teremos problemas.
+
+Se acessarmos o endereço localhost:3000/negociacoes/semana, veremos que a data está no formato de uma string um pouco diferente.
+
+data no formato estranho
+
+Nós estamos tentando passar objeto.data (com formato de texto) diretamente para Negociacao. A seguir, vamos passar a string objeto data para um construtor de Date().
+
+if(xhr.status == 200) {
+        JSON.parse(xhr.responseText)
+      .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))
+      .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+}
+string no console
+
+Então, vamos instanciar uma nova data, baseada na string objeto.data. Recarregaremos a página do formulário e tudo funcionará corretamente. Para exibirmos uma mensagem de sucesso, adicionaremos o this._mensagem.texto. Faremos ajustes na mensagem de erro também.
+
+if(xhr.status == 200) {
+      JSON.parse(xhr.responseText)
+        .map(objeto=> new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))
+        .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao))
+        this._mensagem.texto = 'Negociações importadas com sucesso.';
+  } else {
+      console.log(xhr.responseText);
+      this._mensagem.texto = 'Não foi possível obter as negociações.';
+  }
+}
+negociações importadas com sucesso
+
+A mensagem será exibida corretamente e podemos considerar esta primeira parte finalizada. Depois, faremos uma pequena brincadeira para vermos o que acontece em um caso de erro. Mudaremos o endereço no importaNegociacoes() para negociacoes/xsemana:
+
+importaNegociacoes() {
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'negociacoes/xsemana');
+
+//...
+Neste caso, quando tentarmos recarregar a página, o usuário verá a seguinte mensagem de erro:
+
+mensagem de erro
+
+No Console, veremos a mensagem de log:
+
+mensagem de log
+
+Conseguimos implementar a nossa solução com AJAX, usando JavaScript "puro" e sem utilizar bibliotecas como jQuery.
+***********************
+04-Separando as responsabilidades
+Estamos conseguindo importar, mas a responsabilidade de buscar os dados do servidor não é da controller. Por isso, nós vamos isolar o código do importaNegociacoes(), numa classe que será especializada em obter as negociações do servidor e que será utilizada pela controller. Dentro da pasta services, vamos criar NegociacaoService.js.
+
+importaNegociacoes() {
+
+       let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'negociacoes/semana');
+
+        xhr.onreadystatechange = () => {
+
+            if(xhr.readyState == 4) {
+
+                if(xhr.status == 200) {
+
+                  JSON.parse(xhr.responseText)
+                    .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)
+                    .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                    this._mensagem.texto = 'Negociações importadas com sucesso.';
+
+              } else {
+                  console.log(xhr.responseText);
+                  this._mensagem.texto = 'Não foi possível obter as negociações.';
+              }
+            }
+      };
+
+      xhr.send();
+    }
+}
+A vantagem de isolarmos o código é que se tivermos outra parte do sistema que precisa obter a lista de negociações do servidor, não iremos cortar o código da controller. Nós reutilizaremos em uma nova classe NegociacaoService, que terá o método obterNegociacoesDaSemana() que retornará as negociações da semana:
+
+class NegociacaoService { 
+    obterNegociacoesDaSemana() {
+
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('GET', 'negociacoes/semana');
+
+        xhr.onreadystatechange = () => {
+
+            if(xhr.readyState == 4) {
+
+                if(xhr.status == 200) {
+
+                JSON.parse(xhr.responseText)
+                    .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)
+                    .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                    this._mensagem.texto = 'Negociações importadas com sucesso.';
+
+            } else {
+                console.log(xhr.responseText);
+                this._mensagem.texto = 'Não foi possível obter as negociações.';
+            }
+            }
+    };
+
+    xhr.send();
+    }
+}
+O service não terá acesso a View, porque ele não tem referência para os elementos da controller. Logo, removemos this._mensagem.texto a mensagem de erro para o usuário. E importaremos o arquivo em index.html:
+
+<script src="js/app/models/Negociacao.js"></script>
+<script src="js/app/models/ListaNegociacoes.js"></script>
+<script src="js/app/models/Mensagem.js"></script>
+<script src="js/app/controllers/NegociacaoController.js"></script>
+<script src="js/app/helpers/DateHelper.js"></script>
+<script src="js/app/views/View.js"></script>
+<script src="js/app/views/NegociacoesView.js"></script>
+<script src="js/app/views/MensagemView.js"></script>
+<script src="js/app/services/ProxyFactory.js"></script>
+<script src="js/app/helpers/Bind.js"></script>
+<script src="js/app/services/NegociacaoService.js"></script>
+<script>
+    let negociacaoController = new NegociacaoController();          
+</script>
+Em seguida, no arquivo NegociacaoController.js, vamos adicionar a variável service no importaNegociacoes().
+
+importaNegociacoes() {
+
+    let service = new NegociacaoService();
+
+    service.obterNegociacoesDaSemana();
+}
+No método obterNegociacoesDaSemana() temos que ter acesso ao retorno, porque será na controller que levantaremos os dados com os quais atualizaremos o model e a View ser renderizada. Para isto, o método receberá a função chamada cb (callback).
+
+class NegociacaoService {
+
+    obterNegociacoesDaSemana(cb) {
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'negociacoes/semana');
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+                    JSON.parse(xhr.responseText)
+                      .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor))
+                      .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                } else {
+                    console.log(xhr.responseText);
+                }  
+            }
+        }
+
+        xhr.send();
+    }
+}
+Depois, em NegociacaoController.js, usaremos uma arrow function com dois valores:
+
+importaNegociacoes() {
+
+  let service = new NegociacaoService();
+
+  service.obterNegociacoesDaSemana(() => {
+
+  });
+}
+Quando o nosso servidor, via AJAX, buscar a negociação e estiver tudo pronto, ele chamará a função que adicionamos. Agora, vamos inserir um ifpara o caso em que ocorrer um erro.
+
+importaNegociacoes() {
+
+  let service = new NegociacaoService();
+
+  service.obterNegociacoesDaSemana((err, negociacoes) => {
+      if(err) {
+          this._mensagem.texto = err;
+          return;
+      }
+
+      negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+      this._mensagem.texto = 'Negociações importadas com sucesso';
+  });
+}
+Se o erro não retornar preenchido, o if não será executado. Com o forEach(), para cada negociação, vamos incorrer em this._listaNegociacoes.adiciona().
+
+Também vamos adotar um convenção: em casos de erro, ele será descoberto sempre no primeiro parâmetro e o resultado da operação virá no segundo. Estamos aplicando um padrão que vem do mundo NodeJS, e que recebe o nome de Error-First-Callback.
+
+Então, se ocorrer um erro, exibiremos a mensagem e daremos o retorno. Desta forma, as linhas abaixo do return não serão executadas. Mas no caso em que venha uma negociação, faremos o forEach().
+
+Agora, em NegociacaoService, vamos implementar o callback(cb):
+
+class NegociacaoService {
+
+    obterNegociacoesDaSemana(cb) {
+
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'negociacoes/semana');
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+
+                  cb(null, JSON.parse(xhr.responseText)
+                        .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
+
+                } else {
+                    console.log(xhr.responseText);
+                    cb('Não foi possível obter as negociações da semana', null);
+                }  
+            }
+        }
+
+        xhr.send();
+    }
+}
+Se ocorrer um erro, executaremos o cb de alto nível, informando para o usuário que não foi possível obter as negociações.
+
+Esta estratégia de Error-First significa que passaremos a função obterNegociacoesDaSemana(), se tiver sucesso receberá o primeiro parâmetro null, indicando que não teve o erro, e no segundo parâmetro, teremos o retorno. Em caso de erro, o primeiro parâmetro passarem será o erro, e o segundo, será o valor null. Temos a opção de deixar o segundo parâmetro em branco também.
+
+Ao recarregar a página e importar as negociações, veremos a mensagem de sucesso.
+
+negociações foram importadas com sucesso
+
+Nós isolamos a URL no serviço.
+
+xhr.open('GET', 'negociacoes/semana');
+Se tivermos diversas controllers utilizando o serviço, só precisaremos alterar a URL uma única vez. Caso a URL esteja errada, veremos a mensagem de erro:
+
+não foi possivel obter as negociações
+
+O código de NegociacaoController ficou mais limpo. Faremos um pequeno ajuste substituindo o err por erro:
+
+importaNegociacoes() {
+
+  let service = new NegociacaoService();
+
+  service.obterNegociacoesDaSemana((erro,negociacoes) => {
+      if(erro) {
+          this._mensagem.texto = erro;
+          return;
+      }
+
+      negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+      this._mensagem.texto = 'Negociações importadas com sucesso';
+  });
+}
+Fizemos uma pequena revisão de AJAX. Trabalhamos com requisições assíncronas, usando JavaScript puro. Aprendemos a isolar a lógica que geramos para realizar a requisição do servidor. Aprendemos a trabalhar com a ideia do callback e Error-First.
+***********************
+05-
 ***********************
