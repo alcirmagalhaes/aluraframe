@@ -818,5 +818,38 @@ Opinião do instrutor
 
 Promises (promessas) agora fazem parte da linguagem JavaScript a partir do ES6. Elas representam o resultado futuro de uma ação, que pode ser de sucesso ou fracasso. Elas visam tornar códigos assíncronos mais legíveis e fáceis de manter, evitando o Callback Hell. Uma ou outra chamada assíncrona não é problemática, o problema é quando temos uma sucessão de chamadas assíncronas e o modo tradicional de lidar com elas, aninhando callbacks, torna o código difícil de ler e manter, principalmente o tratamento de erros.
 ****************************
-07-
+07-Exercicio - declarando uma promise
+Veja o pedaço do código JavaScript que inicializa uma Promise:
+
+let minhaPromessa = new Promise((resolve, reject) => {
+
+    // aqui executamos algo demorado
+
+    if (/* tudo deu certo */) {
+        resolve("Funcionou!");
+    }
+    else {
+        reject("Deu erro...");
+    }
+});
+Ao inicializar a minhaPromessa, como podemos verificar o resultado da execução?
+
+Alternativa correta
+minhaPromessa
+    .then(console.log(mensagem))
+    .catch(console.log(erro));
+
+Alternativa correta
+minhaPromessa
+    .success(mensagem => console.log(mensagem))
+    .error(erro => console.log(erro);
+
+Alternativa correta
+minhaPromessa
+    .then(mensagem => console.log(mensagem))
+    .catch(erro => console.log(erro));
+
+Parabéns, usamos os métodos then e catch para capturar o resolve e o reject oriundo da promisse e dentro deles é necessário passar uma function ou Arrow function com o comando desejado.
+****************************
+08-
 ****************************
