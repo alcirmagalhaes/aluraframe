@@ -742,6 +742,22 @@ class Mensagem {
     }
 }
 Pronto. Com essas alterações (e mais a solução que usamos para o Firefox do campo date) nosso código funcionará no Microsot Edge.
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Todos os hacks que fizemos até agora é para você ficar sabendo ainda mais de JavaScript. Contudo, há uma solução mais genérica e poderosa. Veja o próximo exercício.
 ****************************
-07-
+07-Ah se meu código funcionasse em TODOS OS NAVEGADORES...
+É possível que todo o código escrito em ES6 funcione em navegadores que nem suportem a nova versão do JavaScript. Para isso é necessário o uso de um transpiler. Aliás, um ótimo assunto a ser abordado no terceiro módulo deste treinamento. Não é mesmo? ;)
+
+Vale salientar que os grandes vilões de compatibilidade do código JavaScript são os browsers mobile. A solução com transpiler é uma solução que abarca também esses dispositivos.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Eu até havia elaborado o esboço do terceiro módulo, mas preferi aguardar o feedback no fórum dos primeiros módulos. Uma ideia é ensinar o uso de transpilers.
+****************************
+08-
 ****************************
