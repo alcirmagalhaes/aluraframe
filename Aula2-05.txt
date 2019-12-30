@@ -1,0 +1,362 @@
+01-O problema da vida assíncrona
+Você pode fazer o download completo do projeto até aqui e continuar seus estudos.
+
+O nosso código está funcionando, conseguimos recarregar e importar as negociações ao clicar no botão correspondente. No entanto, precisamos encontrar uma forma de importar as negociações da semana atual, da passada e da retrasada para popularmos a lista.
+
+Para isto, copiaremos a lógica do método obterNegociacoesDaSemana(), no NegociacaoService, e modificaremos o nome para obterNegociacaoDaSemanaAnterior:
+
+obterNegociacoesDaSemanaAnterior(cb) {
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'negociacoes/anterior');
+      xhr.onreadystatechange = () => {
+          if(xhr.readyState == 4) {
+              if(xhr.status == 200) {
+
+                cb(null, JSON.parse(xhr.responseText)
+                      .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
+
+              } else {
+                  console.log(xhr.responseText);
+                  cb('Não foi possível obter as negociações da semana', null);
+              }  
+          }
+      }
+
+      xhr.send();
+  }
+}  
+Observe que alteramos o endereço para negociacoes/anterior. Faremos algo parecido com o trecho referente à semana retrasada:
+
+obterNegociacoesDaSemanaRetrasada(cb) {
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'negociacoes/retrasada');
+      xhr.onreadystatechange = () => {
+          if(xhr.readyState == 4) {
+              if(xhr.status == 200) {
+
+                cb(null, JSON.parse(xhr.responseText)
+                      .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
+
+              } else {
+                  console.log(xhr.responseText);
+                  cb('Não foi possível obter as negociações da semana', null);
+              }  
+          }
+      }
+
+      xhr.send();
+  }
+}  
+Nós criamos três métodos que irão obter os dados da semana atual, passada e retrasada. Agora, no arquivo NegociacaoController.js, já temos o obterNegociacoesDaSemana em importaNegociacoes:
+
+importaNegociacoes() {
+
+  let service = new NegociacaoService();
+
+  service.obterNegociacoesDaSemana((erro, negociacoes) => {
+      if(erro) {
+          this._mensagem.texto = erro;
+          return;
+      }
+
+      negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+      this._mensagem.texto = 'Negociações importadas com sucesso';
+  });
+}
+Agora, adicionaremos obterNegociacoesDaSemanaAnterior e obterNegociacoesDaSemanaRetrasada :
+
+  service.obterNegociacoesDaSemanaAnterior((erro, negociacoes) => {
+      if(erro) {
+          this._mensagem.texto = erro;
+          return;
+      }
+
+      negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+      this._mensagem.texto = 'Negociações importadas com sucesso';
+  });
+
+service.obterNegociacoesDaSemanaRetrasada((erro, negociacoes) => {
+      if(erro) {
+          this._mensagem.texto = erro;
+          return;
+      }
+
+      negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+      this._mensagem.texto = 'Negociações importadas com sucesso';
+  });
+Vamos realizar as três chamadas do serviço. Depois, recarregaremos a página e conseguiremos que os dados sejam importados corretamente.
+
+dados importados
+
+Mas temos um pequeno problema... Como as requisições são assíncronas, elas não esperam a operação terminar para só então começarem a executar a próxima.. Segundo uma regra de negócios, essas importações devem estar em ordem: primeiramente, a negociações desta semana, depois, a da semana anterior. Por último, teremos na semana retrasada. Mas se analisarmos as datas da tabela, veremos que elas não estão em ordem. Nós não temos os controles das datas, e como são assíncronas, cada requisição poderá ser executada em diferentes momentos. O que é preciso fazer para que todas sejam executadas em ordem? Começaremos executando a requisição da semana.
+
+
+importaNegociacoes() {
+
+    let service = new NegociacaoService();
+
+    service.obterNegociacoesDaSemana((erro, negociacoes) => {
+
+        if(erro) {
+            this._mensagem.texto = erro;
+            return;
+        }
+        negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+
+        service.obterNegociacoesDaSemanaAnterior((erro, negociacoes) => {
+
+            if(erro) {
+                this._mensagem.texto = erro;
+                return;
+            }
+            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+
+            service.obterNegociacoesDaSemanaRetrasada((erro, negociacoes) => {
+
+                if(erro) {
+                    this._mensagem.texto = erro;
+                    return;
+                }
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                this._mensagem.texto = 'Negociações importadas com sucesso';
+            });
+        });
+    });
+}
+Quando a requisição de obterNegociacoesDaSemana terminar, as negociações serão adicionadas na lista. Então, teremos certeza de que a requisição está terminada e que podemos chamar a requisição, referente à semana anterior. E por último, virão as da semana retrasada. Vamos testar se as requisições são executadas na ordem correta.
+
+requisições em ordem
+
+Agora, as datas estão em ordem.
+
+Quando você for fazer o teste na sua máquina, o servidor está gerando essas negociações aleatoriamente e podem aparecer outras datas.
+
+Conseguimos resolver o nosso problema, mas se analisarmos o "desenho" do código, veremos que ele forma uma pirâmide. Costumamos dar o nome de Pyramid of Doom (traduzida para o português, significa pirâmide da desgraça) em situações que isto ocorre e temos uma função aninhada dentro de outra. A pirâmide é um forte indício de que temos problemas de legibilidade do código, na verdade, é o sintoma de um problema maior, o Callback Hell. Ocorre quando temos requisições assíncronas executadas em determinada ordem, que chama vários callbacks seguidos.
+
+Se tivéssemos mais ações que precisassem ser executadas em ordem, teríamos um pirâmide com mais funções. Também vale ressaltar: em uma situação de erro - por exemplo, se a URL estivesse equivocada -, dentro do importaNegociacoes, executaríamos diversos trechos de código referentes ao erro. Testaríamos diversas vezes se ocorreu o erro, porque o código está repetido.
+
+Agora, aplicaremos um padrão de projeto que nos ajudará a lidar com a complexidade da programação assíncrona, além de evitar que o erro seja tratado em diversos lugares.
+****************************
+02-O padrão de projeto Promise
+Vamos melhorar a legibilidade do código, que está repetindo o tratamento de erro:
+
+
+importaNegociacoes() {
+
+    let service = new NegociacaoService();
+
+    service.obterNegociacoesDaSemana((erro, negociacoes) => {
+
+        if(erro) {
+            this._mensagem.texto = erro;
+            return;
+        }
+        negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+
+        service.obterNegociacoesDaSemanaAnterior((erro, negociacoes) => {
+
+            if(erro) {
+                this._mensagem.texto = erro;
+                return;
+            }
+            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+
+            service.obterNegociacoesDaSemanaRetrasada((erro, negociacoes) => {
+
+                if(erro) {
+                    this._mensagem.texto = erro;
+                    return;
+                }
+                negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+                this._mensagem.texto = 'Negociações importadas com sucesso';
+            });
+        });
+    });
+}
+Em NegociacaoService.js, faremos pequenos ajustes nas mensagens de erros dos métodos de obterNegociacoesDaSemana(), obterNegociacoesDaSemanaAnterior() e obterNegociacoesDaSemanaRetrasada, especificando qual semana está sendo trabalhada.
+
+obterNegociacoesDaSemanaAnterior(cb) {
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'negociacoes/anterior');
+      xhr.onreadystatechange = () => {
+          if(xhr.readyState == 4) {
+              if(xhr.status == 200) {
+
+                cb(null, JSON.parse(xhr.responseText)
+                      .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
+
+              } else {
+                  console.log(xhr.responseText);
+                  cb('Não foi possível obter as negociações da semana anterior', null);
+              }
+          }
+      }
+
+      xhr.send();
+  }
+}
+Desta forma, se tivermos problemas, saberemos que será na semana anterior. Queremos reduzir a complexidade do código de programação assíncrona. Para isto, aplicaremos um padrão de projeto chamado Promessa (Promise, em inglês).
+
+Vamos comentar o trecho que criamos até agora, porque faremos um antes e depois. Enquanto trabalhamos com o padrão Promise, não implementaremos ainda o NegociacaoService. Mas vamos considerar que ele usará o padrão de projeto Promise. Veremos a seguir, como usaremos o NegociacaoService(), no NegociacaoController.js:
+
+importaNegociacoes() {
+
+  let service = new NegociacaoService();
+
+  let retorno = service.obterNegociacoesDaSemana();
+}
+Se observarmos o método obterNegociacoesDaSemana(), veremos que este não recebe mais o callback - apenas nos devolverá um valor. Parecerá ser um método síncrono. No entanto, ele não é... Porque ele não devolverá a lista de negociações, mas, sim, uma promise - que não poderá encontrar o que busca. A promessa é o resultado futuro de uma operação. Quando pensamos no conceito de uma promessa, nos vem a ideia de que "se você cumprir a promessa, então algo irá acontecer...". Seguindo está relação com então, chamaremos o método then() na promise.
+
+importaNegociacoes() {
+
+  let service = new NegociacaoService();
+
+  let promise = service.obterNegociacoesDaSemana();
+  promise
+      .then(negociacoes => {
+          negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao))
+          this._mensagem.texto = 'Negociação da semana obtida com sucesso';
+      });
+Se a promessa for cumprida, receberemos a lista de negociação e, com esta, poderemos fazer o forEach(). O método obterNegociacoesDaSemana() devolve uma promessa de que tentará obter os dados. Caso a promessa seja cumprida, receberemos uma lista de negociações e exibiremos a mensagem para o usuário.
+
+Para o caso de ocorrer um erro, vamos encadear uma função catch(), na promise.
+
+.catch(erro => this.mensagem.texto = erro);
+Com ela, iremos capturar o erro da promise e exibiremos para o usuário.
+
+No entanto, se tentarmos executar o nosso código como está, receberemos várias mensagens de erro no Console.
+
+mensagem de erro no Console
+
+Ele nos informa que não recebe then(), porque obterNegociacoesDaSemana() não é uma promise. Precisamos fazer esta transformação. O ES6 suporta a promise nativamente, então, o método deverá retornar uma Promise(), que receberá dois parâmetros ( resolve e reject). Em que momento sabemos que os dados são retornados? É onde temos o cb, que não será mais necessário, por isso, vamos substitui-los por resolve:
+
+class NegociacaoService {
+
+  obterNegociacoesDaSemana() {
+
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'negociacoes/semana');
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4) {
+                if(xhr.status == 200) {
+
+                  resolve(JSON.parse(xhr.responseText)
+                        .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
+
+                } else {
+                    console.log(xhr.responseText);
+                    reject('Não foi possível obter as negociações da semana');
+
+                }
+              }
+          };
+          xhr.send();
+
+        });
+O resolve passará diretamente o resultado de JSON.parse(). Observe que não precisaremos mais utilizar o parâmetro (null) do Error-First-Callback. Nós passamos direto para o resolve o resultado que será disponibilizado para a função then. E se tivermos algum tipo de erro, chamaremos a função reject(). O que está no resolve, pegaremos dentro do método then() do arquivo NegociacaoController.js e o erro passado para o reject, pegaremos no catch.
+
+importaNegociacoes() {
+
+    let service = new NegociacaoService();
+
+    let promise = service.obterNegociacoesDaSemana();
+    promise
+        .then(negociacoes => {
+        negociacoes.forEach(negociacao => {
+            this._listaNegociacoes.adiciona(negociacao);
+        });
+        this._mensagem.texto = 'Negociações importadas com sucesso'
+    })
+    .catch(erro => this._mensagem.texto = erro);
+}
+Se testarmos no navegador, veremos que tudo está funcionando e conseguiremos importar as negociações corretamente.
+
+importar negociacoes com sucesso
+
+Aplicaremos o padrão Promise nos outros métodos do NegociacaoService.js.
+
+obterNegociacoesDaSemanaAnterior() {
+
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'negociacoes/anterior');
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == 4) {
+                    if(xhr.status == 200) {
+                        resolve(JSON.parse(xhr.responseText)
+                            .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
+
+                    } else {
+                        console.log(xhr.responseText);
+                        reject('Não foi possível obter as negociações da semana anterior');
+                    }  
+                }
+            }
+            xhr.send();
+        });
+    }
+
+    obterNegociacoesDaSemanaRetrasada() {
+
+        return new Promise((resolve, reject) => {
+
+          let xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'negociacoes/retrasada');
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState == 4) {
+                    if(xhr.status == 200) {
+                      resolve(JSON.parse(xhr.responseText)
+                          .map(objeto => new Negociacao(new Date(objeto.data), objeto.quantidade, objeto.valor)));
+
+                    } else {
+                        console.log(xhr.responseText);
+                        reject('Não foi possível obter as negociações da semana retrasada');
+                    }  
+                }
+            }
+            xhr.send();
+        });
+    }
+Em seguida, no NegociacoesController.js, não iremos mais declarar a variável Promise:
+
+importaNegociacoes() {
+
+    let service = new NegociacaoService();
+
+    service.obterNegociacoesDaSemana()
+      .then(negociacoes => {
+        negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+        this._mensagem.texto = 'Negociações da semana obtidas com sucesso';
+    })
+    .catch(erro => this._mensagem.texto = erro);
+
+    service.obterNegociacoesDaSemanaAnterior()
+      .then(negociacoes => {
+        negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+        this._mensagem.texto = 'Negociações da semana obtidas com sucesso';
+    })
+    .catch(erro => this._mensagem.texto = erro);
+
+    service.obterNegociacoesDaSemanaRetrasada()
+      .then(negociacoes => {
+        negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+        this._mensagem.texto = 'Negociações da semana obtidas com sucesso';
+    })
+    .catch(erro => this._mensagem.texto = erro);
+
+}
+No navegador, dessa vez, teremos problemas com as negociações importadas. Novamente, as negociações estão fora da ordem.
+
+negociações fora da ordem
+
+A ordem de execução das Promises está incorreta. Mais adiante, entenderemos por que isso aconteceu e descobriremos a solução.
+****************************
+03-
+****************************
