@@ -1264,5 +1264,62 @@ Opinião do instrutor
 
 Revisão de código é sempre uma constante. A ideia é irmos revisando nosso código e tornando-o cada vez mais enxuto e legível. Nunca é tarde para mudar, não é mesmo?
 ****************************
-10-
+10-Desafio: obter todas as negociações
+Criamos 3 métodos na nossa classe NegociacaoService para obter as negociações da semana:
+
+obterNegociacoesDaSemana
+obterNegociacoesDaSemanaAnterior
+obterNegociacoesDaSemanaRetrasada
+Perfeito, mas em nosso controller foi necessário chamar esses três métodos e ainda usar Promise.all para resolver todos em ordem, aliás, ainda tivemos que achatar o array retornado pelo Promise.all, porque ele possuia como valor de três arrays, cada um contendo as negociações da semana, anterior e retrasada respectivamente.
+
+Que tal criarmos em NegociacaoService o método obterNegociacoes? Se fizermos isso, nosso controller ficará mais simples. Crie o método! Quando você clicar em Ver opinião do instrutor você verá o gabarito do instrutor!
+
+VER OPINIÃO DO INSTRUTOR
+Opinião do instrutor
+
+Segue a implementação do método em NegociacaoService:
+
+class NegociacaoService {
+
+    // código anterior omitido 
+
+    obterNegociacoes() {
+
+        return Promise.all([
+            this.obterNegociacoesDaSemana(),
+            this.obterNegociacoesDaSemanaAnterior(),
+            this.obterNegociacoesDaSemanaRetrasada()
+        ]).then(periodos => {
+
+            let negociacoes = periodos
+                .reduce((dados, periodo) => dados.concat(periodo), []);
+
+            return negociacoes;
+
+        }).catch(erro => {
+            throw new Error(erro);
+        });
+
+    } 
+}
+Veja que no o método obterNegociacoes retorna uma Promise, mas claro, aquela que combina o resultado de outras. Veja também que no método then da nossa Promise estamos retornando a lista de negociacoes. É este retorno que estará disponível para quem usar nossa Promise. Além disso, se um erro ocorrer, lançamos um Error. É a mensagem passada para o Error que estará disponível no catch de quem usar nossa Promise. Resumindo a história: tanto uma Promise quanto o retorno de then são "Thenables".
+
+E agora, alterando NegociacaoController para usar o novo método:
+
+class NegociacaoController {
+
+    // constructor e outros métodos omitidos
+    importaNegociacoes() {
+
+        let service = new NegociacaoService();
+        service
+        .obterNegociacoes()
+        .then(negociacoes => {
+          negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+          this._mensagem.texto = 'Negociações do período importadas com sucesso';
+        })
+        .catch(error => this._mensagem.texto = error);  
+    }
+
+  // código posterior omitido
 ****************************

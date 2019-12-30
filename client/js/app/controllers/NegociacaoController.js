@@ -26,22 +26,17 @@ class NegociacaoController {
         
     }
 
-    importaNegociacoes(){
-
+    importaNegociacoes() {
+                          
         let service = new NegociacaoService();
-
-        Promise.all([
-            service.obterNegociacoesDaSemana(),
-            service.obterNegociacoesDaSemanaAnterior(),
-            service.obterNegociacoesDaSemanaRetrasada()]
-        ).then(negociacoes => {
-            negociacoes
-                .reduce((arrayAchatado, array) => arrayAchatado.concat(array), [])
-                .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-            this._mensagem.texto = 'Negociações obtidas com sucesso!'
-            console.log(negociacoes);
+        service
+        .obterNegociacoes()
+        .then(negociacoes => {
+            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+            this._mensagem.texto = 'Negociações do período importadas com sucesso';
         })
-        .catch(erro => this._mensagem.texto = erro)
+        .catch(error => this._mensagem.texto = error);  
+    }
 
     /*
         service.obterNegociacoesDaSemana()
@@ -67,9 +62,9 @@ class NegociacaoController {
                 this._mensagem.texto = 'Negociações da semana retrasada obtidas com sucesso!';
             })
             .catch(erro => this._mensagem.texto = erro);
-    */
-    }
- 
+    
+    };
+ */
     _limpaFormulario(){
  
         this._inputData.value = '';
@@ -94,4 +89,4 @@ class NegociacaoController {
        this._mensagem.texto = 'Lista de negociações apagada!';
        
     }
-  }
+}
