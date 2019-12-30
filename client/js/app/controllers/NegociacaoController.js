@@ -9,12 +9,14 @@ class NegociacaoController {
         this._listaNegociacoes = new Bind (
             new ListaNegociacoes(),
             new NegociacoesView($('#negociacoesView')),
-            'adiciona', 'esvazia');
+            'adiciona', 'esvazia', 'ordena', 'inverteOrdem');
 
         this._mensagem = new Bind(
             new Mensagem(),
             new MensagemView($('#mensagemView')),
             'texto');
+        
+        this._ordemAtual = '';
     }
 
     adiciona(event) {
@@ -88,5 +90,15 @@ class NegociacaoController {
        this._listaNegociacoes.esvazia();
        this._mensagem.texto = 'Lista de negociações apagada!';
        
+    }
+
+    ordena(coluna) {
+        
+        if(this._ordemAtual == coluna) {
+            this._listaNegociacoes.inverteOrdem();
+        } else {
+            this._listaNegociacoes.ordena((a, b) => a[coluna] - b[coluna]);//ordem crescente
+        }
+        this._ordemAtual = coluna;
     }
 }
