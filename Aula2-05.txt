@@ -632,5 +632,75 @@ Depois de salvar as mudanças, podemos executar o código e a página funcionar�
 
 Nós conseguimos desmembrar a parte de HttpService. Caso você queira criar um POST ou PUT ou DELETE, basta acrescentar estes métodos no HttpService, usando o padrão Promise.
 ****************************
-05-
+05-Simplificando o código
+Temos o seguinte código:
+
+let dadosServidor = [
+    [
+        [new Date(), 1, 100],
+        [new Date(), 2, 100]
+    ],
+    [
+        [new Date(), 1, 150],
+        [new Date(), 2, 300]
+    ],
+    [
+        [new Date(), 3, 50],
+        [new Date(), 1, 100]
+    ]        
+];
+Se quisermos criar um array de uma única dimensão para depois criarmos uma lista de negociações a partir da classe Negociacao fazemos:
+
+let listaDeNegociacoes = dadosServidor.reduce((novoArray, array) => {
+    // novoArray receberá os itens de array, no final terá uma dimensão apenas
+    return novoArray.concat(array)
+}, [])
+.map(dado => {
+    // para cada dado, cria uma instância de negociação. No final, teremos uma nova lista só com instâncias de Negociacao
+
+    return new Negociacao(new Date(dado.data), dado.quantidade, dado.valor )
+});
+O código acima funciona, contudo, podemos remover muitas chaves das declarações das arrow functions. Simplifique o código removendo as chaves quando isso fizer sentido.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Veja que removemos as {} e o return das arrows functions. Só podemos fazer isso quando o que vem depois de => é uma instrução apenas, ou seja, não é um bloco de instruções. Aliás, repare também na maneira com que o código foi indentado.
+
+let listaDeNegociacoes = dadosServidor
+    .reduce((novoArray, array) => novoArray.concat(array), [])
+    .map(dado => new Negociacao(new Date(dado.data), dado.quantidade, dado.valor ));
+Há também quem goste de indentar assim:
+
+let listaDeNegociacoes = dadosServidor
+    .reduce((novoArray, array)  => novoArray.concat(array), [])
+    .map(dado => 
+        new Negociacao(new Date(dado.data), dado.quantidade, dado.valor ));
+Ou assim:
+
+let listaDeNegociacoes = 
+    dadosServidor
+        .reduce((novoArray, array) => novoArray.concat(array), [])
+        .map(dado => new Negociacao(new Date(dado.data), dado.quantidade, dado.valor ));
+E quem sabe assim?
+
+let listaDeNegociacoes = 
+    dadosServidor
+        .reduce((novoArray, array) => 
+            novoArray.concat(array), [])
+        .map(dado => 
+            new Negociacao(new Date(dado.data), dado.quantidade, dado.valor ));
+O que estaria errado e por conseguinte não funcionaria é quebrar o código antes da flecha =>:
+
+// Não funciona! Não pode quebrar antes da flecha! 
+
+let listaDeNegociacoes = 
+    dadosServidor
+        .reduce((novoArray, array) 
+            => novoArray.concat(array), [])
+        .map(dado
+             => new Negociacao(new Date(dado.data), dado.quantidade, dado.valor ));
+****************************
+06-
 ****************************
