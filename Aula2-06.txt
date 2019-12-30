@@ -805,9 +805,19 @@ O mais importante nessa abordagem, é nunca editarmos os arquivos em ES5, editam
 Esse é um assunto quente para o próximo módulo, não é mesmo?
 
 VER OPINIÃO DO INSTRUTOR
+----
 Opinião do instrutor
 
 A ideia é que no futuro o uso de transpilers não seja mais necessário. Contudo, continuar usando um transpiler permitirá o uso de recursos mais recentes da linguagem sem termos que esperar que sejam implementados pelos navegadores. Como disse, é um assunto quente para o próximo módulo deste treinamento.
 ****************************
-09-
+09-Ah se eu pudesse aplicar o que aprendi no Node.js...
+Tudo (arrow functions, proxy, classes...) o que aprendemos de ES6 pode ser aplicado na plataforma Node.js, mas tem um porém: você DEVE usar a versão 6 ou superior do Node.js. Versões anteriores não suportam totalmente os recursos que aprendemos aqui.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Quem te viu quem te vê, JavaScript! :)
+****************************
+10-
 ****************************
