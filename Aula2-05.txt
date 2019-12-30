@@ -851,5 +851,20 @@ minhaPromessa
 
 Parabéns, usamos os métodos then e catch para capturar o resolve e o reject oriundo da promisse e dentro deles é necessário passar uma function ou Arrow function com o comando desejado.
 ****************************
-08-
+08-Consolidando seus conhecimentos
+Hora de praticar, implementando as novas funcionalidades apresentadas no capítulo. Como de costume, segue um resumo dos passos que devem ser executados:
+
+1 - Os métodos NegociacaoService devem retornar uma instância de Promise.
+
+2 - Em NegociacaoController, use Promise.all para resolver todas as promises retornadas pelos métodos de NegociacaoService. Com Promise.all, os resultados virão na ordem em que cada promise foi processada.
+
+3 - Crie o HttpService para encapsular o codigo referente ao XMLHttpRequest
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito deste exercício é o passo a passo demonstrado no vídeo. Tenha certeza de que tudo está certo antes de continuar. Ficou com dúvida? Recorra ao nosso fórum, não perca tempo! :)
+****************************
+09-
 ****************************
