@@ -1,0 +1,28 @@
+01-Relembrando
+Olá, seja bem-vindo!
+
+Esta é a terceira parte do curso de JavaScript Avançado. Nós daremos continuidade ao mesmo projeto dos cursos anteriores. Então, recomendamos que você tenha feito os cursos anteriores e não caia aqui de paraquedas.
+
+Vamos relembrar como subir a aplicação. Nós usaremos o framework aberto no Visual Studio Code.
+
+Você pode baixar o projeto do curso anterior e continuar seus estudos. Se você também montou seu projeto durante a realização da segunda parte, também pode utilizá-lo.
+
+No exercício obrigatório, você encontra infraestrutura necessária para subirmos nossa aplicação.
+
+No Terminal, vamos entrar na minha pasta de trabalho.
+
+~flavio$ cd Desktop/aluraframe/
+aluraframe flavio$ cd server/
+server flavio$ npm start
+Após subirmos a aplicação, vamos digitar localhost:3000 no navegador e veremos que ela já está rodando.
+
+aplicacao rodando no navegador
+
+Com a Aluraframe, nós podemos cadastrar e incluir negociações. Podemos também importar uma API na Web ou apagá-las. Por mais que o escopo da aplicação pareça simples, quem passou pelas partes anteriores do curso viu que aplicamos muitos conceitos avançados de JavaScript - da versão do ECMAScript 2016 adiante.
+
+Nesta primeira aula, já começaremos com o seguinte problema: importamos negociações de APIs externas - fornecidas por nós por meio do servidor. Mas poderíamos usar uma API da internet, de um banco ou de bolsas de valores, por exemplo. No entanto, após cadastrarmos os dados, se recarregarmos a página, as informações da negociação se perdem. Nós encontraremos uma forma de reter os dados quando a página for recarregada. Porém, nós não criaremos um Back-end para recebê-los, mas sim, usaremos um banco de dados que todo navegador possui.
+
+Abordaremos, nesta aula, o assunto persistência com o banco de dados bastante famoso no mercado e certificado pela W3C, IndexedDB (IDB).
+*****************************
+02-
+*****************************
