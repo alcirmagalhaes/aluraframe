@@ -581,7 +581,7 @@ O indexedDB foi criado pela W3C e portanto faz parte de uma especificação. Ali
 Alternativa correta
 Precisamos solicitar uma requisição de abertura para um banco antes de qualquer coisa.
 *****************************
-09-A tríade de eventos
+09-Exercicio - A tríade de eventos
 Sobre a tríade de eventos disparados quando requisitamos uma abertura de conexão com o banco, marque as alternativas corretas.
 
 Alternativa correta
@@ -604,5 +604,44 @@ Alternativa correta
 
 Tanto o onupgradeneeded, quanto o onsuccess, possuem acesso à conexão através do objeto passado como parâmetro toda vez que os eventos são disparados.
 *****************************
-10-
+10-Exercicio - Onde está o Wally?
+Vejamos o seguinte código, que obtém uma conexão com o IndexedDB:
+
+var connection;
+
+var openRequest = window.indexedDB.open('aluraframe',1);
+
+openRequest.onupgradeneeded = e =>  {
+
+    console.log('Criando ou atualizando o banco');
+};
+
+openRequest.onsuccess = e => {
+
+    console.log('Conexão realizada com sucesso');
+
+    connection = e.result;
+};
+
+openRequest.onerror = e => {
+
+    console.log(e.error);
+};
+A quantidade de erros de semântica acima é:
+
+Alternativa correta
+2.
+
+Alternativa correta
+Nenhum erro de sintaxe.
+
+Alternativa correta
+3.
+
+Alternativa correta
+1.
+
+Há dois erros de sintaxe no código. O primeiro está no evento onsuccess, pois nele acessamos e.result, quando na verdade deve ser e.target.result. Um erro parecido acontece em onerror, pois acessamos e.error ao invés de e.target.error.
+*****************************
+11-
 *****************************
