@@ -581,5 +581,28 @@ O indexedDB foi criado pela W3C e portanto faz parte de uma especificação. Ali
 Alternativa correta
 Precisamos solicitar uma requisição de abertura para um banco antes de qualquer coisa.
 *****************************
-09-
+09-A tríade de eventos
+Sobre a tríade de eventos disparados quando requisitamos uma abertura de conexão com o banco, marque as alternativas corretas.
+
+Alternativa correta
+O evento onupgradeneeded pode ou não ser disparado em determinadas situações.
+
+
+Alternativa correta
+O evento onupgradeneeded é sempre chamado quando o banco é criado pela primeira vez.
+
+
+Alternativa correta
+O evento onupgradeneeded é sempre disparado depois do onsuccess.
+
+
+O evento onupgradeneeded é sempre disparado antes do onsuccess, contudo sua execução pode ou não acontecer. Isso porque o onupgradeneeded é chamado quando estamos criando o banco pela primeira vez ou quando estamos atualizando-o.
+
+Alternativa correta
+É apenas através do evento onsuccess que temos acesso à conexão com o banco.
+
+
+Tanto o onupgradeneeded, quanto o onsuccess, possuem acesso à conexão através do objeto passado como parâmetro toda vez que os eventos são disparados.
+*****************************
+10-
 *****************************
