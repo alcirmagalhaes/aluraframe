@@ -560,5 +560,26 @@ Opinião do instrutor
 Infraestrutura: considerações
 Se por acaso você tiver algum problema na instalação do Node.js, não se preocupe. Continue com o treinamento até que ele seja solicitado e nesse ínterim não deixe de pedir ajuda em nossos fóruns. Esse instrutor instalou o Node.js em todas as plataformas listadas acima na data de criação deste treinamento sem qualquer problema, contudo infraestrutura é sempre uma caixinha de surpresa, pois depende muito da máquina do aluno.
 *****************************
-08-
+08-Exercicio - IndexedDB e considerações
+Selecione as afirmações corretas sobre IndexedDB:
+
+Alternativa correta
+É necessário lidar com a díade de eventos toda vez que obtermos uma conexão.
+
+
+Para obtermos uma conexão com o banco, precisamos lidar com uma tríade de eventos quando queremos obter uma conexão com determinado banco.
+
+Alternativa correta
+É acessível através do escopo global.
+
+Alternativa correta
+Foi uma API definida pela W3C, logo não faz parte de uma especificação.
+
+
+O indexedDB foi criado pela W3C e portanto faz parte de uma especificação. Aliás, especificações tendem a atrair os desenvolvedores, principalmente aqueles que trabalham em empresas e que desejam ter um suporte mais duradouro dessa ou daquela funcionalidade.
+
+Alternativa correta
+Precisamos solicitar uma requisição de abertura para um banco antes de qualquer coisa.
+*****************************
+09-
 *****************************
