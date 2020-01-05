@@ -666,5 +666,44 @@ Veja que da connection, obtemos uma transação através do método transaction.
 
 Com a transação em mãos, agora sim podemos ter acesso a uma store transacional, através da chamada do método objectStore, que recebe como parâmetro o nome da store. É através da store que podemos realizar operações de persistência.
 *****************************
-12-
+12-Exercicio - Incluiu ou não?
+Vejamos o seguinte trecho de código que opera com uma conexão para um banco no IndexedDB:
+
+let transaction = connection.transaction(['negociacoes'],'readwrite');
+
+let store = transaction.objectStore('negociacoes');
+
+let negociacao = new Negociacao(new Date(), 200, 1);
+
+store.add(negociacao);
+Sobre a chamada de store.add, podemos dizer que:
+
+Alternativa correta
+Não podemos afirmar se a negociação foi salva com sucesso ou não.
+
+Alternativa correta
+Se quisermos ter certeza de que a inclusão foi realizada com sucesso, precisamos lidar com o evento onupgradeneeded.
+
+Alternativa correta
+Temos a garantia de que a negociação foi salva com sucesso.
+
+Chamar simplesmente store.add pode ou não adicionar efetivamente um objeto dentro de uma store, mas sempre ficaremos na dúvida se a operação foi realizada com sucesso. É por isso que o método add retorna uma requisição de abertura e no callback passado para seu evento onsuccess, quando ele for chamado, temos certeza de que o objeto foi adicionado. Caso um erro aconteça, o callback passado para onerror será chamado.
+
+let transaction = connection.transaction(['negociacoes'],'readwrite');
+
+let store = transaction.objectStore('negociacoes');
+
+let negociacao = new Negociacao(new Date(), 200, 1);
+
+let request = store.add(negociacao);
+
+request.onsuccess = e => {
+  alert('Adicionado com sucesso!');
+};
+
+request.onerror = e => {
+  alert('Não foi possível adicionar');
+};
+*****************************
+13-
 *****************************
