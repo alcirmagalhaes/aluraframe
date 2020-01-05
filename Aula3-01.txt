@@ -643,5 +643,28 @@ Alternativa correta
 
 Há dois erros de sintaxe no código. O primeiro está no evento onsuccess, pois nele acessamos e.result, quando na verdade deve ser e.target.result. Um erro parecido acontece em onerror, pois acessamos e.error ao invés de e.target.error.
 *****************************
-11-
+11-Exercicio - Store de uma transação
+Sabemos que para realizarmos operações de persistência, como inclusão ou listagem, precisamos de uma store. Contudo, essa store precisa vir de uma transação.
+
+Partindo do ponto que a variável connection possui uma conexão para o banco aluraframe e que este banco possui a store negociacoes, qual das opções abaixo obtém corretamente a store negociacoes?
+
+Alternativa correta
+let transaction = connection.transaction(['negociacoes'],'readwrite');
+
+let store = transaction.objectStore();
+
+Alternativa correta
+let transaction = connection.transaction('negociacoes','readwrite');
+
+let store = transaction.objectStore('negociacoes');
+
+Alternativa correta
+let transaction = connection.transaction(['negociacoes'],'readwrite');
+
+let store = transaction.objectStore('negociacoes');
+Veja que da connection, obtemos uma transação através do método transaction. Ele recebe como primeiro parâmetro um array com a object store que desejamos criar uma transação, e como segundo o tipo de acesso à store. No caso, queremos ter acesso de leitura e escrita.
+
+Com a transação em mãos, agora sim podemos ter acesso a uma store transacional, através da chamada do método objectStore, que recebe como parâmetro o nome da store. É através da store que podemos realizar operações de persistência.
+*****************************
+12-
 *****************************
