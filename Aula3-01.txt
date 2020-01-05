@@ -807,5 +807,12 @@ Se o banco atual estiver na versão 1, nenhuma atualização será feita. Contud
 var openRequest = window.indexedDB.open("aluraframe",2);
 Temos que estar atentos para esses detalhes.
 *****************************
-15-
+15-Consolidando seu conhecimento
+Agora que você já assistiu ao vídeo e fez todos os exercícios do capítulo implemente o código realizado pelo instrutor. Essa etapa é importante, para que você possa continuar o projeto no próximo capítulo.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Durante o treinamento você esbarrará com exercícios não relacionados com o vídeo para aumentar ainda mais o desafio durante os exercícios.
 *****************************
