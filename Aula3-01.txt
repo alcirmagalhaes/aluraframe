@@ -705,5 +705,83 @@ request.onerror = e => {
   alert('Não foi possível adicionar');
 };
 *****************************
-13-
+13-Exercicio - Listando dados de uma store
+Para listarmos os dados armazenados em uma store, percorremos um caminho idêntico ao caminho percorrido para adicionar novas negociações:
+
+let transaction = connection.transaction(['negociacoes'],'readwrite');
+let store = transaction.objectStore('negociacoes');
+
+let negociacoesDaStore = []; // vazia, precisa receber todas as negociações gravadas na store "negociacoes"
+Contudo, não queremos chamar store.add, pelo contrário, queremos obter cada negociação cadastrada do banco e não adicionar novas.
+
+Qual das opções abaixo possui o código sintaticamente correto que varre a store negociacoes ao mesmo tempo em que preenche o array negociacoesDaStore?
+
+Alternativa correta
+let cursor = store.openCursor();
+
+cursor.onsuccess = e => {
+
+    let atual = e.target.result;
+
+    if(atual) {
+
+        let dado = atual.value;
+
+        negociacoesDaStore.push(new Negociacao(dado._data, dado._quantidade, dado._valor));
+
+    } else { 
+
+        console.log(negociacoesDaStore);
+    }
+};
+
+Aqui faltou chamar o cursos.continue() para que o ponteiro avance para o próximo elemento.
+
+Alternativa correta
+let cursor = store.openCursor();
+
+    cursor.onsuccess = e => {
+
+    let atual = e.target.result;
+
+    if(atual) {
+
+        let dado = atual.value;
+
+        negociacoesDaStore.push(new Negociacao(dado._data, dado._quantidade, dado._valor));
+
+        atual.continue();
+
+    } else { 
+
+        console.log(negociacoesDaStore);
+    }
+};
+
+Correta
+
+Alternativa correta
+store.onsuccess = e => {
+
+    let atual = e.target.result;
+
+    if(atual) {
+
+        let dado = atual.value;
+
+        negociacoesDaStore.push(new Negociacao(dado._data, dado._quantidade, dado._valor));
+
+        atual.continue();
+
+    } else { 
+
+        console.log(negociacoesDaStore);
+    }
+};
+
+É através de um cursor que podemos iterar em uma store. Aqui nós estamos tentando iterar sobre a store sem o cursor.
+
+É através de um cursor que podemos iterar em uma store. O cursor possui um ponteiro para o primeiro objeto do banco. Veja, é um "ponteiro", não é o dado em si. Através do ponteiro podemos ter acesso ao primeiro, segundo, terceiro objeto e assim por diante. Assim que acessarmos um elemento do ponteiro, precisamos chamar cursor.continue() para que o ponteiro avance para o próximo elemento. Quando não houver mais elementos, o retorno de cursor. continue() será null.
+*****************************
+14-
 *****************************
