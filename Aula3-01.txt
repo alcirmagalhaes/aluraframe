@@ -783,5 +783,29 @@ store.onsuccess = e => {
 
 É através de um cursor que podemos iterar em uma store. O cursor possui um ponteiro para o primeiro objeto do banco. Veja, é um "ponteiro", não é o dado em si. Através do ponteiro podemos ter acesso ao primeiro, segundo, terceiro objeto e assim por diante. Assim que acessarmos um elemento do ponteiro, precisamos chamar cursor.continue() para que o ponteiro avance para o próximo elemento. Quando não houver mais elementos, o retorno de cursor. continue() será null.
 *****************************
-14-
+14-Exercicio - Não cria nova store. E agora?
+Tadeu, após assistir o primeiro capítulo deste treinamento, foi colocar em prática aquilo que aprendeu. Ele conseguiu criar a store negociacoes. Contudo, ele achou interessante criar a store siglas para guardar diversas siglas usadas pela sua aplicação.
+
+O aluno estava bem seguro, mas ficou aturdido pois não conseguiu criar a nova store. Ele recarregava sua aplicação e o evento onupgradeneeded não era mais chamado. Ele aprendeu que é neste evento o local adequado para se criar novas stores ou atualizar as já existentes.
+
+Partindo do pressuposto que o código de Tadeu esta 100% correto em termos de sintaxe, qual opção abaixo pode explicar a causa da store siglas não ter sido criada?
+
+Alternativa correta
+Ele não atualizou a versão do banco no momento da abertura.
+
+Alternativa correta
+Não é possível criar novas stores, ele precisa se conformar com isso.
+
+Alternativa correta
+Atualizações e criação de bancos são realizadas no evento onsuccess, ao invés de onupgradeneeded.
+
+O problema é que ele não atualizou a versão do banco. Quando um banco é criado pela primeira vez, ele guarda um número de versão. O evento onupgradeneeded só será disparado se a nova versão do banco, indicada para a função open, for superior à versão do banco no IndexedDB. Vejamos a linha que permite explicitar uma nova versão:
+
+var openRequest = window.indexedDB.open("aluraframe",1);
+Se o banco atual estiver na versão 1, nenhuma atualização será feita. Contudo, se alterar a versão para 2, o onupgradeneeded será disparado, porque a versão é superior à que está no IndexedDB:
+
+var openRequest = window.indexedDB.open("aluraframe",2);
+Temos que estar atentos para esses detalhes.
+*****************************
+15-
 *****************************
