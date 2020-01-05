@@ -510,5 +510,20 @@ Perfeito, se olharmos a saída no console veremos que temos um array de instânc
 
 Com todo conteúdo visto, temos o pré-requisito para integrar nossa aplicação com o IndexedDB, contudo você deve ter visto que nosso código não é um dos melhores. No próximo capítulo, veremos como organizá-lo, recorrendo a algumas patterns do mercado.
 *****************************
-06-
+06-(Obrigatório) Você fez os módulos anteriores?
+Esse curso tem como pré-requisito os módulos I e II . São eles:
+
+https://cursos.alura.com.br/course/javascript-es6-orientacao-a-objetos-parte-1
+
+https://cursos.alura.com.br/course/javascript-es6-orientacao-a-objetos-parte-2
+
+É importante que você faça os dois módulos antes de continuar, pois o projeto deste módulo será uma continuação dos módulos anteriores.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Criar uma aplicação mais completa foi um dos pedidos dos nossos alunos para este treinamento. Contudo, no lugar de criar um treinamento gigante ele foi dividido em partes para ajudar o aluno em seu estudo. Estamos muito atentos aos pedidos dos nossos alunos e esperamos que vocês curtam mais este módulo.
+*****************************
+07-
 *****************************
