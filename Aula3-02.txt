@@ -557,7 +557,81 @@ Receberemos uma mensagem de erro... Não podemos reatribuir.
 
 Isto não significa que os campos sejam imutáveis. Você poderá se aprofundar no assunto nos exercícios. Mas sempre que tivermos uma variável cujo valor não queremos que seja reatribuido, usaremos o const. Pratique o conteúdo fazendo os exercícios e mais adiante, implementaremos um novo padrão de projeto.
 **************************************
-06-
+06-exercícios - Esboço mínimo
+Aprendemos a lidar com o IndexedDB no capítulo anterior. Contudo, precisamos organizar todo aquele código que escrevemos em algo mais legível e fácil de manter. O primeiro passo é quebrar o problema em dois, ou seja, termos uma classe especializada na criação da conexão e outra especializada nas operações de persistência (inclusão, remoção, etc.). Vamos atacar o primeiro problema, o da conexão.
+
+Qual das opções abaixo possui o esboço da classe ConnectionFactory, que não nos permite criar instâncias a partir dela e que possui o método estático getConnection, cujo retorno é uma promise? Ah, e não esqueça que precisamos usar o operador new quando formos criar uma promise!
+
+Alternativa correta
+class ConnectionFactory {
+
+    constructor() {
+
+        throw new Error("ConnectionFactory não pode ser instanciada");
+    }
+
+    static getConnection() {
+
+        return Promise((resolve, reject) => {
+
+        });
+    }
+}
+
+Aqui está faltando dar um new na criação da promise Promisse
+
+Alternativa correta
+class ConnectionFactory {
+
+    constructor() {
+
+        throw new Error("ConnectionFactory não pode ser instanciada");
+    }
+
+    static getConnection() {
+
+        return new Promise((resolve, reject) => {
+
+        });
+    }
+}
+
+Está é a alternativa correta, veja a explicaçãod detalhada abaixo.
+
+Alternativa correta
+class ConnectionFactory {
+
+    static getConnection() {
+
+        return new Promise((resolve, reject) => {
+
+        });
+    }
+}
+
+Aqui falta o construtor que lança um erro ao tentar instanciar esta classe.
+
+Alternativa correta
+class ConnectionFactory {
+
+    constructor() {
+
+        throw new Error("ConnectionFactory não pode ser instanciada");
+    }
+
+    getConnection() {
+
+        return new Promise((resolve, reject) => {
+
+        });
+    }
+}
+
+Veja que este método getConnection não está como static!
+
+Para não permitir que sejam criadas instâncias de uma classe, podemos lançar uma exceção em seu constructor. Lembre-se que só queremos fazer isso porque estipulamos que a única maneira de obter a conexão é chamando um método estático da classe ConnectionFactory. Aliás, para que um método seja chamado diretamente da classe e não de uma instância, usamos o modificador static antes do nome do método.
+
+A obtenção de uma conexão é um processo assíncrono, sendo assim, nada mais justo do que nosso método getConnection retornar uma promise para nos ajudar com a complexidade de códigos assíncronos.
 **************************************
 07-
 **************************************
