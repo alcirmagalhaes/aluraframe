@@ -818,7 +818,168 @@ Quando o método formatadorMoeda.numeroParaReal for chamado, ele se lembrará do
 
 Esse pattern é muito usado no ES5 para resolver problemas desse tipo, entre outros. No entanto, o ES6 possui um sistema de módulos nativos. Curioso para ver como ele funciona? Isso ficará para o quarto módulo do curso avançado, pois migrar para o sistema de módulos do ES6 exige outros conhecimentos, sem falar que será uma mudança trabalhosa. Fique antenado para os próximos módulos, pois um assunto quente como esse será apresentado, aguarde!
 **************************************
-08-
+08-exercícios - O método getConnection
+Aurélia, com base no que aprendeu neste capítulo, criou o método getConnection, que por enquanto lida com a criação da store negociacoes. Vejamos seu código:
+
+class ConnectionFactory {
+
+    constructor() {
+
+        throw new Error("ConnectionFactory não pode ser instanciada");
+    }
+
+    static getConnection() {
+
+        return new Promise((resolve, reject) => {
+
+            let openRequest = window.indexedDB.open('aluraframe',4);
+
+            openRequest.onupgradeneeded = e => {
+
+                    if(e.target.result.objectStoreNames.contains('negociacoes')) e.target.result.deleteObjectStore('negociacoes');
+                    e.target.result.createObjectStore('negociacoes', { autoIncrement: true });
+
+            };
+
+        });
+    }
+}
+Contudo, ela lembrou que durante o vídeo foi criado um método para isolar a criação de uma ou mais stores, para melhorar a legibilidade do seu código.
+
+Qual das opções abaixo possui a classe ConnectionFactory alterada para separar a responsabilidade de criação de stores em um método em separado?
+
+Alternativa correta
+class ConnectionFactory {
+
+    constructor() {
+
+        throw new Error("ConnectionFactory não pode ser instanciada");
+    }
+
+    static getConnection() {
+
+        return new Promise((resolve, reject) => {
+
+            let openRequest = window.indexedDB.open('aluraframe',4);
+
+            openRequest.onupgradeneeded = e => {
+
+                    ConnectionFactory._createStores(e.target.result);
+
+
+            };
+
+        });
+    }
+
+    static _createStores() {
+
+        if(connection.objectStoreNames.contains('negociacoes')) connection.deleteObjectStore('negociacoes');
+        connection.createObjectStore('negociacoes', { autoIncrement: true });
+
+
+    }
+}
+
+Não pode ser a correta porque o método _createStores não recebe connection como parâmetro.
+
+Alternativa correta
+class ConnectionFactory {
+
+    constructor() {
+
+        throw new Error("ConnectionFactory não pode ser instanciada");
+    }
+
+    static getConnection() {
+
+        return new Promise((resolve, reject) => {
+
+            let openRequest = window.indexedDB.open('aluraframe',4);
+
+            openRequest.onupgradeneeded = e => {
+
+                    ConnectionFactory.createStores(e.target.result);
+
+            };
+
+        });
+    }
+
+    static _createStores(connection) {
+
+        if(connection.objectStoreNames.contains('negociacoes')) connection.deleteObjectStore('negociacoes');
+        connection.createObjectStore('negociacoes', { autoIncrement: true });
+
+
+    }
+}
+
+Quase correta, o método é _createStores usando a convenção de privacidade, contudo o método é chamado como createStores.
+
+Alternativa correta
+class ConnectionFactory {
+
+    constructor() {
+
+        throw new Error("ConnectionFactory não pode ser instanciada");
+    }
+
+    static getConnection() {
+
+        return new Promise((resolve, reject) => {
+
+            let openRequest = window.indexedDB.open('aluraframe',4);
+
+            openRequest.onupgradeneeded = e => {
+
+                    ConnectionFactory._createStores(e.target.result);
+
+            };
+
+        });
+    }
+
+    static  _createStores(connection) {
+
+        if(connection.objectStoreNames.contains('negociacoes')) connection.deleteObjectStore('negociacoes');
+        connection.createObjectStore('negociacoes', { autoIncrement: true });
+
+
+    }
+}
+Vejamos a resposta correta:
+
+class ConnectionFactory {
+
+    constructor() {
+
+        throw new Error("ConnectionFactory não pode ser instanciada");
+    }
+
+    static getConnection() {
+
+        return new Promise((resolve, reject) => {
+
+            let openRequest = window.indexedDB.open('aluraframe',4);
+
+            openRequest.onupgradeneeded = e => {
+
+                    ConnectionFactory._createStores(e.target.result);
+
+            };
+
+        });
+    }
+
+    static _createStores(connection) {
+
+        if(connection.objectStoreNames.contains('negociacoes')) connection.deleteObjectStore('negociacoes');
+        connection.createObjectStore('negociacoes', { autoIncrement: true });
+
+    }
+}
+Como não podemos criar instâncias de ConnectionFactory, só podemos chamar método estáticos. Sendo assim, o método auxiliar _createStores precisa ser estático. Além disso, esse método só faz sentido ser chamado pelo próprio método getConnection, dessa maneira, usamos a convenção de torná-lo privado usando _ antes do nome do método.
 **************************************
 09-
 **************************************
