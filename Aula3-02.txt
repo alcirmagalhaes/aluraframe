@@ -1055,7 +1055,49 @@ Pessoa.prototype.obterNomeCompleto = function() {
 }
 O monkey patch deve ser usado com parcimônia, até mesmo como último recurso, quando propõe uma modificação direta na definição da classe. Isto porque modificações usadas globalmente podem ocasionar bugs em diversas partes do nosso código, tendo assim, um resultado imprevisível.
 **************************************
-10-
+10-exercícios - Variáveis imutáveis!
+PRÓXIMA ATIVIDADE
+
+Michele estava verificando um código em seu webapp quando notou o seguinte trecho:
+
+...
+var nome = "Aurélio Siciliano Oxford";
+var CPF  = "134.567.890-12";
+...
+Quando notou que algumas de suas variáveis nunca seriam reatribuídas, como o nome e CPF. Ela sendo uma programadora Javascript antenada as últimas novidades, resolveu utilizar um recurso do Ecma2015(ES6) para garantir que suas variáveis não possam ter seus valores alterados.
+
+Qual das opções abaixo torna as variáveis que Michele criou incapazes de serem reatribuídas?
+
+Alternativa correta
+...
+const  nome = "Aurélio Siciliano Oxford";
+const  CPF  = "134.567.890-12";
+...
+Alternativa correta
+...
+ nome = "Aurélio Siciliano Oxford";
+ CPF  = "134.567.890-12";
+...
+Alternativa correta
+...
+let  nome = "Aurélio Siciliano Oxford";
+let  CPF  = "134.567.890-12";
+...
+Alternativa correta
+Nenhuma das outras alternativas
+
+Alternativa correta
+...
+final  nome = "Aurélio Siciliano Oxford";
+final  CPF  = "134.567.890-12";
+...
+O Ecma2015 trouxe a palavrinha const como um novo modo de declarar variáveis. Quando declaramos uma const não conseguimos reatribuir um valor a um constante já criada, então caso tentássemos fazer:
+
+const nome  = "Douglas";
+E logo em seguida :
+
+nome = "Daniel";
+O console imediatamente nos retonaria o erro Uncaught TypeError: Assignment to constant variable pois estamos tentando atribuir um valor a uma constante previamente declarada. É bem útil utilizá-la quando estamos criando variáveis que não irão e nem devem ter seus valores alterados.
 **************************************
 11-
 **************************************
