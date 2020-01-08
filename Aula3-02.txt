@@ -633,7 +633,190 @@ Para não permitir que sejam criadas instâncias de uma classe, podemos lançar 
 
 A obtenção de uma conexão é um processo assíncrono, sendo assim, nada mais justo do que nosso método getConnection retornar uma promise para nos ajudar com a complexidade de códigos assíncronos.
 **************************************
-07-
+07-exercícios - Exportando funcionalidades de um módulo (ES5, ainda!)
+Valentina criou duas funções para lidar com conversões de um número em real para número e vice-versa:
+
+// conv.js
+
+let simboloMoeda = 'R$ ';
+
+function numeroParaReal(numero) {
+
+    return simboloMoeda + numero.toFixed(2).replace('.', ',');
+}
+
+function realParaNumero(texto) {
+
+    return texto.replace(simboloMoeda, '').replace(',', '.');
+}
+Podemos até testar através do console do Chrome:
+
+let real = 'R$ 100,20';
+let realConvertidoEmNumero = realParaNumero(real);
+alert(realConvertidoEmNumero); // exibe 100.20
+
+let numero = 200.15;
+let numeroConvertidoEmReal = numeroParaReal(numero);
+alert(numeroConvertidoEmReal); // exibe R$ 200,15
+É claro que existem várias maneiras de se resolver esse problema, essa é uma das soluções. Contudo, veja que temos a variável simboloMoeda e as duas funções no escopo global. Sendo assim, podemos alterar o símbolo da moeda a qualquer momento:
+
+var simboloMoeda = '$';
+Veja que agora o símbolo da moeda é dólar! Com certeza não queremos que essa mudança seja possível em nosso código. Sabemos que se declararmos variáveis (se você usar let ou var) e funções dentro de outra função, elas pertencerão ao escopo da função e não pertencerão ao escopo global. Inclusive aprendemos a utilizar uma IIFE, uma função anônima que se invoca automaticamente para criar esse escopo:
+
+// conv.js
+
+(function() {
+
+    let simboloMoeda = 'R$ ';
+
+    function numeroParaReal(numero) {
+
+        return simboloMoeda + numero.toFixed(2).replace('.', ',');
+    }
+
+    function realParaNumero(texto) {
+
+        return texto.replace(simboloMoeda, '').replace(',', '.');
+    }
+})();
+Veja que agora, quando nosso script for carregado, a IIFE será invocada e tudo que estiver dentro dela não será mais acessível globalmente. Desse jeito, ninguém poderá mais alterar simboloMoeda, mas também não conseguirá chamar as funções numeroParaReal e realParaNumero. Resolvemos um problema e criamos outro.
+
+Você aprendeu neste capítulo sobre o padrão de projeto Module Pattern. O que fizemos até agora foi criar um módulo, uma unidade de código confinada, mas que não exporta qualquer funcionalidade.
+
+Qual das opções abaixo altera corretamente nosso módulo para que exporte as funcionalidades numeroParaReal e realParaNumero, mas mantendo simboloMoeda inacessível através do escopo global?
+
+Alternativa correta
+(function() {
+
+    let simboloMoeda = 'R$ ';
+
+    return function numeroParaReal(numero) {
+
+        return simboloMoeda + numero.toFixed(2).replace('.', ',');
+    }
+
+     function realParaNumero(texto) {
+
+        return texto.replace(simboloMoeda, '').replace(',', '.');
+    }
+})();
+
+// exemplo de uso 
+
+let real = 'R$ 100,20';
+let realConvertidoEmNumero =
+     formatadorDeMoedas.realParaNumero(real);
+
+alert(realConvertidoEmNumero);
+
+let numero = 200.15;
+let numeroConvertidoEmReal = 
+    formatadorDeMoedas.numeroParaReal(numero);
+
+alert(numeroConvertidoEmReal);
+Alternativa correta
+var formatadorDeMoedas = (function() {
+
+    let simboloMoeda = 'R$ ';
+    let modulo = {};
+
+    modulo.numeroParaReal = numero => {
+
+        return simboloMoeda + numero.toFixed(2).replace('.', ',');
+    }
+
+    modulo.realParaNumero = texto => {
+
+        return texto.replace(simboloMoeda, '').replace(',', '.');
+    }
+
+    return modulo;
+})();
+
+// exemplo de uso
+
+let real = 'R$ 100,20';
+let realConvertidoEmNumero =
+     formatadorDeMoedas.realParaNumero(real);
+
+alert(realConvertidoEmNumero);
+
+let numero = 200.15;
+let numeroConvertidoEmReal = 
+    formatadorDeMoedas.numeroParaReal(numero);
+
+alert(numeroConvertidoEmReal);
+Alternativa correta
+(function() {
+
+    let simboloMoeda = 'R$ ';
+
+    return function numeroParaReal(numero) {
+
+        return simboloMoeda + numero.toFixed(2).replace('.', ',');
+    }
+
+    return function realParaNumero(texto) {
+
+        return texto.replace(simboloMoeda, '').replace(',', '.');
+    }
+})();
+
+// exemplo de uso 
+
+let real = 'R$ 100,20';
+let realConvertidoEmNumero =
+     formatadorDeMoedas.realParaNumero(real);
+
+alert(realConvertidoEmNumero);
+
+let numero = 200.15;
+let numeroConvertidoEmReal = 
+    formatadorDeMoedas.numeroParaReal(numero);
+
+alert(numeroConvertidoEmReal);
+Vamos analisar o código correto.
+
+var formatadorDeMoedas = (function() {
+
+    let simboloMoeda = 'R$ ';
+    let modulo = {};
+
+    modulo.numeroParaReal = numero => {
+
+        return simboloMoeda + numero.toFixed(2).replace('.', ',');
+    }
+
+    modulo.realParaNumero = texto => {
+
+        return texto.replace(simboloMoeda, '').replace(',', '.');
+    }
+
+    return modulo;
+})();
+
+// exemplo de uso
+
+let real = 'R$ 100,20';
+let realConvertidoEmNumero =
+     formatadorDeMoedas.realParaNumero(real);
+
+alert(realConvertidoEmNumero);
+
+let numero = 200.15;
+let numeroConvertidoEmReal = 
+    formatadorDeMoedas.numeroParaReal(numero);
+
+alert(numeroConvertidoEmReal);
+Como uma IIFE nada mais é do que uma função, toda função pode retornar algo. Nesse caso, precisamos retornar as duas funções de conversão, mas sabemos que só podemos ter um retorno. É por isso que criamos o objeto modulo e nele adicionamos dinamicamente duas propriedades com os nomes das funções que havíamos criado, e em seguida definimos o comportamento dessas propriedades através de uma função, no caso, arrow functions por serem mais sucintas.
+
+Perceba que simboloMoeda não está presente em nenhuma propriedade de modulo. Isso faz sentido, porque nossa função retornará o objeto modulo com as funções, mas não será exportado com simboloMoeda. No final da nossa IIFE, retornamos (exportamos) o objeto modulo. O retorno da IIFE é armazenada na variável formatadorDeMoedas, essa sim no escopo global e acessível em qualquer lugar da nossa aplicação.
+
+Se tentarmos sobrescrever simboloMoeda, não conseguiremos. Mas Flávio, eu posso sobrescrever a variável formatadorDeMoedas que está no escopo global, certo? Sim, mas veja que agora temos apenas uma variável no escopo global e não três como tínhamos antes, que era a variável que guarda o símbolo da moeda e as funções.
+
+Quando o método formatadorMoeda.numeroParaReal for chamado, ele se lembrará do contexto no qual foi declarado (ou seja, o escopo da IIFE) e terá acesso à variável simboloMoeda.
+
+Esse pattern é muito usado no ES5 para resolver problemas desse tipo, entre outros. No entanto, o ES6 possui um sistema de módulos nativos. Curioso para ver como ele funciona? Isso ficará para o quarto módulo do curso avançado, pois migrar para o sistema de módulos do ES6 exige outros conhecimentos, sem falar que será uma mudança trabalhosa. Fique antenado para os próximos módulos, pois um assunto quente como esse será apresentado, aguarde!
 **************************************
 08-
 **************************************
