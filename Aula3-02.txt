@@ -1099,7 +1099,15 @@ E logo em seguida :
 nome = "Daniel";
 O console imediatamente nos retonaria o erro Uncaught TypeError: Assignment to constant variable pois estamos tentando atribuir um valor a uma constante previamente declarada. É bem útil utilizá-la quando estamos criando variáveis que não irão e nem devem ter seus valores alterados.
 **************************************
-11-
+11-Consolidando seu conhecimento
+
+Para que você consiga acompanhar os vídeos seguintes, implemente a classe ConnectionFactory como apresentada no vídeo.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Dúvidas? Você pode recorrer ao vídeo e às explicações do capítulo. Se ainda assim as dúvidas continuarem, procure imediatamente ajuda em nosso fórum.
 **************************************
 12-
 **************************************
