@@ -25,6 +25,10 @@ class NegociacaoController {
             .then(negociacoes => 
                     negociacoes.forEach(negociacao => 
                             this._listaNegociacoes.adiciona(negociacao)))
+            .catch(erro => {
+                console.log(erro);
+                this._mensagem.texto = erro;
+            })
 
 /*      outra forma de se buscar as negociaçoes durante o carregamento da pagina 
         ConnectionFactory
@@ -130,8 +134,15 @@ class NegociacaoController {
 
     apaga() {
        
-       this._listaNegociacoes.esvazia();
-       this._mensagem.texto = 'Lista de negociações apagada!';
+        ConnectionFactory
+            .getConnection()
+            .then(conexao => new NegociacaoDao(conexao))
+            .then(dao => dao.apagaTodos())
+            .then(mensagem => {
+
+                this._mensagem.texto = mensagem;
+                this._listaNegociacoes.esvazia();
+            })
        
     }
 
