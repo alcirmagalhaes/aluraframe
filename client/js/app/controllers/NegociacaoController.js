@@ -17,6 +17,29 @@ class NegociacaoController {
             'texto');
         
         this._ordemAtual = '';
+
+        ConnectionFactory
+            .getConnection()
+            .then(conexao => new NegociacaoDao(conexao))
+            .then(dao => dao.listaTodos())
+            .then(negociacoes => 
+                    negociacoes.forEach(negociacao => 
+                            this._listaNegociacoes.adiciona(negociacao)))
+
+/*      outra forma de se buscar as negociaçoes durante o carregamento da pagina 
+        ConnectionFactory
+            .getConnection()
+            .then(conexao => {
+                new NegociacaoDao(conexao)
+                    .listaTodos()
+                    .then(negociacoes => {
+                        negociacoes.forEach(negociacao =>{
+
+                            this._listaNegociacoes.adiciona(negociacao);
+                        })
+                    })
+            })
+*/            
     }
 
     adiciona(event) {
