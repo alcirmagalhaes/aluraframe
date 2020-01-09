@@ -20,14 +20,32 @@ class NegociacaoController {
     }
 
     adiciona(event) {
+
+        event.preventDefault();
+        ConnectionFactory.getConnection()
+        .then(conexao => {
+            let negociacao = this._criaNegociacao();
+            new NegociacaoDao(conexao)
+            .adiciona(negociacao)
+            .then(() =>{
+                this._listaNegociacoes.adiciona(negociacao);
+                this._mensagem.texto = 'Negociação adicionada com sucesso!'
+                this._limpaFormulario();  
+            }) 
+        })
+        .catch(erro => this._mensagem.texto = erro);
+        
+/*      Código antigo, onde só atualizava a pagina  
         try {
+            
             event.preventDefault();
-            this._listaNegociacoes.adiciona(this._criaNegociacao());
+            this._listaNegociacoes.adiciona(negociacao);
             this._mensagem.texto = 'Negociação adicionada com sucesso!'
             this._limpaFormulario();    
         }catch(erro) {
             this._mensagem.texto = erro;
         };
+*/
     }
 
     importaNegociacoes() {
@@ -82,8 +100,8 @@ class NegociacaoController {
  
         return new Negociacao(
             DateHelper.textoParaData(this._inputData.value),
-            this._inputQuantidade.value,
-            this._inputValor.value
+            parseInt(this._inputQuantidade.value),
+            parseFloat(this._inputValor.value)
         )
     }
 
