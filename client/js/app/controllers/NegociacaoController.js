@@ -81,8 +81,10 @@ class NegociacaoController {
         service
         .obterNegociacoes()
         .then(negociacoes => 
+            //irá retornar apenas as negociações que não estão na grid (lista de negociações que estão na tela)
             negociacoes.filter(negociacao =>  
-                this._listaNegociacoes.negociacoes.indexOf(negociacao) == -1)
+                !this._listaNegociacoes.negociacoes.some(negociacaoExistente =>
+                    JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente)))
         )
         .then(negociacoes => {
             negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
