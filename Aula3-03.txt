@@ -479,7 +479,87 @@ A vantagem está ligada com a capacidade de isolar todo o código que acessa seu
 
 Falando um pouco mais técnico e nem por isso menos bonito, o DAO faz parte da camada de persistência, funciona como uma fachada para a API do IndexedDB. Repare que para usar o DAO não é preciso saber os detalhes do store ou cursor.
 *****************************
-06-
+06-exercícios - Método que devolve uma promise
+Vejamos nossa classe NegociacaoDao. O método adiciona que devolve uma promise:
+
+class NegociacaoDao {
+
+    constructor(connection) {
+
+        this._connection = connection;
+        this._store = 'negociacoes';
+    }
+
+    adiciona(negociacao) {
+
+        return new Promise((resolve, reject) => {
+
+            let request = this
+                ._connection
+                .transaction([this._store],"readwrite")
+                .objectStore(this._store)
+                .add(negociacao);
+
+        });
+    }
+
+   listaTodos() {
+        // ainda não implementado
+  }
+
+}
+Veja que o método está incompleto, porque em nenhum momento chama a função resolve ou reject, fundamentais para que a promise retorne seu valor ou uma exceção.
+
+Qual das opções abaixo completa o método adiciona?
+
+Alternativa correta
+    adiciona(negociacao) {
+
+        return new Promise((resolve, reject) => {
+
+            let request = this
+                ._connection
+                .transaction([this._store],"readwrite")
+                .objectStore(this._store)
+                .add(negociacao)
+                .onsuccess = e => resolve();
+                .onerror = e => reject(e.target.error.name);
+
+        });
+    }
+Alternativa correta
+    adiciona(negociacao) {
+
+        return new Promise((resolve, reject) => {
+
+            let request = this
+                ._connection
+                .transaction([this._store],"readwrite")
+                .objectStore(this._store)
+                .add(negociacao);
+
+            request.onsuccess = e => resolve();
+            request.onerror = e => reject(e.target.error.name);
+
+        });
+    }
+Alternativa correta
+    adiciona(negociacao) {
+
+        return new Promise((resolve, reject) => {
+
+            let request = this
+                ._connection
+                .transaction([this._store],"readwrite")
+                .objectStore(this._store)
+                .add(negociacao);
+
+            request.onsuccess = e => reject();
+            request.onerror = e => resolve(e.target.error.name);
+
+        });
+    }
+Lembre-se que só temos certeza que a negociação foi adicionada apenas se o evento onsuccess da requisição de inclusão for disparado. Por isso é nele que chamamos o resolve da nossa promise. Por fim, no evento onerror chamamos o reject, aquela função de toda promise que recebe como parâmetro a razão da falha de sua execução.
 *****************************
 07-
 *****************************
