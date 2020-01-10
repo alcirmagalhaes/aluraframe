@@ -201,7 +201,49 @@ Apenas a nova negociação foi importada, enquanto as demais foram ignoradas.
 
 Nós conseguimos, misturando os conceitos de Promise, misturando funções do ECMAScript5 ( filter, some...) e usando o artifício de serializar um objeto para saber se ele existe ou não, nós conseguimos filtrar a nossa lista e passando para o próximo encadeamento de then() apenas as negociações que não existem de _listaNegociacoes. Com essas melhorias, vimos vários conteúdos novos.
 *****************************
-04-
+04-Importando negociações automaticamente
+Vamos melhorar outro ponto da experiência do usuário para não dependermos do clique no botão "Importar Negociações" e evitarmos perder alguma atualização recente. Por isso, removeremos o botão do arquivo index.html. E agora, como faremos para importar? Queremos que o JavaScript chame o método importaNegociacoes()do controller a cada determinado período de tempo.
+
+Faremos isto na inicialização do NegociacaoController.js, adicionando no construtor da classe o setInterval no importaNegociacoes(). Definiremos uma período a cada 3 segundos (3000).
+
+setInterval(() => {
+    this.importaNegociacoes();
+}, 3000);
+Agora, o método não será mais chamado pelo botão, ele será chamado a cada 3 segundos e as negociações serão trazidas do servidor. Podemos até incluir novas negociações acessando o http://localhost:3000/post.html. Logo, em seguida ela será adicionada na tabela.
+
+negociacoes do periodo importadas
+
+Conseguimos melhorar a experiência do usuário.
+
+Você tem a opção de remover a mensagem que confirma a importação das negociações do período. Aqui no curso, optamos por manter.
+
+Mas tem algo que pode nos trazer problema. A boa prática diz que no constructor, só devemos utilizar os atributos da classe. Porém, no caso, nós temos o ConnectionFactory, o setInterval. Para facilitar a manutenção, vamos mover essas duas lógicas para dentro do método privado que criaremos a seguir: o _init(). Depois, iremos chamar o método no fim do constructor. Com as alterações o código ficou assim:
+
+constructor() {
+
+    // propriedades da classe omitidas
+
+    this._init();
+}
+_init() {
+
+    ConnectionFactory
+        .getConnection()
+        .then(connection => new NegociacaoDao(connection))
+        .then(dao => dao.listaTodos())
+        .then(negociacoes =>
+            negociacoes.forEach(negociacao =>
+              this._listaNegociacoes.adiciona(negociacao)))
+        .catch(erro => {
+            console.log(erro);
+            this._mensagem.texto = erro;
+        });
+
+        setInterval(() => {
+            this.importaNegociacoes();
+        }, 3000);
+}
+O _init só poderá ser chamado pela própria classe. Se testarmos o formulário no navegador, veremos novamente a mensagem que confirma a importação das negociações e são atualizadas automaticamente. Mas ainda tem mais coisas que podemos melhorar.
 *****************************
 05-
 *****************************

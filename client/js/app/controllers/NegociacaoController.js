@@ -18,6 +18,12 @@ class NegociacaoController {
         
         this._ordemAtual = '';
 
+        this._init();
+
+    }
+    
+    _init() {
+        
         ConnectionFactory
             .getConnection()
             .then(conexao => new NegociacaoDao(conexao))
@@ -29,21 +35,11 @@ class NegociacaoController {
                 console.log(erro);
                 this._mensagem.texto = erro;
             })
-
-/*      outra forma de se buscar as negociaçoes durante o carregamento da pagina 
-        ConnectionFactory
-            .getConnection()
-            .then(conexao => {
-                new NegociacaoDao(conexao)
-                    .listaTodos()
-                    .then(negociacoes => {
-                        negociacoes.forEach(negociacao =>{
-
-                            this._listaNegociacoes.adiciona(negociacao);
-                        })
-                    })
-            })
-*/            
+    
+            setInterval(()=>{
+    
+                this.importaNegociacoes();
+            }, 5000);
     }
 
     adiciona(event) {
