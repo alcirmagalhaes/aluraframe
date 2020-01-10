@@ -600,7 +600,15 @@ Como houve um retorno, o dao está disponível na próxima chamada à função t
 
 Como adiciona devolve uma promise e há um retorno implícito da nossa arrow function, encadeando mais uma vez a chamada da função then podemos executar um código com a certeza de que a negociação foi adicionada com sucesso. Caso algum erro ocorra, o código passado para o catch será executado.
 *****************************
-08-
+08-Consolidando seu conhecimento
+
+Para que você consiga acompanhar os vídeos seguintes, implemente o que foi apresentado no vídeo.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Dúvidas? Você pode recorrer ao vídeo e às explicações do capítulo. Se ainda assim as dúvidas continuarem, procure imediatamente ajuda em nosso fórum.
 *****************************
 09-
 *****************************
