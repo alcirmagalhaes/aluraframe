@@ -561,7 +561,44 @@ Alternativa correta
     }
 Lembre-se que só temos certeza que a negociação foi adicionada apenas se o evento onsuccess da requisição de inclusão for disparado. Por isso é nele que chamamos o resolve da nossa promise. Por fim, no evento onerror chamamos o reject, aquela função de toda promise que recebe como parâmetro a razão da falha de sua execução.
 *****************************
-07-
+07-exercícios - Combinando ConnectionFactory e NegociacaoDao
+Qual das opções abaixo combina corretamente as classes ConnectionFactory e NegociacaoDao. Lembre-se que NegociacaoDao depende de uma connection e ConnectionFactory é a classe que possui a responsabilidade de devolver conexões.
+
+Alternativa correta
+ConnectionFactory()
+    .getConnection()
+    .then(conexao => new NegociacaoDao(conexao))
+    .then(dao => dao.adiciona(new Negociacao(new Date(), 1, 200.13)))
+    .then(() => console.log('adicionado com sucesso'))
+    .catch(() => console.log('não foi possível adicionar'));
+
+Alternativa correta
+ConnectionFactory()
+    .then(conexao => new NegociacaoDao(conexao))
+    .then(dao.adiciona(new Negociacao(new Date(), 1, 200.13)))
+    .then(() => console.log('adicionado com sucesso'))
+    .catch(() => console.log('não foi possível adicionar'));
+
+Alternativa correta
+ConnectionFactory
+    .getConnection()
+    .then(conexao => new NegociacaoDao(conexao))
+    .then(dao => dao.adiciona(new Negociacao(new Date(), 1, 200.13)))
+    .then(() => console.log('adicionado com sucesso'))
+    .catch(() => console.log('não foi possível adicionar'));
+Vamos analisar a resposta correta:
+
+ConnectionFactory
+    .getConnection()
+    .then(conexao => new NegociacaoDao(conexao))
+    .then(dao => dao.adiciona(new Negociacao(new Date(), 1, 200.13)))
+    .then(() => console.log('adicionado com sucesso'))
+    .catch(() => console.log('não foi possível adicionar'));
+Tudo começa invocando o método getConnection da nossa ConnectionFactory. Como o método retorna uma promise, quando encadeamos uma chamada à função then temos acesso à conexão. Veja, não queremos trabalhar com uma conexão diretamente, queremos um dao, é por isso que no mesmo then em que obtemos a conexão retornamos implicitamente (arrow function sem block) uma instância de NegociacaoDao.
+
+Como houve um retorno, o dao está disponível na próxima chamada à função then. Nele, chamamos dao.adiciona passando uma negociação como parâmetro.
+
+Como adiciona devolve uma promise e há um retorno implícito da nossa arrow function, encadeando mais uma vez a chamada da função then podemos executar um código com a certeza de que a negociação foi adicionada com sucesso. Caso algum erro ocorra, o código passado para o catch será executado.
 *****************************
 08-
 *****************************
