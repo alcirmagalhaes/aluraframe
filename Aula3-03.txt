@@ -689,5 +689,11 @@ ConnectionFactory.
     })
 Apesar do que aprendemos aqui não ser útil dentro do cenário da aplicação Aluraframe, informações extras como essa são sempre bem-vindas!
 *****************************
-10-
+10-Para saber mais: bibliotecas que encapsulam o IndexedDB
+
+Criamos nossa própria solução de persistência aplicando padrões de projeto e combinando um pouco de tudo que vimos nos módulos anteriores, Procuramos esconder a complexidade de se lidar com o IndexedDB através das classes ConnectionFactory e NegociacaoDao. Contudo, repare que isso é um problema que todos aqueles que utilizaram o IndexedDB terão que lidar em algum ponto da aplicação.
+
+Para lidar também com o o IndexedDB outros desenvolvedores tornaram públicas suas bibliotecas. Por exemplo, há o Dexie e o Db.js, este último utiliza promises assim como fizemos.
+
+Como a ideia deste treinamento é que você se torne cangaceiro em JavaScript, não usamos nenhum biblioteca externa e fizemos tudo na mão!
 *****************************
