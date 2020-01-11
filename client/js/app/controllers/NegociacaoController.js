@@ -18,13 +18,25 @@ class NegociacaoController {
         
         this._ordemAtual = '';
 
+        this._service = new NegociacaoService();
+
         this._init();
 
     }
     
     _init() {
+
+        this._service
+            .lista()
+            .then(negociacoes =>
+                negociacoes.forEach(negociacao =>
+                    this._listaNegociacoes.adiciona(negociacao)))
+            .catch(erro => {
+                console.log(erro);
+                this._mensagem.texto = erro});
         
-        ConnectionFactory
+        /* este bloco foi para o negociacaoService, para a lista ser gera por lá
+           ConnectionFactory
             .getConnection()
             .then(conexao => new NegociacaoDao(conexao))
             .then(dao => dao.listaTodos())
@@ -35,11 +47,13 @@ class NegociacaoController {
                 console.log(erro);
                 this._mensagem.texto = erro;
             })
-    
+         */
+
             setInterval(()=>{
     
                 this.importaNegociacoes();
             }, 5000);
+       
     }
 
     adiciona(event) {
@@ -47,7 +61,7 @@ class NegociacaoController {
         event.preventDefault();
         let negociacao = this._criaNegociacao();
 
-        new NegociacaoService()
+        this._service
             .cadastra(negociacao)
             .then((mensagem) => {
 
@@ -56,7 +70,7 @@ class NegociacaoController {
                 this._limpaFormulario();
             })
             .catch(erro => this._mensagem.texto = erro);
-/*
+/*      este blco foi para o NegociacaoService
         ConnectionFactory.getConnection()
         .then(conexao => {
             let negociacao = this._criaNegociacao();
@@ -74,8 +88,9 @@ class NegociacaoController {
 
     importaNegociacoes() {
                           
-        let service = new NegociacaoService();
-        service
+        //let service = new NegociacaoService();
+        //service
+        this._service
         .obterNegociacoes()
         .then(negociacoes => 
             //irá retornar apenas as negociações que não estão na grid (lista de negociações que estão na tela)
@@ -109,8 +124,17 @@ class NegociacaoController {
     }
 
     apaga() {
+
+        this._service
+            .apaga()
+            .then(mensagem => {
+
+                this._mensagem.texto = mensagem;
+                this._listaNegociacoes.esvazia();
+            })
+            .catch( erro => this._mensagem.texto = erro);
        
-        ConnectionFactory
+        /* ConnectionFactory
             .getConnection()
             .then(conexao => new NegociacaoDao(conexao))
             .then(dao => dao.apagaTodos())
@@ -118,7 +142,8 @@ class NegociacaoController {
 
                 this._mensagem.texto = mensagem;
                 this._listaNegociacoes.esvazia();
-            })
+            }) 
+        */
        
     }
 
