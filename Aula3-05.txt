@@ -237,6 +237,48 @@ Sendo assim, se você não precisar cancelar requisições pendentes, a Fetch AP
 Por que esperar o futuro se já podemos utilizá-lo agora? A Fetch API é um bom exemplo.
 ********************************
 05-Onde está o erro?
+Laércio reescreveu a classe HttpService utilizando a Fetch API:
+
+class HttpService {
+
+
+    _handleErrors(res) {
+
+        if (!res.ok) {
+            throw new Error(res.statusText);
+        }
+
+        return res;
+    }
+
+    get(url) {
+
+        fetch(url)
+            .then(res => this._handleErrors(res))
+            .then(res => res.json());
+    }
+
+    post(url, dado) {
+
+        fetch(url, { 
+            headers: { 'Content-Type': 'application/json' },
+            method: 'post',
+            body: JSON.stringify(dado)
+        })
+        .then(res => this._handleErrors(res)); 
+    }
+
+}
+Contudo, quando os métodos get ou post são chamados, a seguinte mensagem de erro é exibida no console:
+
+Cannot read property 'then' of undefined
+Tente descobrir primeiro o erro do código e só depois continue para ver a resposta do instrutor.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Veja que os dois métodos esqueceram de retornar uma promise, isso porque a função fetch retorna uma promise. Sem retorná-la, não é possível encadear uma chamada à then.
 ********************************
 06-
 ********************************
