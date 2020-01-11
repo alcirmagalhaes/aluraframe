@@ -58,7 +58,7 @@ class NegociacaoService {
             return negociacoes;
 
         }).catch(erro => {
-            throw new Error(erro);
+            throw new Error('Não foi possível buscar as negociações para importar');
         });
 
     }

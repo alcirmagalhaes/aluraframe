@@ -1,8 +1,18 @@
 class HttpService {
 
+    _handleErrors(res) {
+       
+        if (!res.ok) throw new Error(res.statusText);
+        return res;
+    }
     get (url) {
 
-        return new Promise((resolve, reject)=>{
+       url = 'xxx'; 
+       return fetch(url)
+            .then(res => this._handleErrors(res))
+            .then(res => res.json());
+
+/*         return new Promise((resolve, reject)=>{
             let xhr = new XMLHttpRequest();
             xhr.open('GET', url);
             
@@ -20,7 +30,7 @@ class HttpService {
                 }
             }
             xhr.send();
-        })
+        }) */
     }
 
     post(url, dado) {
