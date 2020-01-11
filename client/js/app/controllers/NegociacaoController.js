@@ -88,16 +88,8 @@ class NegociacaoController {
 
     importaNegociacoes() {
                           
-        //let service = new NegociacaoService();
-        //service
         this._service
-        .obterNegociacoes()
-        .then(negociacoes => 
-            //irá retornar apenas as negociações que não estão na grid (lista de negociações que estão na tela)
-            negociacoes.filter(negociacao =>  
-                !this._listaNegociacoes.negociacoes.some(negociacaoExistente =>
-                    JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente)))
-        )
+        .importa(this._listaNegociacoes.negociacoes)
         .then(negociacoes => {
             negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
             this._mensagem.texto = 'Negociações do período importadas com sucesso';
