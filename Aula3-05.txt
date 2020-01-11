@@ -161,11 +161,82 @@ A negociação foi enviada com sucesso. Quando voltarmos para a página principa
 
 Conseguimos fechar a Fetch API, que possui ainda outros recursos, mas já podemos utilizar o que já foi visto até aqui. A seguir, veremos se temos como garantir o bom funcionamento do código em todos os navegadores.
 ********************************
-03-
+03-Compatibilidade com uso de PolyFill
+O Fetch API é tão interessante que alguns desenvolvedores criaram um polyfill, garantindo o bom funcionamento em todos os navegadores. Com este, podemos simular o Fetch API e o funcionamento será bastante semelhante.
+
+Dentro do nosso projeto, temos uma pasta chamada polyfill, em que geramos o es6.js - para o caso de que não exista no navegador:
+
+if(!Array.prototype.includes) {
+    console.log('Polyfill para Array.includes aplicado.');
+    Array.prototype.includes = function(elemento) {
+        return this.indexOf(elemento) != -1;
+    };
+}
+E temos o arquivo fetch.js que emulará com fidelidade o Fetch API, criando no escopo global do navegador esta funcionalidade.
+
+Você pode usar este polyfill, baixando-o da pasta https://github.com/github/fetch/blob/master/fetch.js. O script deve ser carregado como primeiro script da nossa página em body.
+
+Depois de baixá-lo e carregá-lo, experimente acessar a aplicação em outros navegadores. Para que o polyfill funcione é necessário no mínimo que o browser suporte promises.
+
+Em seguida, importaremos o arquivo em index.html.
+
+<div id="negociacoesView"></div>
+<script src="js/app/polyfill/fetch.js"></script>
+<script src="js/app/models/Negociacao.js"></script>
+<script src="js/app/models/ListaNegociacoes.js"></script>
+<script src="js/app/models/Mensagem.js"></script>
+<script src="js/app/controllers/NegociacaoController.js"></script>
+<script src="js/app/helpers/DateHelper.js"></script>
+<script src="js/app/views/View.js"></script>
+<script src="js/app/views/NegociacoesView.js"></script>
+<script src="js/app/views/MensagemView.js"></script>
+<script src="js/app/services/ProxyFactory.js"></script>
+<script src="js/app/helpers/Bind.js"></script>
+<script src="js/app/services/NegociacaoService.js"></script>
+<script src="js/app/services/HttpService.js"></script>
+<script src="js/app/services/ConnectionFactory.js"></script>
+<script src="js/app/dao/NegociacaoDao.js"></script>
+<script>
+    var negociacaoController = new NegociacaoController();          
+</script>
+Observe que ele está posicionado como o primeiro script da página.
+
+Com esta adição, o Fetch API funcionará no Safari e qualquer outro navegador que não suporte a API. Fechamos esta parte no nosso curso.
+
+
 ********************************
-04-
+04-expcercícios - Considerações sobre Fetch API
+Marque todas as alternativas verdadeiras sobre a Fetch API.
+
+Alternativa correta
+A Fetch API usa o padrão de projeto promise.
+
+
+Podemos encadear chamadas do .then, inclusive tratar erros com .catch.
+
+Alternativa correta
+Existem polyfis disponíveis na internet que garantem a presença da Fetch API em navegadores que não a suportam, mas é importante que o navegador suporte no mínimo a API de promise.
+
+
+Programadores front-end têm ficado cada vez mais interessados nessa API, ao ponto de utilizá-la em seus projetos, tudo com auxílio de um polyfill.
+
+Alternativa correta
+Por mais que seja utilizada por muitos desenvolvedores, a Fetch API ainda está sujeita a mudanças, pois é experimental ainda (pelo menos até agosto/2016).
+
+
+O fato de ser experimental não afastou os desenvolvedores e muitos deles usam um polyfill para suportar esse recurso em navegadores que não o suportam. Mas é importante estar atento que o browser precisa suportar promises.
+
+Alternativa correta
+A Fetch API veio substituir o XMLHttpRequest.
+
+
+A Fetch API não é uma substituição direta do XMLHttpRequest, isto porque a `Fetch API não permite abortar requisições em andamento, como pode ser visto nessa discussão: https://github.com/whatwg/fetch/issues/27
+
+Sendo assim, se você não precisar cancelar requisições pendentes, a Fetch API é uma excelente escolha.
+
+Por que esperar o futuro se já podemos utilizá-lo agora? A Fetch API é um bom exemplo.
 ********************************
-05-
+05-Onde está o erro?
 ********************************
 06-
 ********************************
