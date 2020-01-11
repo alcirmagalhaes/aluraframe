@@ -654,7 +654,50 @@ console.log(JSON.stringify(r1) == JSON.stringify(r2));
 
 Uma maneira de comparamos um objeto com outro é converter ambos os objetos envolvidos na comparação para String, com o auxílio de JSON.stringify, que está preparado para converter um objeto JavaScript para uma string. Essa solução é interessante quando o objeto possui muitas propriedades.
 *****************************
-09-
+09-exercícios - "Some"body help me!
+Gisele está desenvolvendo um sistema de controle de passageiros. Ela criou a simples classe que representa um passageiro, que pode ser de avião, ônibus, não importa:
+
+class Passageiro {
+
+    constructor(nome, profissao) {
+
+        this.nome = nome;
+        this.profissao = profissao;
+    }
+}
+Em seguida, ela criou uma lista de passageiros:
+
+let passageiros = []
+
+passageiros.push(new Passageiro('Orlando', 'Dentista'));
+passageiros.push(new Passageiro('Suzada', 'Advogada'));
+passageiros.push(new Passageiro('Hélio', 'Médico'));
+passageiros.push(new Passageiro('Salen', 'Programador'));
+passageiros.push(new Passageiro('Francisca', 'Médica'));
+A ideia de Gisele é poder acelerar a busca por médicos ou profissionais que sejam necessários em casos de emergência.
+
+Qual das opções abaixo utiliza corretamente a função some para encontrar um médico ou uma médica?
+
+Alternativa correta
+let achou = passageiros.some(() => /médic/i.test(passageiro.profissao));
+
+alert(achou);
+
+Veja que some não recebeu uma parâmetro para dar acesso aos elementos do array.
+
+Alternativa correta
+let achou = passageiros.some(passageiro => /médic/i.test(passageiro));
+alert(achou);
+
+Veja que a função test está recebendo o objeto passageiro e não a profissão.
+
+Alternativa correta
+let achou = passageiros.some(passageiro => /médic/i.test(passageiro.profissao));
+
+alert(achou);
+A função some itera sobre o array, assim como forEach, filter e map. No entanto, seu retorno é true ou false. Ela retorna true logo assim que encontrar o primeiro elemento que for condizente com o critério de comparação utilizado. Quando dizemos, "logo assim", significa que a função parará de iterar nos elementos da lista, porque já encontrou pelo menos algum (some) que atenda ao critério.
+
+Veja que o critério de comparação usa a expressão regular criada literalmente com //. Nela, procuramos pela parte médic, sem levar em consideração se o caractere é maiúsculo ou minúsculo, com o modificador i.
 *****************************
 10-
 *****************************
