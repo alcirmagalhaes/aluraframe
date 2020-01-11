@@ -280,5 +280,12 @@ Opinião do instrutor
 
 Veja que os dois métodos esqueceram de retornar uma promise, isso porque a função fetch retorna uma promise. Sem retorná-la, não é possível encadear uma chamada à then.
 ********************************
-06-
+06-Consolidando seu conhecimento
+Para que você consiga acompanhar os vídeos seguintes, implemente o que foi apresentado no vídeo. Caso já tenha feito, a ideia é que revise todo o conteúdo antes de continuar.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito é o passo a passo apresentado no vídeo. Contudo, se dúvidas aparecerem, não deixe de procurar ajuda no fórum.
 ********************************
