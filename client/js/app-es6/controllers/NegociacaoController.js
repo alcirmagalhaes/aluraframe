@@ -8,7 +8,7 @@ import {Bind} from "../helpers/Bind";
 import {Negociacao} from "../models/Negociacao";
 
 
-class NegociacaoController {
+export class NegociacaoController {
     constructor () {
 
         let $ = document.querySelector.bind(document);
