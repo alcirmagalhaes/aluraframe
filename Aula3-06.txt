@@ -415,7 +415,19 @@ Veja que esse comentário indica para o browser qual sourcemap deve ser carregad
 
 Outro ponto que você deve estar se perguntando é quando os arquivos sourcemaps serão baixados e se interferem no tempo de carregamento do site. Bem, sourcemaps são baixados apenas quando você abre a ferramenta de desenvolvimento do seu browse, ou seja, seu console ou dev tools. Claro, os arquivo só serão baixados se existirem. Veja que dessa maneira não há prejuízo do carregamento inicial do site.
 ******************************
-10-
+10-Consolidando seu conhecimento
+
+Para que você consiga acompanhar os vídeos seguintes, implemente o que foi apresentado no vídeo. Caso já tenha feito, a ideia é que revise todo o conteúdo antes de continuar.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito é o passo a passo apresentado no vídeo. Contudo, se dúvidas aparecerem, não deixe de procurar ajuda no fórum.
 ******************************
-11-
+11-Para saber mais: há limite para os transcompiladores?
+
+Vimos que o processo de transcompilação realizado pelo Babel convertendo nosso código em ES2015 (ES6) para ES5 o torna mais compatível, pois navegadores que não suportarem os recursos do ES2015 conseguirão interpretar nosso código. Contudo, nem tudo é resolvido por um transcompilador.
+
+Por exemplo, se usarmos promises, o código transcompilado continuará a não funcionar caso o navegador não suporte esse recurso, a mesma coisa da Fetch API que vimos. Nesses casos, é comum misturar o processo de transcompilação com o uso de um ou outro polyfill para tapar aquelas lacunas que o transpiler não consegue.
 ******************************
