@@ -40,7 +40,7 @@ class NegociacaoDao {
 
                 if (atual){
                     //dado é o valor para o qual o ponteiro está apontando. 
-                    var dado = atual.value;
+                    let dado = atual.value;
                     negociacoes.push(new Negociacao(dado._data, dado._quantidade, dado._valor))
                     //vai para o próximo registro.
                     atual.continue();
@@ -52,7 +52,7 @@ class NegociacaoDao {
             }
 
             cursor.onerror = e => {
-                console.log(e.target.result.name);
+                console.log(e.target.error);
                 reject('Não foi possivel recuperar as negociações.')
             }
         })

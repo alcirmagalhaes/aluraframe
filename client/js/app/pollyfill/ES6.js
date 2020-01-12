@@ -10,4 +10,4 @@ if (!Array.prototype.includes) {
         return this.indexOf(elemento) != -1;
     };
 }
-//# sourceMappingURL=ES6.js.map
+//# sourceMappingURL=es6.js.map

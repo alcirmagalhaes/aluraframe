@@ -58,11 +58,13 @@ var NegociacaoService = function () {
 
                 var negociacoes = periodos.reduce(function (dados, periodo) {
                     return dados.concat(periodo);
-                }, []);
+                }, []).map(function (dado) {
+                    return new Negociacao(new Date(dado.data), dado.quantidade, dado.valor);
+                });
 
                 return negociacoes;
             }).catch(function (erro) {
-                throw new Error('Não foi possível buscar as negociações para importar');
+                throw new Error(erro);
             });
         }
     }, {

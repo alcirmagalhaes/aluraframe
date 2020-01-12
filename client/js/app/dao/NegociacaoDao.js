@@ -57,7 +57,7 @@ var NegociacaoDao = function () {
                 };
 
                 cursor.onerror = function (e) {
-                    console.log(e.target.result.name);
+                    console.log(e.target.error);
                     reject('Não foi possivel recuperar as negociações.');
                 };
             });
