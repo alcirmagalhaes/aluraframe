@@ -273,7 +273,35 @@ Opinião do instrutor
 
 Entender o workflow do nosso projeto quando trabalhamos com transcompiladores é importante para que o programador se sinta seguro.
 ******************************
-06-
+06-exercícios - Sobre Babel
+
+Babel é um transcompilador muito famoso no cenário open source. Marque as opções verdadeiras sobre esta ferramenta:
+
+Alternativa correta
+Configurações específicas do Babel como a ativação de um preset ficam no arquivo package.json.
+
+
+Configurações específicas do Babel ficam no arquivo oculto .babelrc.
+
+Alternativa correta
+Basta instalar Babel através do npm que já estaremos preparados para transcompilar de ES2015 (ES6) para ES5!
+
+
+Babel é ma ferramenta que traduz um código em outro, contudo ela não esta preparada gerar a conversão de qualquer código. Por isso é preciso instalar um preset para que ele seja capaz de transcompilar nosso código de ES2015 (ES6) para ES5!
+
+Alternativa correta
+Babel possui recursos nativos que permitem o monitoramento e compilação de scripts de maneira automática, sem a intervenção do desenvolvedor.
+
+
+O binário do Babel possui o modo watch que monitora mudanças de arquivo e quando configurado corretamente permite compilar nossos script sem que o desenvolvedor assuma essa responsabilidade.
+
+Alternativa correta
+Babel é um módulo do Node.js e depende dele para funcionar.
+
+
+Babel é um módulo do Node.js. Ele é baixado através do npm, o gerenciador de pacotes da plataforma Node.js.
+
+Babel é uma ferramenta que pode ser facilmente incluída em seu workflow de desenvolvimento. Mas como qualquer ferramenta, precisa ser configurada.
 ******************************
 07-
 ******************************
