@@ -3,7 +3,7 @@
 System.register(["../models/ListaNegociacoes", "../models/Mensagem", "../views/NegociacoesView", "../views/MensagemView", "../services/NegociacaoService", "../helpers/DateHelper", "../helpers/Bind", "../models/Negociacao"], function (_export, _context) {
     "use strict";
 
-    var ListaNegociacoes, Mensagem, NegociacoesView, MensagemView, NegociacaoService, DateHelper, Bind, Negociacao, _createClass, NegociacaoController;
+    var ListaNegociacoes, Mensagem, NegociacoesView, MensagemView, NegociacaoService, DateHelper, Bind, Negociacao, _createClass, NegociacaoController, negociacaoController;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -48,7 +48,7 @@ System.register(["../models/ListaNegociacoes", "../models/Mensagem", "../views/N
                 };
             }();
 
-            _export("NegociacaoController", NegociacaoController = function () {
+            NegociacaoController = function () {
                 function NegociacaoController() {
                     _classCallCheck(this, NegociacaoController);
 
@@ -82,20 +82,6 @@ System.register(["../models/ListaNegociacoes", "../models/Mensagem", "../views/N
                             _this._mensagem.texto = erro;
                         });
 
-                        /* este bloco foi para o negociacaoService, para a lista ser gera por lá
-                           ConnectionFactory
-                            .getConnection()
-                            .then(conexao => new NegociacaoDao(conexao))
-                            .then(dao => dao.listaTodos())
-                            .then(negociacoes => 
-                                    negociacoes.forEach(negociacao => 
-                                            this._listaNegociacoes.adiciona(negociacao)))
-                            .catch(erro => {
-                                console.log(erro);
-                                this._mensagem.texto = erro;
-                            })
-                         */
-
                         setInterval(function () {
 
                             _this.importaNegociacoes();
@@ -117,20 +103,6 @@ System.register(["../models/ListaNegociacoes", "../models/Mensagem", "../views/N
                         }).catch(function (erro) {
                             return _this2._mensagem.texto = erro;
                         });
-                        /*      este blco foi para o NegociacaoService
-                                ConnectionFactory.getConnection()
-                                .then(conexao => {
-                                    let negociacao = this._criaNegociacao();
-                                    new NegociacaoDao(conexao)
-                                    .adiciona(negociacao)
-                                    .then(() =>{
-                                        this._listaNegociacoes.adiciona(negociacao);
-                                        this._mensagem.texto = 'Negociação adicionada com sucesso!'
-                                        this._limpaFormulario();  
-                                    }) 
-                                })
-                                .catch(erro => this._mensagem.texto = erro);
-                        */
                     }
                 }, {
                     key: "importaNegociacoes",
@@ -173,16 +145,6 @@ System.register(["../models/ListaNegociacoes", "../models/Mensagem", "../views/N
                         }).catch(function (erro) {
                             return _this4._mensagem.texto = erro;
                         });
-
-                        /* ConnectionFactory
-                            .getConnection()
-                            .then(conexao => new NegociacaoDao(conexao))
-                            .then(dao => dao.apagaTodos())
-                            .then(mensagem => {
-                                  this._mensagem.texto = mensagem;
-                                this._listaNegociacoes.esvazia();
-                            }) 
-                        */
                     }
                 }, {
                     key: "ordena",
@@ -200,9 +162,16 @@ System.register(["../models/ListaNegociacoes", "../models/Mensagem", "../views/N
                 }]);
 
                 return NegociacaoController;
-            }());
+            }();
 
-            _export("NegociacaoController", NegociacaoController);
+            negociacaoController = new NegociacaoController();
+            function currentInstance() {
+
+                return negociacaoController;
+            }
+            _export("currentInstance", currentInstance);
+
+            ;
         }
     };
 });
