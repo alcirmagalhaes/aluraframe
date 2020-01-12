@@ -303,7 +303,24 @@ Babel é um módulo do Node.js. Ele é baixado através do npm, o gerenciador de
 
 Babel é uma ferramenta que pode ser facilmente incluída em seu workflow de desenvolvimento. Mas como qualquer ferramenta, precisa ser configurada.
 ******************************
-07-
+07-exercícios - Onde foi que eu errei?
+Marcelo criou arquivo aluraframe/client/.babelrc configurando-o desta maneira:
+
+{
+  'presets': ['es2015']
+}
+Contudo, a configuração não funciona. Antes de continuar e ver a explicação do instrutor tente descobrir o motivo dela não funcionar.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O arquivo .babelrc deve estar no formato JSON e uma das exigências desse formato é usarmos aspas duplas para representar suas chaves, inclusive strings.
+
+{
+  "presets": ["es2015"]
+}
+
 ******************************
 08-
 ******************************
