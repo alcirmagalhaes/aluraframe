@@ -377,7 +377,43 @@ Veja que o JSON esta quebrando. Faltou uma vírgula separando o script test do s
 
 Dentro da pasta aluraframe/client, com o terminal aberto, se executarmos o comando npm run build o npm executará o comando definido para a chave build, aquele executa o Babel para nós passando seus parâmetros.
 ******************************
-09-
+09-exercícios - sourcemap
+
+Marque a alternativa correta à respeito do arquivo sourcemap.
+
+Bônus: assim que você responder essa questão o instrutor explicará com mais detalhes o que acontece por debaixo dos panos quando usamos um sourcemap!
+
+Alternativa correta
+São gerados automaticamente pelo Babel sem precisarmos explicitar configurações especiais.
+
+
+É necessário usar o parâmetro --source-maps para que os arquivos sejam gerados.
+
+Alternativa correta
+Utiliza-se o parâmetro --source-map para gerar esse arquivos.
+
+
+Alternativa correta
+É necessário ter o arquivo original no projeto para que o sourcemap funcione em produção.
+
+
+Isso não é verdade. No caso do sourcemap gerado pelo Babel. O arquivo sourcemap já possui todo conteúdo necessário para realizar um "de para" quando depuramos no console do browser nosso código.
+
+Alternativa correta
+São arquivos usados em ambiente de desenvolvimento que visam fazer um "de para" do arquivo transcompilado com o arquivo original, para que erros sejam apontados no arquivo original.
+
+ATENÇÃO: o carregamento do sourcemap no OSX usando Chrome está com problema. Ainda não há um fix. Verifique a cada atualização do Chrome.
+
+Veja que é possível debugar um código transpilado mais facilmente através do uso de sourcemaps.
+
+Mas como ele funciona por baixo dos panos? O arquivo sourcemap possui a estrutura do arquivo original, aliás, o arquivo original nem precisa existir em produção para que o sourcemap funcione.
+
+Se abrirmos o arquivo aluraframe/client/js/app/controllers/NegociacaoController.js, nosso arquivo transcompilador, no final dele temos o seguinte comentário especial:
+
+//# sourceMappingURL=NegociacaoController.js.map
+Veja que esse comentário indica para o browser qual sourcemap deve ser carregado.
+
+Outro ponto que você deve estar se perguntando é quando os arquivos sourcemaps serão baixados e se interferem no tempo de carregamento do site. Bem, sourcemaps são baixados apenas quando você abre a ferramenta de desenvolvimento do seu browse, ou seja, seu console ou dev tools. Claro, os arquivo só serão baixados se existirem. Veja que dessa maneira não há prejuízo do carregamento inicial do site.
 ******************************
 10-
 ******************************
