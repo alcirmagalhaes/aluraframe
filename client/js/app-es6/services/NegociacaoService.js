@@ -1,4 +1,5 @@
-class NegociacaoService {
+import {HttpService} from './HttpService'
+export class NegociacaoService {
       
     constructor(){
 
