@@ -5,9 +5,7 @@
     <title>Negociações</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
-    
-    <!-- carregando nosso polyfill -->
-    <script src="js/app/pollyfill/es6.js"></script>    
+ 
 </head>
 <body class="container">
     
@@ -15,7 +13,7 @@
 
     <div id="mensagemView"></div>
 
-    <form class="form" onsubmit="negociacaoController.adiciona(event)">
+    <form class="form">
         
         <div class="form-group">
             <label for="data">Data</label>
@@ -36,11 +34,7 @@
     </form>
     
     <div class="text-center">
-      <!--   será chamado automaticamente 
-        <button onclick="negociacaoController.importaNegociacoes()" class="btn btn-primary text-center" type="button">
-            Importar Negociações
-        </button> -->
-        <button onclick="negociacaoController.apaga()" class="btn btn-primary text-center" type="button">
+        <button class="btn btn-primary text-center" type="button">
             Apagar
         </button>
     </div> 
