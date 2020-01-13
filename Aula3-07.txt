@@ -1184,7 +1184,27 @@ Opinião do instrutor
 
 O gabarito é o passo a passo apresentado no vídeo. Contudo, se dúvidas aparecerem, não deixe de procurar ajuda no fórum.
 ***********************************************************
-13-
+13-Considerações finais
+Chegando ao final da tríade de cursos avançados
+Chegamos mais uma vez ao fim de um módulo avançado de JavaScript. Criamos uma aplicação do início ao fim usando recursos do ES2015, inclusive usamos pontualmente recursos do ES5 não menos poderosos dentro de um contexto bem definido, o contexto do Aluraframe. Até persistência local fizemos com o IndexedDB!
+
+O aluraframe foi criado desde o início para inspirá-lo a resolver problemas instigando a aplicação de padrões de projetos e recursos da linguagem, inclusive motivar a alteração de seu workflow de desenvolvimento propondo o uso de um transpiler. A ideia é que você pince esse ou aquele recurso que achar interessante aplicando-o em seus projetos.
+
+Para onde ir agora?
+O quê estudar agora, para onde ir, talvez você esteja se perguntado. O caminho mais seguro é manter-se atualizado, pois a cada ano a linguagem JavaScript ganha recursos interessantes. Com o uso de um transcompilador, podemos usar o que há de mais moderno sem termos que esperar o futuro. Como dizem os poetas, o futuro é agora.
+
+Uma palavra, múltiplas oportunidades
+Por fim, cito Thomas Kuhn, em especial seu livro "A estrutura das revoluções científicas". O conceito de paradigma permeia todo o seu trabalho. Na obra, Kuhn afirma que quando um paradigma muda, não importa se você tinha sucesso no passado, ele não garantirá o seu futuro.
+
+Com o avanço da linguagem JavaScript - tanto no browser quanto no back-end, com a plataforma Node.js - uma linguagem que já era a mais popular do mundo, tornou-se ainda mais importante invadindo os calabouços mais obscuros do lado back-end, procurando a universalidade de sua presença. Inclusive é possível criar aplicações mobile utilizando essa linguagem com auxílio de ferramentas como Apache Cordova/Phonegap ou Ionic
+
+Se antes JavaScript era uma linguagem motivo de piada entre os desenvolvedores mais acalorados, hoje é a linguagem que domina a web, a língua franca da web. E com essa mudança de paradigma, muitas oportunidades virão para aqueles preparados.
+
+Para todos os meus alunos, meu sincero voto de muito sucesso. Por fim, não esqueçam da minha máxima: "Não basta sermos ninjas, precisamos nos tornar cangaceiros em JavaScript!". Espero que estes treinamentos tenham colocado todos vocês nessa trilha árdua, mas nem por isso menos estimulante que é conquistar uma linguagem de programação.
+
+--- Flávio Almeida
+
+
 ***********************************************************
 14-
 ***********************************************************
