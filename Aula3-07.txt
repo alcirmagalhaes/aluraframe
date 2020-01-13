@@ -1206,5 +1206,15 @@ Para todos os meus alunos, meu sincero voto de muito sucesso. Por fim, não esqu
 
 
 ***********************************************************
-14-
+14-Projeto final completo
+Perdeu seu projeto final? Não se desespere, você pode baixá-lo aqui.
+
+ATENÇÃO: o projeto não possui a pasta aluraframe/client/node_modules e você precisará baixar as dependências abrindo o terminal na pasta aluraframe/client para em seguida executar o comando npm install. Este comando lerá seu arquivo package.json e baixará todas dependências listadas nele. Vá tomar um café enquanto as dependências são baixadas.
+
+ATENÇÃO 2: se você fez testes e foi incrementando a versão do seu banco, será necessário usar um número igual ou superior à versão do banco criado em seu navegador. Para isso, altere aluraframe/client/js/app/services/ConnectionFactory.js para que a variável version utilize a versão correta.
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+Mais tranquilo agora? :)
 ***********************************************************
