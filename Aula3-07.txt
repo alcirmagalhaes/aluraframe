@@ -1173,7 +1173,16 @@ Veja que ao clicar no span sem a condição IF a UL também responderá a ele e 
 
 
 ***********************************************************
-12-
+12-Consolidando seu conhecimento
+PRÓXIMA ATIVIDADE
+
+Para completar a aplicação, implemente o que foi apresentado no vídeo. Caso já tenha feito, a ideia é que revise todo o conteúdo antes de continuar.
+
+VER OPINIÃO DO INSTRUTOR
+----
+Opinião do instrutor
+
+O gabarito é o passo a passo apresentado no vídeo. Contudo, se dúvidas aparecerem, não deixe de procurar ajuda no fórum.
 ***********************************************************
 13-
 ***********************************************************
