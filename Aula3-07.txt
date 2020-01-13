@@ -878,11 +878,300 @@ Indicamos em System.import que boot.js será o primeiro módulo a ser carregado.
 
 Vamos parar o babel e rodá-lo novamente para que compile nossos módulos. Em seguida, carregaremos nosso projeto que deve continuar funcionando. Se você tentar imprimir no console o nome de uma de nossas classes, inclusive a instância de negociacaoController, o resultado será undefined. Lembre-se que agora não trabalhamos mais com variáveis globais e não há mais o risco de colisão. Além disso, não precisamos mais nos preocupar com a ordem de carregamentos dos scripts.
 ***********************************************************
-09-
+09-exercícios - Sobre ES2015 modules
+Marque as alternativas verdadeiras a seguir sobre ES2015 modules:
+
+Alternativa correta
+Quando trabalhamos com módulos, nossos scripts já isolam por padrão todo seu código, sendo necessário indicarmos através da instrução export o que pode ser importado do módulo.
+
+
+Correta!
+
+Alternativa correta
+A especificação define a sintaxe para importação e exportação de módulos, inclusive dita como eles devem ser carregados.
+
+
+A especificação não dita como os módulos devem ser carregados, sendo necessário o auxílio de um loader que nada mais é do que um script especializado nesta função.
+
+Alternativa correta
+É necessário compilar nosso código para que seja compatível com o loader que escolhermos. Isso acarreta em mais uma transformação a ser realizada pelo transpiler escolhido.
+
+
+Correta!
+
+Veja que o sistema de módulos do ES2015 não define como o loader deve ser implementado pelos browsers do mercado, sendo necessário escolher algum do mercado. O mais famoso é o Systemsjs, capaz de lidar não apenas com os módulos do ES6, mas também com os do Node.js que seguem o padrão CommonJS.
 ***********************************************************
-10-
+10-exercícios - Importando um módulo
+Temos os módulos a.js e b.js:
+
+// módulo a.js
+
+class A1 {
+
+}
+
+class A2 {
+
+}
+// módulo b.js
+
+class B1 {
+
+}
+Pressupondo que os dois módulos estão no mesmo diretório, qual é a alteração mínima em nossos módulos para que B1 consiga importar A2?
+
+Alternativa correta
+// módulo a.js
+
+export class A1 {
+
+}
+
+class A2 {
+
+}
+
+// módulo b.js
+
+import {A2} from './a';
+
+class B1 {
+
+}
+
+Alternativa correta
+// módulo a.js
+
+class A1 {
+
+}
+
+export class A2 {
+
+}
+
+// módulo b.js
+
+import {A2} from './a.js';
+
+class B1 {
+
+}
+Alternativa correta
+// módulo a.js
+
+class A1 {
+
+}
+
+class A2 {
+
+}
+
+// módulo b.js
+
+import {A2} from './a';
+
+class B1 {
+
+}
+
+Temos que estar atentos à dinâmica de import e exports.
 ***********************************************************
-11-
+11-exercícios - Delegação de eventos
+Jeniffer criou uma página para cadastrar produtos para impressionar sua amiga Agnes. Basta o usuário entrar com o nome do produto e clicar no botão para que um novo item apareça na página. Outro ponto importante: itens clicados exibem seu nome. Ela chegou a comentar todo seu código (inclusive você pode criar o arquivo jeniffer.html e testar seu código):
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Teste delegação</title>
+</head>
+<body>
+
+    <input class="entrada" placeholder="Informe o nome do produto" autofocus>
+    <button class="botao">Incluir</button>
+
+    <ul class="lista">
+        <li class="item">Açúcar</li>
+        <li class="item">Papel higiênico</li>
+    </ul>
+
+    <script>
+
+    // usou o module pattern, pois ela não esta usando ES2015 modules!
+
+    (function() {
+
+
+        let lista = document.querySelector('.lista');
+
+        /* 
+            O resultado de lista.querySelectorAll retorna um `NodeList` que por padrão 
+            não suporta forEach. Nesse caso, pegamos emprestado o `Array.prototype.forEach`
+            indicando que seu this será os itens da lista. O último parâmetro, um array, 
+            possui todos os parâmetros que a função forEach recebe, no caso, passamos 
+            uma arrow function, aquela que itera nos itens da lista.
+        */ 
+
+        Reflect.apply(Array.prototype.forEach, lista.querySelectorAll('.item'), [item => {
+
+            item.addEventListener('click', function() {
+                alert(this.textContent);
+            });
+
+        }]);
+
+        /*
+            Pega o elemento do DOM que contém a entrada do usuário
+        */
+
+        let entrada = document.querySelector('.entrada');
+
+        /*
+            Adiciona o evento click no botão que ao ser pressionado adiciona novas li na lista.
+        */
+
+        document.querySelector('.botao').addEventListener('click', function() {
+
+            let nome = entrada.value.trim();
+
+            if(nome) {
+
+                let novaLi = document.createElement('li');
+                novaLi.textContent = nome;
+                novaLi.classList.add('item');
+                lista.appendChild(novaLi);
+                entrada.value = '';
+                entrada.focus();
+            }
+
+        });
+
+    })();
+
+    </script>
+
+</body>
+</html>
+Tudo uma maravilha, no entanto, apenas os itens que já existam na página exibem seu nome quando clicados. Novos itens não o exibem. Aprendemos no final deste capítulo a lidar com uma situação parecida através de delegação de eventos. Qual das opções abaixo altera corretamente o código para suportar delegação?
+
+Alternativa correta
+(function() {
+
+
+    let lista = document.querySelector('.lista');
+
+    lista.addEventListener('click', function(event) {
+        if(event.target.nodeName == 'LI')
+            alert(event.target.textContent);
+    });
+
+    let entrada = document.querySelector('.entrada');
+
+
+    document.querySelector('.botao').addEventListener('click', function() {
+
+        let nome = entrada.value.trim();
+
+        if(nome) {
+
+            let novaLi = document.createElement('li');
+            novaLi.textContent = nome;
+            novaLi.classList.add('item');
+            lista.appendChild(novaLi);
+            entrada.value = '';
+            entrada.focus();
+        }
+
+    });
+
+})();
+
+Quando clicamos em uma li, nosso alvo (target), o evento click sobe na hierarquia de elementos. Para cada elemento na hierarquia será perguntado se ele também responde ao evento click. No caso, a UL responde ao evento clique, mas no lugar de usar this, que seria a própria UL, usamos event.target que é o elemento do DOM que disparou o evento inicialmente. Só que usamos a condição if para testar se o elemento é uma 'LI', porque não queremos responder para qualquer filho dentro de UL, apesar de uma UL normalmente ter apenas li como elemento filho.
+
+Alternativa correta
+(function() {
+
+
+    let lista = document.querySelector('.lista');
+
+    lista.addEventListener('click', function(event) {
+        if(event.target.nodeName == 'UL')
+            alert(event.target.textContent);
+    });
+
+    let entrada = document.querySelector('.entrada');
+
+
+    document.querySelector('.botao').addEventListener('click', function() {
+
+        let nome = entrada.value.trim();
+
+        if(nome) {
+
+            let novaLi = document.createElement('li');
+            novaLi.textContent = nome;
+            novaLi.classList.add('item');
+            lista.appendChild(novaLi);
+            entrada.value = '';
+            entrada.focus();
+        }
+
+    });
+
+})();
+
+Veja que estamos testando se o alvo original do evento foi a UL, o que não é correto. Quem é clicado dentro de uma UL são seus elementos filhos, as LI's.
+
+Alternativa correta
+(function() {
+
+
+    let lista = document.querySelector('.lista');
+
+    lista.addEventListener('click', function(event) {
+        if(event.target.nodeName == 'LI')
+            alert(this.textContent);
+    });
+
+    let entrada = document.querySelector('.entrada');
+
+
+    document.querySelector('.botao').addEventListener('click', function() {
+
+        let nome = entrada.value.trim();
+
+        if(nome) {
+
+            let novaLi = document.createElement('li');
+            novaLi.textContent = nome;
+            novaLi.classList.add('item');
+            lista.appendChild(novaLi);
+            entrada.value = '';
+            entrada.focus();
+        }
+
+    });
+
+})();
+
+Testamos se o target do evento foi uma LI quando o evento chega até a UL, mas nesse caso usamos this.textContent, no caso todo o conteúdo da UL!
+
+Veja que a delegação de eventos é interessante quando temos elementos adicionados dinamicamente, pois delegamos em nosso exemplo para a UL que sempre existirá em nossa página. Sendo assim, LI's novas ou já existentes dispararão o evento click. Esse evento subirá na hierarquia de elementos chegando até a UL. Ela esta preparada para responder a este elemento, mas queremos levar em consideração o alvo do elemento (target) e não a URL, por isso usamos event.target. Para termos certeza que queremos responder a LI's, fazermos um teste usando a propriedade event.target.nodeName.
+
+Você pode até remover a condição IF que o código funcionará, mas só funcionará porque dentro da UL temos apenas LI's. Se você remover o IF e adicionar um elemento dentro da UL que não seja li, o evento click será executado para ele. Faça um teste:
+ <input class="entrada" placeholder="Informe o nome do produto" autofocus>
+    <button class="botao">Incluir</button>
+
+    <ul class="lista">
+        <span>Não posso disparar o evento, porque não sou uma LI</span>
+        <li class="item">Açúcar</li>
+        <li class="item">Papel higiênico</li>
+    </ul>
+Veja que ao clicar no span sem a condição IF a UL também responderá a ele e não queremos isso, queremos apenas responder por delegação aos elementos que sejam LI's.
+
+
 ***********************************************************
 12-
 ***********************************************************
